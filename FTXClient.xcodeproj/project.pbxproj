@@ -1,0 +1,287 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C2AE98F317702E38007B704D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F217702E38007B704D /* UIKit.framework */; };
+		C2AE98F517702E38007B704D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F417702E38007B704D /* Foundation.framework */; };
+		C2AE98F717702E38007B704D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F617702E38007B704D /* CoreGraphics.framework */; };
+		C2AE98FD17702E38007B704D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2AE98FB17702E38007B704D /* InfoPlist.strings */; };
+		C2AE98FF17702E38007B704D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE98FE17702E38007B704D /* main.m */; };
+		C2AE990317702E38007B704D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE990217702E38007B704D /* AppDelegate.m */; };
+		C2AE990517702E38007B704D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE990417702E38007B704D /* Default.png */; };
+		C2AE990717702E38007B704D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE990617702E38007B704D /* Default@2x.png */; };
+		C2AE990917702E38007B704D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE990817702E38007B704D /* Default-568h@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C2AE98EF17702E38007B704D /* FTXClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FTXClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2AE98F217702E38007B704D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C2AE98F417702E38007B704D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C2AE98F617702E38007B704D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C2AE98FA17702E38007B704D /* FTXClient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FTXClient-Info.plist"; sourceTree = "<group>"; };
+		C2AE98FC17702E38007B704D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C2AE98FE17702E38007B704D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C2AE990017702E38007B704D /* FTXClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FTXClient-Prefix.pch"; sourceTree = "<group>"; };
+		C2AE990117702E38007B704D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C2AE990217702E38007B704D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C2AE990417702E38007B704D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C2AE990617702E38007B704D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		C2AE990817702E38007B704D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C2AE98EC17702E38007B704D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2AE98F317702E38007B704D /* UIKit.framework in Frameworks */,
+				C2AE98F517702E38007B704D /* Foundation.framework in Frameworks */,
+				C2AE98F717702E38007B704D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C2AE98E617702E38007B704D = {
+			isa = PBXGroup;
+			children = (
+				C2AE98F817702E38007B704D /* FTXClient */,
+				C2AE98F117702E38007B704D /* Frameworks */,
+				C2AE98F017702E38007B704D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C2AE98F017702E38007B704D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C2AE98EF17702E38007B704D /* FTXClient.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C2AE98F117702E38007B704D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C2AE98F217702E38007B704D /* UIKit.framework */,
+				C2AE98F417702E38007B704D /* Foundation.framework */,
+				C2AE98F617702E38007B704D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C2AE98F817702E38007B704D /* FTXClient */ = {
+			isa = PBXGroup;
+			children = (
+				C2AE990117702E38007B704D /* AppDelegate.h */,
+				C2AE990217702E38007B704D /* AppDelegate.m */,
+				C2AE98F917702E38007B704D /* Supporting Files */,
+			);
+			path = FTXClient;
+			sourceTree = "<group>";
+		};
+		C2AE98F917702E38007B704D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C2AE98FA17702E38007B704D /* FTXClient-Info.plist */,
+				C2AE98FB17702E38007B704D /* InfoPlist.strings */,
+				C2AE98FE17702E38007B704D /* main.m */,
+				C2AE990017702E38007B704D /* FTXClient-Prefix.pch */,
+				C2AE990417702E38007B704D /* Default.png */,
+				C2AE990617702E38007B704D /* Default@2x.png */,
+				C2AE990817702E38007B704D /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C2AE98EE17702E38007B704D /* FTXClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "FTXClient" */;
+			buildPhases = (
+				C2AE98EB17702E38007B704D /* Sources */,
+				C2AE98EC17702E38007B704D /* Frameworks */,
+				C2AE98ED17702E38007B704D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FTXClient;
+			productName = FTXClient;
+			productReference = C2AE98EF17702E38007B704D /* FTXClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C2AE98E717702E38007B704D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = BitRice;
+			};
+			buildConfigurationList = C2AE98EA17702E38007B704D /* Build configuration list for PBXProject "FTXClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C2AE98E617702E38007B704D;
+			productRefGroup = C2AE98F017702E38007B704D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C2AE98EE17702E38007B704D /* FTXClient */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C2AE98ED17702E38007B704D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2AE98FD17702E38007B704D /* InfoPlist.strings in Resources */,
+				C2AE990517702E38007B704D /* Default.png in Resources */,
+				C2AE990717702E38007B704D /* Default@2x.png in Resources */,
+				C2AE990917702E38007B704D /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C2AE98EB17702E38007B704D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2AE98FF17702E38007B704D /* main.m in Sources */,
+				C2AE990317702E38007B704D /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C2AE98FB17702E38007B704D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C2AE98FC17702E38007B704D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C2AE990A17702E38007B704D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C2AE990B17702E38007B704D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C2AE990D17702E38007B704D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FTXClient/FTXClient-Prefix.pch";
+				INFOPLIST_FILE = "FTXClient/FTXClient-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C2AE990E17702E38007B704D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FTXClient/FTXClient-Prefix.pch";
+				INFOPLIST_FILE = "FTXClient/FTXClient-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C2AE98EA17702E38007B704D /* Build configuration list for PBXProject "FTXClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2AE990A17702E38007B704D /* Debug */,
+				C2AE990B17702E38007B704D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "FTXClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2AE990D17702E38007B704D /* Debug */,
+				C2AE990E17702E38007B704D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C2AE98E717702E38007B704D /* Project object */;
+}
