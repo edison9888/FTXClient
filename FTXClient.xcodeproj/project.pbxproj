@@ -20,10 +20,23 @@
 		C2AE993017703654007B704D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE992F17703654007B704D /* SystemConfiguration.framework */; };
 		C2AE993217703666007B704D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE993117703666007B704D /* MediaPlayer.framework */; };
 		C2AE993417703681007B704D /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE993317703681007B704D /* libsqlite3.dylib */; };
+		C2AE993817703BA8007B704D /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE993617703BA8007B704D /* libMobClickLibrary.a */; };
+		C2AE993A17703BBF007B704D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE993917703BBF007B704D /* libz.dylib */; };
+		C2AE994617704014007B704D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE994517704014007B704D /* Crashlytics.framework */; };
+		C2AE995B17705873007B704D /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE994917705873007B704D /* AFHTTPClient.m */; };
+		C2AE995C17705873007B704D /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE994B17705873007B704D /* AFHTTPRequestOperation.m */; };
+		C2AE995D17705873007B704D /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE994D17705873007B704D /* AFImageRequestOperation.m */; };
+		C2AE995E17705873007B704D /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE994F17705873007B704D /* AFJSONRequestOperation.m */; };
+		C2AE995F17705873007B704D /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE995117705873007B704D /* AFNetworkActivityIndicatorManager.m */; };
+		C2AE996017705873007B704D /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE995417705873007B704D /* AFPropertyListRequestOperation.m */; };
+		C2AE996117705873007B704D /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE995617705873007B704D /* AFURLConnectionOperation.m */; };
+		C2AE996217705873007B704D /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE995817705873007B704D /* AFXMLRequestOperation.m */; };
+		C2AE996317705873007B704D /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE995A17705873007B704D /* UIImageView+AFNetworking.m */; };
+		C2AE9965177058E8007B704D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE9964177058E8007B704D /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C2AE98EF17702E38007B704D /* FTXClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FTXClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2AE98EF17702E38007B704D /* 饭特稀体育.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "饭特稀体育.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2AE98F217702E38007B704D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C2AE98F417702E38007B704D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C2AE98F617702E38007B704D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -40,6 +53,33 @@
 		C2AE992F17703654007B704D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C2AE993117703666007B704D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		C2AE993317703681007B704D /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		C2AE993617703BA8007B704D /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		C2AE993717703BA8007B704D /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		C2AE993917703BBF007B704D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		C2AE993B17703CB4007B704D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C2AE993F17703D3E007B704D /* Enums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
+		C2AE994017703D5B007B704D /* UserDefaultsKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsKeys.h; sourceTree = "<group>"; };
+		C2AE994517704014007B704D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		C2AE994817705873007B704D /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
+		C2AE994917705873007B704D /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
+		C2AE994A17705873007B704D /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		C2AE994B17705873007B704D /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		C2AE994C17705873007B704D /* AFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageRequestOperation.h; sourceTree = "<group>"; };
+		C2AE994D17705873007B704D /* AFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageRequestOperation.m; sourceTree = "<group>"; };
+		C2AE994E17705873007B704D /* AFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFJSONRequestOperation.h; sourceTree = "<group>"; };
+		C2AE994F17705873007B704D /* AFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFJSONRequestOperation.m; sourceTree = "<group>"; };
+		C2AE995017705873007B704D /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		C2AE995117705873007B704D /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		C2AE995217705873007B704D /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		C2AE995317705873007B704D /* AFPropertyListRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPropertyListRequestOperation.h; sourceTree = "<group>"; };
+		C2AE995417705873007B704D /* AFPropertyListRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPropertyListRequestOperation.m; sourceTree = "<group>"; };
+		C2AE995517705873007B704D /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		C2AE995617705873007B704D /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		C2AE995717705873007B704D /* AFXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFXMLRequestOperation.h; sourceTree = "<group>"; };
+		C2AE995817705873007B704D /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
+		C2AE995917705873007B704D /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
+		C2AE995A17705873007B704D /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		C2AE9964177058E8007B704D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2AE9965177058E8007B704D /* MobileCoreServices.framework in Frameworks */,
+				C2AE993A17703BBF007B704D /* libz.dylib in Frameworks */,
 				C2AE993417703681007B704D /* libsqlite3.dylib in Frameworks */,
 				C2AE993217703666007B704D /* MediaPlayer.framework in Frameworks */,
 				C2AE993017703654007B704D /* SystemConfiguration.framework in Frameworks */,
@@ -54,6 +96,8 @@
 				C2AE98F317702E38007B704D /* UIKit.framework in Frameworks */,
 				C2AE98F517702E38007B704D /* Foundation.framework in Frameworks */,
 				C2AE98F717702E38007B704D /* CoreGraphics.framework in Frameworks */,
+				C2AE993817703BA8007B704D /* libMobClickLibrary.a in Frameworks */,
+				C2AE994617704014007B704D /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +118,7 @@
 		C2AE98F017702E38007B704D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C2AE98EF17702E38007B704D /* FTXClient.app */,
+				C2AE98EF17702E38007B704D /* 饭特稀体育.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,7 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				C2AE993317703681007B704D /* libsqlite3.dylib */,
+				C2AE993917703BBF007B704D /* libz.dylib */,
 				C2AE993117703666007B704D /* MediaPlayer.framework */,
+				C2AE9964177058E8007B704D /* MobileCoreServices.framework */,
 				C2AE992F17703654007B704D /* SystemConfiguration.framework */,
 				C2AE992D177035C6007B704D /* QuartzCore.framework */,
 				C2AE98F217702E38007B704D /* UIKit.framework */,
@@ -145,6 +191,9 @@
 		C2AE992517703412007B704D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C2AE993B17703CB4007B704D /* Constants.h */,
+				C2AE993F17703D3E007B704D /* Enums.h */,
+				C2AE994017703D5B007B704D /* UserDefaultsKeys.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -168,6 +217,9 @@
 		C2AE992A17703412007B704D /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				C2AE994717705873007B704D /* AFNetworking */,
+				C2AE994517704014007B704D /* Crashlytics.framework */,
+				C2AE993517703BA8007B704D /* UMeng */,
 			);
 			path = Vendors;
 			sourceTree = "<group>";
@@ -179,24 +231,60 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		C2AE993517703BA8007B704D /* UMeng */ = {
+			isa = PBXGroup;
+			children = (
+				C2AE993617703BA8007B704D /* libMobClickLibrary.a */,
+				C2AE993717703BA8007B704D /* MobClick.h */,
+			);
+			path = UMeng;
+			sourceTree = "<group>";
+		};
+		C2AE994717705873007B704D /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				C2AE994817705873007B704D /* AFHTTPClient.h */,
+				C2AE994917705873007B704D /* AFHTTPClient.m */,
+				C2AE994A17705873007B704D /* AFHTTPRequestOperation.h */,
+				C2AE994B17705873007B704D /* AFHTTPRequestOperation.m */,
+				C2AE994C17705873007B704D /* AFImageRequestOperation.h */,
+				C2AE994D17705873007B704D /* AFImageRequestOperation.m */,
+				C2AE994E17705873007B704D /* AFJSONRequestOperation.h */,
+				C2AE994F17705873007B704D /* AFJSONRequestOperation.m */,
+				C2AE995017705873007B704D /* AFNetworkActivityIndicatorManager.h */,
+				C2AE995117705873007B704D /* AFNetworkActivityIndicatorManager.m */,
+				C2AE995217705873007B704D /* AFNetworking.h */,
+				C2AE995317705873007B704D /* AFPropertyListRequestOperation.h */,
+				C2AE995417705873007B704D /* AFPropertyListRequestOperation.m */,
+				C2AE995517705873007B704D /* AFURLConnectionOperation.h */,
+				C2AE995617705873007B704D /* AFURLConnectionOperation.m */,
+				C2AE995717705873007B704D /* AFXMLRequestOperation.h */,
+				C2AE995817705873007B704D /* AFXMLRequestOperation.m */,
+				C2AE995917705873007B704D /* UIImageView+AFNetworking.h */,
+				C2AE995A17705873007B704D /* UIImageView+AFNetworking.m */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C2AE98EE17702E38007B704D /* FTXClient */ = {
+		C2AE98EE17702E38007B704D /* 饭特稀体育 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "FTXClient" */;
+			buildConfigurationList = C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "饭特稀体育" */;
 			buildPhases = (
 				C2AE98EB17702E38007B704D /* Sources */,
 				C2AE98EC17702E38007B704D /* Frameworks */,
 				C2AE98ED17702E38007B704D /* Resources */,
+				C2AE994217703F27007B704D /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = FTXClient;
+			name = "饭特稀体育";
 			productName = FTXClient;
-			productReference = C2AE98EF17702E38007B704D /* FTXClient.app */;
+			productReference = C2AE98EF17702E38007B704D /* 饭特稀体育.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -220,7 +308,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C2AE98EE17702E38007B704D /* FTXClient */,
+				C2AE98EE17702E38007B704D /* 饭特稀体育 */,
 			);
 		};
 /* End PBXProject section */
@@ -239,6 +327,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C2AE994217703F27007B704D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./FTXClient/Vendors/Crashlytics.framework/run ed27e953e56c4a8fa6bda4ad36bc6fbcbdbdc449";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C2AE98EB17702E38007B704D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -246,6 +350,15 @@
 			files = (
 				C2AE991D17702F03007B704D /* main.m in Sources */,
 				C2AE992C17703412007B704D /* AppDelegate.m in Sources */,
+				C2AE995B17705873007B704D /* AFHTTPClient.m in Sources */,
+				C2AE995C17705873007B704D /* AFHTTPRequestOperation.m in Sources */,
+				C2AE995D17705873007B704D /* AFImageRequestOperation.m in Sources */,
+				C2AE995E17705873007B704D /* AFJSONRequestOperation.m in Sources */,
+				C2AE995F17705873007B704D /* AFNetworkActivityIndicatorManager.m in Sources */,
+				C2AE996017705873007B704D /* AFPropertyListRequestOperation.m in Sources */,
+				C2AE996117705873007B704D /* AFURLConnectionOperation.m in Sources */,
+				C2AE996217705873007B704D /* AFXMLRequestOperation.m in Sources */,
+				C2AE996317705873007B704D /* UIImageView+AFNetworking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,10 +435,19 @@
 		C2AE990D17702E38007B704D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/FTXClient/Vendors\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FTXClient-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/FTXClient-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FTXClient/Vendors/UMeng\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -334,10 +456,19 @@
 		C2AE990E17702E38007B704D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/FTXClient/Vendors\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Supporting Files/FTXClient-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/FTXClient-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FTXClient/Vendors/UMeng\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -355,7 +486,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "FTXClient" */ = {
+		C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "饭特稀体育" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2AE990D17702E38007B704D /* Debug */,

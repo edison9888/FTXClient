@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C2AE98EE17702E38007B704D"
                BuildableName = "FTXClient.app"
-               BlueprintName = "FTXClient"
+               BlueprintName = "&#39277;&#29305;&#31232;&#20307;&#32946;"
                ReferencedContainer = "container:FTXClient.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C2AE98EE17702E38007B704D"
             BuildableName = "FTXClient.app"
-            BlueprintName = "FTXClient"
+            BlueprintName = "&#39277;&#29305;&#31232;&#20307;&#32946;"
             ReferencedContainer = "container:FTXClient.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -53,7 +53,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C2AE98EE17702E38007B704D"
             BuildableName = "FTXClient.app"
-            BlueprintName = "FTXClient"
+            BlueprintName = "&#39277;&#29305;&#31232;&#20307;&#32946;"
             ReferencedContainer = "container:FTXClient.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,7 +71,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C2AE98EE17702E38007B704D"
             BuildableName = "FTXClient.app"
-            BlueprintName = "FTXClient"
+            BlueprintName = "&#39277;&#29305;&#31232;&#20307;&#32946;"
             ReferencedContainer = "container:FTXClient.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
