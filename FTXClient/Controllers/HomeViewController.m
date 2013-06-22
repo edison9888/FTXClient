@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "HomeViewController.h"
 #import "UIColor+FTX.h"
+#import "CategoryPickerView.h"
 
 @interface HomeViewController ()
 
@@ -19,6 +20,9 @@
 - (void)loadView {
     [super loadView];
     self.view.backgroundColor = [UIColor blackColor];
+    
+    CategoryPickerView *categoryPicker = [[CategoryPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    [self.view addSubview:categoryPicker];
 }
 
 - (void)viewDidLoad {
