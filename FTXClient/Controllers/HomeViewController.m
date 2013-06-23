@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "UIColor+FTX.h"
 #import "CategoryPickerView.h"
+#import "AccessAccountViewController.h"
 
 @interface HomeViewController ()
 
@@ -66,12 +67,18 @@
     self.title = @"饭特稀体育";
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.title = @"返回";
+}
+
 - (void)tapLeftBarButton {
     DLog(@"tap left");
 }
 
 - (void)tapRightBarButton {
-    DLog(@"tap right");
+    AccessAccountViewController *vc = [[AccessAccountViewController alloc] initWithLogin:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
