@@ -6,6 +6,6 @@
 //  Copyright (c) 2013 BitRice. All rights reserved.
 //
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @end

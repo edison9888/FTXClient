@@ -34,3 +34,5 @@ static inline BOOL isEmpty(id thing) {
 }
 
 #define UserDefaults [NSUserDefaults standardUserDefaults]
+#define StagingBoxContentBase @"http://static.ftx.cn/images"
+#define StagingBoxInterfaceBase @"http://www.ftx.cn"
