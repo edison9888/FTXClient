@@ -18,8 +18,11 @@
         _title = attributes[@"title"];
         _summary = attributes[@"summary"];
         _content = attributes[@"content"];
-        _image = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, attributes[@"imageId"]];
+        _imageUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, attributes[@"imageId"]];
         _publishTime = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[attributes[@"publishTime"] integerValue]];
+        _numOfLikes = [attributes[@"likeCount"] integerValue];
+        _numOfComments = [attributes[@"reviewCount"] integerValue];
+        _numOfRelevants = [attributes[@"newsCnt"] integerValue];
         
         _author = [[Author alloc] initWithAttributes:attributes];
     }

@@ -14,8 +14,13 @@
 @property (readonly) NSString *title;
 @property (readonly) NSString *summary;
 @property (readonly) NSString *content;
-@property (readonly) NSString *image;
+@property (readonly) NSString *imageUrl;
 @property (readonly) NSDate *publishTime;
+@property (readonly) NSUInteger numOfRelevants;
+@property (readonly) NSUInteger numOfLikes;
+@property (readonly) NSUInteger numOfComments;
+
+@property (nonatomic, strong) UIImage *image;
 
 @property (readonly) Author *author;
 

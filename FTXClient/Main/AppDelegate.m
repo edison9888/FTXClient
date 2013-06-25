@@ -23,8 +23,7 @@
     [self setupUserDefaults];
     
     
-    HomeViewController *rootVC = [[HomeViewController alloc] init];
-    _navigationController = [[UINavigationController alloc] initWithRootViewController:rootVC];
+    _navigationController = [[UINavigationController alloc] initWithRootViewController:[HomeViewController sharedHome]];
     UINavigationBar *navigationBar = [_navigationController navigationBar];
     if ([navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
         [navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation-bar-bg"] forBarMetrics:UIBarMetricsDefault];
