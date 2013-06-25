@@ -9,7 +9,6 @@
 @interface HomeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableDictionary *cellHeights;
 
 + (HomeViewController *)sharedHome;
 

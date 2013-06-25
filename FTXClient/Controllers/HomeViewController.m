@@ -29,7 +29,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedHome = [[HomeViewController alloc] init];
-        _sharedHome.cellHeights = [NSMutableDictionary dictionary];
     });
     return _sharedHome;
 }
@@ -154,19 +153,6 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (CGFloat)heightForIndexPath:(NSIndexPath *)indexPath {
-    Article *article = _articles[indexPath.row];
-    if (article) {
-        if (isEmpty([_cellHeights objectForKey:indexPath])) {
-            CGFloat h = [ArticleTableViewCell heightForCellWithArticle:article];
-            [_cellHeights setObject:@(h) forKey:indexPath];
-        }
-        return [_cellHeights[indexPath] floatValue];
-    }
-    else
-        return _tableView.rowHeight;
-}
-
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [_articles count];
@@ -185,7 +171,7 @@
 
 #pragma mark - UITableViewDataDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self heightForIndexPath:indexPath];
+    return [ArticleTableViewCell heightForCellWithArticle:_articles[indexPath.row]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

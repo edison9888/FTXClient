@@ -15,7 +15,7 @@
 
 @interface ArticleTableViewCell ()
 {
-    UIImageView *_imageView, *_imageMaskView;
+    UIImageView *_imageView;
     UIButton *_likeButton, *_commentButton, *_shareButton, *_relevantButton;
 }
 
@@ -32,7 +32,7 @@
         UIImageView *bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-bg"]];
         self.backgroundView = bgView;
         UIView *selectedBgView = [[UIView alloc] initWithFrame:self.bounds];
-        selectedBgView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+        selectedBgView.backgroundColor = [UIColor colorWithWhite:1 alpha:.1];
         self.selectedBackgroundView = selectedBgView;
         
         self.textLabel.font = [UIFont systemFontOfSize:17];
@@ -44,11 +44,8 @@
         self.detailTextLabel.textColor = [UIColor colorWithHex:0xbbbbbb];
         
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300, 160)];
+        _imageView.image = [UIImage imageNamed:@"cell-image-placeholder"];
         [self addSubview:_imageView];
-        
-        _imageMaskView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 218, 160)];
-        _imageMaskView.image = [UIImage imageNamed:@"cell-image-mask"];
-        [self addSubview:_imageMaskView];
         
         _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.backgroundColor = [UIColor colorWithHex:0xff5f3e];
@@ -73,9 +70,6 @@
 }
 
 - (void)setArticle:(Article *)article {
-    if (_article.id == article.id)
-        return;
-    
     _article = article;
     self.textLabel.text = article.title;
     self.detailTextLabel.text = article.summary;
@@ -99,10 +93,10 @@
                                            CGFloat h = image.size.height * 300 / image.size.width;
                                            article.image = [image scaleToSize:CGSizeMake(300, h)];
                                            dispatch_sync(main_queue, ^{
-                                               NSIndexPath *indexPath = [[HomeViewController sharedHome].tableView indexPathForCell:cell];
-                                               CGFloat h = [ArticleTableViewCell heightForCellWithArticle:article];
-                                               [[HomeViewController sharedHome].cellHeights setObject:@(h - 160 + article.image.size.height) forKey:indexPath];
-                                               [[HomeViewController sharedHome].tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                               if ([[HomeViewController sharedHome].tableView.visibleCells containsObject:cell]) {
+                                                   NSIndexPath *indexPath = [[HomeViewController sharedHome].tableView indexPathForCell:cell];
+                                                   [[HomeViewController sharedHome].tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                               }
                                            });
                                        });
                                    }
@@ -133,10 +127,6 @@
         self.detailTextLabel.frame = rect;
         topOffset += CGRectGetHeight(rect) + 10;
     }
-    
-    rect = _imageMaskView.frame;
-    rect.origin.y = topOffset;
-    _imageMaskView.frame = rect;
 
     rect = _imageView.frame;
     rect.origin = CGPointMake(10, topOffset);
@@ -161,7 +151,7 @@
         h += 10;
     }
     if (article.imageUrl) {
-        h += 160;
+        h += article.image ? article.image.size.height : 160;
     }
     h += 38;    // 28 for buttons + 10 for bottom padding
 //    if (h > 58)
