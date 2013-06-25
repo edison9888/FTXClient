@@ -5,10 +5,11 @@
 //  Created by Lei Perry on 6/21/13.
 //  Copyright (c) 2013 BitRice. All rights reserved.
 //
+#import "ArticleTableViewController.h"
 
-@interface HomeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface HomeViewController : UIViewController
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (readonly) ArticleTableViewController *tableViewController;
 
 + (HomeViewController *)sharedHome;
 

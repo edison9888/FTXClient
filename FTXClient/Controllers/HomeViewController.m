@@ -11,14 +11,9 @@
 #import "UIColor+FTX.h"
 #import "CategoryPickerView.h"
 #import "AccessAccountViewController.h"
-#import "ArticleTableViewCell.h"
-
-#define kFooterLabelTag 1
-#define kFooterIndicatorTag 2
 
 @interface HomeViewController ()
 {
-    NSArray *_articles;
 }
 @end
 
@@ -33,21 +28,6 @@
     return _sharedHome;
 }
 
-- (void)reload {
-    [Article retrieveArticlesWithBlock:^(NSArray *articles, NSError *error){
-        if (error) {
-            DLog(@"error: %@", [error localizedDescription]);
-        }
-        else {
-            _articles = articles;
-            _tableView.hidden = NO;
-            [_tableView reloadData];
-        }
-    }
-                           forCategory:CategoryTypeAll
-                                atPage:0];
-}
-
 - (void)loadView {
     [super loadView];
     self.view.backgroundColor = [UIColor blackColor];
@@ -57,49 +37,15 @@
     
     CGRect rect = [UIScreen mainScreen].applicationFrame;
     rect.origin.y = 40;
-    rect.size.height -= 40 + 44;
-    _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
-    _tableView.backgroundColor = [UIColor clearColor];
-    _tableView.separatorColor = [UIColor colorWithWhite:1 alpha:.7];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    [self.view addSubview:_tableView];
+    rect.size.height -= 44;
     
-    UIImageView *header = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-header-bg"]];
-    header.frame = CGRectMake(0, -60, 320, 60);
-    UILabel *headerText = [[UILabel alloc] initWithFrame:CGRectMake(47, 10, 100, 46)];
-    headerText.backgroundColor = [UIColor clearColor];
-    headerText.tag = kFooterLabelTag;
-    headerText.font = [UIFont systemFontOfSize:13];
-    headerText.text = @"下拉刷新列表";
-    headerText.textColor = [UIColor colorWithHex:0x707070];
-    headerText.shadowColor = [UIColor colorWithWhite:1 alpha:.5];
-    headerText.shadowOffset = CGSizeMake(0, .5);
-    [header addSubview:headerText];
-    [_tableView addSubview:header];
-    
-    UIImageView *footer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-header-bg"]];
-    UILabel *footerText = [[UILabel alloc] initWithFrame:CGRectMake(47, 10, 100, 47)];
-    footerText.backgroundColor = [UIColor clearColor];
-    footerText.tag = kFooterLabelTag;
-    footerText.font = [UIFont systemFontOfSize:13];
-    footerText.text = @"更多 ...";
-    footerText.textColor = [UIColor colorWithHex:0x707070];
-    footerText.shadowColor = [UIColor colorWithWhite:1 alpha:.5];
-    footerText.shadowOffset = CGSizeMake(0, .5);
-    [footer addSubview:footerText];
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    indicator.center = CGPointMake(300, 30);
-    [footer addSubview:indicator];
-    _tableView.tableFooterView = footer;
+    _tableViewController = [[ArticleTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _tableViewController.tableView.frame = rect;
+    [self.view addSubview:_tableViewController.tableView];
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    _tableView.rowHeight = 249;
-    _tableView.hidden = YES;
-    [self reload];
+    [super viewDidLoad];    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -151,31 +97,6 @@
 - (void)tapRightBarButton {
     AccessAccountViewController *vc = [[AccessAccountViewController alloc] initWithLogin:YES];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_articles count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
-    ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-    Article *article = _articles[indexPath.row];
-    cell.article = article;
-    return cell;
-}
-
-#pragma mark - UITableViewDataDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [ArticleTableViewCell heightForCellWithArticle:_articles[indexPath.row]];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

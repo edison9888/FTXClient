@@ -93,9 +93,9 @@
                                            CGFloat h = image.size.height * 300 / image.size.width;
                                            article.image = [image scaleToSize:CGSizeMake(300, h)];
                                            dispatch_sync(main_queue, ^{
-                                               if ([[HomeViewController sharedHome].tableView.visibleCells containsObject:cell]) {
-                                                   NSIndexPath *indexPath = [[HomeViewController sharedHome].tableView indexPathForCell:cell];
-                                                   [[HomeViewController sharedHome].tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                               if ([[HomeViewController sharedHome].tableViewController.tableView.visibleCells containsObject:cell]) {
+                                                   NSIndexPath *indexPath = [[HomeViewController sharedHome].tableViewController.tableView indexPathForCell:cell];
+                                                   [[HomeViewController sharedHome].tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                                                }
                                            });
                                        });
