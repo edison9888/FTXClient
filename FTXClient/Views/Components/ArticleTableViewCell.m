@@ -12,11 +12,12 @@
 #import "UIImage+FTX.h"
 #import "UIImageView+AFNetworking.h"
 #import "HomeViewController.h"
+#import "CustomIconButton.h"
 
 @interface ArticleTableViewCell ()
 {
     UIImageView *_imageView;
-    UIButton *_likeButton, *_commentButton, *_shareButton, *_relevantButton;
+    CustomIconButton *_likeButton, *_commentButton, *_shareButton, *_relevantButton;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -44,27 +45,42 @@
         self.detailTextLabel.textColor = [UIColor colorWithHex:0xbbbbbb];
         
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300, 160)];
-        _imageView.image = [UIImage imageNamed:@"cell-image-placeholder"];
         [self addSubview:_imageView];
         
-        _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _likeButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
+        _likeButton.imageOriginX = 8;
+        _likeButton.titleOriginX = 32;
         _likeButton.backgroundColor = [UIColor colorWithHex:0xff5f3e];
         _likeButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [_likeButton addTarget:self action:@selector(likeAction) forControlEvents:UIControlEventTouchUpInside];
+        [_likeButton setImage:[UIImage imageNamed:@"cell-icon-heart"] forState:UIControlStateNormal];
         [self addSubview:_likeButton];
         
-        _commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _commentButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
+        _commentButton.imageOriginX = 8;
+        _commentButton.titleOriginX = 32;
         _commentButton.backgroundColor = [UIColor colorWithHex:0x0091cb];
         _commentButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [_commentButton addTarget:self action:@selector(commentAction) forControlEvents:UIControlEventTouchUpInside];
+        [_commentButton setImage:[UIImage imageNamed:@"cell-icon-bubble"] forState:UIControlStateNormal];
         [self addSubview:_commentButton];
         
-        _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _shareButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
+        _shareButton.imageOriginX = 5;
+        _shareButton.titleOriginX = 26;
         _shareButton.backgroundColor = [UIColor colorWithHex:0x007740];
-        _shareButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
+        _shareButton.titleLabel.font = [UIFont systemFontOfSize:13];
         [_shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+        [_shareButton setImage:[UIImage imageNamed:@"cell-icon-share"] forState:UIControlStateNormal];
+        [_shareButton setTitle:@"分享" forState:UIControlStateNormal];
         [self addSubview:_shareButton];
+        
+        _relevantButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
+        _relevantButton.titleOriginX = 30;
+        _relevantButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_relevantButton setBackgroundImage:[UIImage imageNamed:@"cell-icon-badge"] forState:UIControlStateNormal];
+        [_relevantButton addTarget:self action:@selector(relevantAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_relevantButton];
     }
     return self;
 }
@@ -85,7 +101,7 @@
         [req addValue:@"image/*" forHTTPHeaderField:@"Accept"];
         __block ArticleTableViewCell *cell = self;
         [_imageView setImageWithURLRequest:req
-                          placeholderImage:nil
+                          placeholderImage:[UIImage imageNamed:@"cell-image-placeholder"]
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
                                        dispatch_queue_t main_queue = dispatch_get_main_queue();
                                        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
@@ -127,6 +143,8 @@
         self.detailTextLabel.frame = rect;
         topOffset += CGRectGetHeight(rect) + 10;
     }
+    
+    _relevantButton.frame = CGRectMake(255, topOffset+5, 60, 23);
 
     rect = _imageView.frame;
     rect.origin = CGPointMake(10, topOffset);
@@ -138,6 +156,9 @@
     _likeButton.frame = CGRectMake(10, topOffset, 66, 28);
     _commentButton.frame = CGRectMake(76, topOffset, 66, 28);
     _shareButton.frame = CGRectMake(253, topOffset, 57, 28);
+    
+    _likeButton.hidden = _commentButton.hidden = _shareButton.hidden = isEmpty(_article.image);
+    _relevantButton.hidden = isEmpty(_article.image) || _article.numOfRelevants == 0;
 }
 
 + (CGFloat)heightForCellWithArticle:(Article *)article {

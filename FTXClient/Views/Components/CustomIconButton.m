@@ -23,11 +23,11 @@
     [super layoutSubviews];
     
     CGRect rect = self.titleLabel.frame;
-    rect.origin.x = 20;
+    rect.origin.x = _titleOriginX;
     self.titleLabel.frame = rect;
     
     rect = self.imageView.frame;
-    rect.origin.x = 0;
+    rect.origin.x = _imageOriginX;
     self.imageView.frame = rect;
 }
 

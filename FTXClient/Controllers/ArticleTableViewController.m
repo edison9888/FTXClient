@@ -9,19 +9,22 @@
 #import "ArticleTableViewController.h"
 #import "ArticleTableViewCell.h"
 #import "UIColor+FTX.h"
+#import "DetailViewController.h"
+#import "HomeViewController.h"
 
 #define kHeaderTag 9
+#define kFooterTag 10
 #define kHeaderLabelTag 1
 #define kHeaderIndicatorTag 2
 #define kFooterLabelTag 3
 #define kFooterIndicatorTag 4
 
 #define kHeaderPullText @"下拉刷新"
-#define kHeaderLoadingText @"加载中..."
+#define kHeaderLoadingText @"努力加载中..."
 #define kHeaderReleaseText @"释放加载最新内容"
 
-#define kFooterPullText @"更多"
-#define kFooterLoadingText @"加载中..."
+#define kFooterPullText @"上拉加载更多"
+#define kFooterLoadingText @"努力加载中..."
 #define kFooterReleaseText @"释放加载更多内容"
 
 #define REFRESH_HEADER_HEIGHT 60
@@ -55,7 +58,6 @@
 
 - (void)updateToLatest {
     isLoading = YES;
-    self.tableView.tableFooterView.hidden = YES;
 
     // Show the header
     [UIView animateWithDuration:0.3 animations:^{
@@ -65,18 +67,17 @@
         [(UIActivityIndicatorView *)[header viewWithTag:kHeaderIndicatorTag] startAnimating];
     }];
     
-    // Refresh action!
-    [self performSelector:@selector(getNextPageAction) withObject:nil afterDelay:2];
+    // Refresh action
+    [self performSelector:@selector(getListForPage:) withObject:@1 afterDelay:2];
 }
 
 - (void)retrieveMore {
-    
+    DLog(@"retrieve more");
 }
 
-- (void)getNextPageAction {
+- (void)getListForPage:(NSUInteger)pageNo {
     [Article retrieveArticlesWithBlock:^(NSArray *articles, NSError *error){
         isLoading = NO;
-        self.tableView.tableFooterView.hidden = NO;
 
         // Hide the header
         [UIView animateWithDuration:0.3 animations:^{
@@ -102,7 +103,7 @@
         }
     }
                            forCategory:CategoryTypeAll
-                                atPage:nextPageNo];
+                                atPage:pageNo];
 }
 
 - (void)viewDidLoad {
@@ -133,6 +134,9 @@
     
     // footer
     UIImageView *footer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-header-bg"]];
+    footer.frame = CGRectMake(0, self.tableView.frame.size.height, 320, REFRESH_HEADER_HEIGHT);
+    footer.hidden = YES;
+    footer.tag = kFooterTag;
     
     UILabel *footerText = [[UILabel alloc] initWithFrame:CGRectMake(47, 10, 100, 47)];
     footerText.backgroundColor = [UIColor clearColor];
@@ -148,7 +152,7 @@
     indicator.tag = kFooterIndicatorTag;
     indicator.center = CGPointMake(300, 30);
     [footer addSubview:indicator];
-    self.tableView.tableFooterView = footer;
+    [self.tableView addSubview:footer];
 
     // other config
     self.tableView.rowHeight = 249;
@@ -180,6 +184,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_articles[indexPath.row]];
+    [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - scroll
@@ -190,6 +196,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // pull up
     if (isLoading) {
         // Update the content inset, good for section headers
         if (scrollView.contentOffset.y > 0)
@@ -210,14 +217,51 @@
             headerLabel.text = kHeaderPullText;
         }
     }
+    
+    // pull down
+    if (isLoading && scrollView.contentOffset.y > 0) {
+        // Update the content inset, good for section headers
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, REFRESH_HEADER_HEIGHT, 0);
+    }
+    else if (isDragging) {
+        UIView *footer = [self.tableView viewWithTag:kFooterTag];
+        UILabel *footerLabel = (UILabel *)[footer viewWithTag:kFooterLabelTag];
+        if (scrollView.contentSize.height -
+            (scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom) <= 0) {
+            footer.frame = CGRectMake(0, scrollView.contentSize.height, 320, REFRESH_HEADER_HEIGHT);
+            footer.hidden = NO;
+            // Update the arrow direction and label
+            if (scrollView.contentSize.height - (scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom) <= -REFRESH_HEADER_HEIGHT) {
+                // User is scrolling above the header
+                footerLabel.text = kFooterReleaseText;
+            }
+            else {
+                // User is scrolling somewhere within the header
+                footerLabel.text = kFooterPullText;
+            }
+        }
+        else {
+            footer.hidden = YES;
+        }
+    }
+//    UIView *footer = [self.tableView viewWithTag:kFooterTag];
+//    DLog(@"hidden:%d, frame:%@", footer.hidden, NSStringFromCGRect(footer.frame));
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (isLoading) return;
     isDragging = NO;
+    
+    // pull down to refresh
     if (scrollView.contentOffset.y <= -REFRESH_HEADER_HEIGHT) {
         // Released above the header
         [self updateToLatest];
+    }
+    
+    // pull up to refresh
+    if(scrollView.contentSize.height - (scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom)
+       <= -REFRESH_HEADER_HEIGHT && scrollView.contentOffset.y > 0) {
+        [self retrieveMore];
     }
 }
 

@@ -48,7 +48,9 @@
         passField.layer.cornerRadius = 4;
         [self addSubview:passField];
         
-        UIButton *agreeButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
+        CustomIconButton *agreeButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
+        agreeButton.imageOriginX = 0;
+        agreeButton.titleOriginX = 20;
         agreeButton.frame = CGRectMake(30, 182, 200, 44);
         agreeButton.tag = kAgreeButtonTag;
         agreeButton.titleLabel.font = [UIFont systemFontOfSize:13];

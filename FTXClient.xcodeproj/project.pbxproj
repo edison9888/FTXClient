@@ -10,6 +10,9 @@
 		C222A0C6177976B30078EBBD /* cell-image-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0C4177976B30078EBBD /* cell-image-placeholder.png */; };
 		C222A0C7177976B30078EBBD /* cell-image-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0C5177976B30078EBBD /* cell-image-placeholder@2x.png */; };
 		C222A0CA17797AA60078EBBD /* ArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222A0C917797AA60078EBBD /* ArticleTableViewController.m */; };
+		C222A0CD177A6C040078EBBD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222A0CC177A6C040078EBBD /* DetailViewController.m */; };
+		C222A0D0177A6E260078EBBD /* icon-back.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0CE177A6E260078EBBD /* icon-back.png */; };
+		C222A0D1177A6E260078EBBD /* icon-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0CF177A6E260078EBBD /* icon-back@2x.png */; };
 		C244B2051775F0C700DB34D5 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = C244B2041775F0C700DB34D5 /* Article.m */; };
 		C2ACFFC41775FC900018EBBE /* AccessAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */; };
 		C2AE98F317702E38007B704D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F217702E38007B704D /* UIKit.framework */; };
@@ -116,6 +119,10 @@
 		C222A0C5177976B30078EBBD /* cell-image-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-image-placeholder@2x.png"; sourceTree = "<group>"; };
 		C222A0C817797AA60078EBBD /* ArticleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTableViewController.h; sourceTree = "<group>"; };
 		C222A0C917797AA60078EBBD /* ArticleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTableViewController.m; sourceTree = "<group>"; };
+		C222A0CB177A6C040078EBBD /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		C222A0CC177A6C040078EBBD /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		C222A0CE177A6E260078EBBD /* icon-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back.png"; sourceTree = "<group>"; };
+		C222A0CF177A6E260078EBBD /* icon-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back@2x.png"; sourceTree = "<group>"; };
 		C244B2031775F0C700DB34D5 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		C244B2041775F0C700DB34D5 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		C2ACFFC21775FC900018EBBE /* AccessAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessAccountViewController.h; sourceTree = "<group>"; };
@@ -385,6 +392,8 @@
 				C2C853011777EDCF00927A80 /* cell-image-mask@2x.png */,
 				C222A0C4177976B30078EBBD /* cell-image-placeholder.png */,
 				C222A0C5177976B30078EBBD /* cell-image-placeholder@2x.png */,
+				C222A0CE177A6E260078EBBD /* icon-back.png */,
+				C222A0CF177A6E260078EBBD /* icon-back@2x.png */,
 				C2C776F6177426CB00D3ABF5 /* icon-profile.png */,
 				C2C776F7177426CB00D3ABF5 /* icon-profile@2x.png */,
 				C2C776F8177426CB00D3ABF5 /* icon-settings.png */,
@@ -461,6 +470,8 @@
 				C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */,
 				C222A0C817797AA60078EBBD /* ArticleTableViewController.h */,
 				C222A0C917797AA60078EBBD /* ArticleTableViewController.m */,
+				C222A0CB177A6C040078EBBD /* DetailViewController.h */,
+				C222A0CC177A6C040078EBBD /* DetailViewController.m */,
 				C2C776F31774221800D3ABF5 /* HomeViewController.h */,
 				C2C776F41774221800D3ABF5 /* HomeViewController.m */,
 			);
@@ -735,6 +746,8 @@
 				C2FB3B1317793A130093C2EC /* table-header-bg@2x.png in Resources */,
 				C222A0C6177976B30078EBBD /* cell-image-placeholder.png in Resources */,
 				C222A0C7177976B30078EBBD /* cell-image-placeholder@2x.png in Resources */,
+				C222A0D0177A6E260078EBBD /* icon-back.png in Resources */,
+				C222A0D1177A6E260078EBBD /* icon-back@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,6 +806,7 @@
 				C2C853061777F40700927A80 /* Author.m in Sources */,
 				C2FB3B08177824720093C2EC /* AFFTXAPIClient.m in Sources */,
 				C222A0CA17797AA60078EBBD /* ArticleTableViewController.m in Sources */,
+				C222A0CD177A6C040078EBBD /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

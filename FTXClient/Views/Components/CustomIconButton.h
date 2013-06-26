@@ -8,4 +8,7 @@
 
 @interface CustomIconButton : UIButton
 
+@property CGFloat imageOriginX;
+@property CGFloat titleOriginX;
+
 @end

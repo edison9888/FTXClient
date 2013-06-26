@@ -17,7 +17,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Crashlytics startWithAPIKey:@"ed27e953e56c4a8fa6bda4ad36bc6fbcbdbdc449"];
-    [MobClick startWithAppkey:@"51c003b256240b556b0c7b80"];
+    [MobClick startWithAppkey:@"51ca575656240b81a504f65e"];
     [UMSocialData setAppKey:@"51c003b256240b556b0c7b80"];
     
     [self setupUserDefaults];

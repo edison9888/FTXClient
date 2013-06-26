@@ -36,7 +36,7 @@
     [self.view addSubview:categoryPicker];
     
     CGRect rect = [UIScreen mainScreen].applicationFrame;
-    rect.origin.y = 40;
+    rect.origin.y = 44;
     rect.size.height -= 44;
     
     _tableViewController = [[ArticleTableViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -87,7 +87,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.title = @"返回";
 }
 
 - (void)tapLeftBarButton {
