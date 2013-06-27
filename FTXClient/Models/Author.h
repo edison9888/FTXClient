@@ -12,6 +12,6 @@
 @property (readonly) NSString *name;
 @property (readonly) NSString *avatar;
 
-- (id)initWithAttributes:(NSDictionary *)attributes;
+- (id)initWithId:(NSUInteger)id andName:(NSString *)name andImageId:(NSString *)imageId;
 
 @end

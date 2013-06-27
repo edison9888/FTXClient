@@ -10,11 +10,11 @@
 
 @implementation Author
 
-- (id)initWithAttributes:(NSDictionary *)attributes {
+- (id)initWithId:(NSUInteger)id andName:(NSString *)name andImageId:(NSString *)imageId {
     if (self = [super init]) {
-        _id = [attributes[@"authorId"] integerValue];
-        _name = attributes[@"authorName"];
-        _avatar = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, attributes[@"authorImageId"]];
+        _id = id;
+        _name = name;
+        _avatar = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, imageId];
     }
     return self;
 }

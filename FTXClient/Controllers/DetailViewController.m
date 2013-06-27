@@ -9,6 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DetailViewController.h"
 #import "AccessAccountViewController.h"
+#import "CommentsTableViewController.h"
+#import "RelevantsTableViewController.h"
 #import "CustomIconButton.h"
 #import "UIColor+FTX.h"
 #import "UIImage+FTX.h"
@@ -21,6 +23,9 @@
     UILabel *_authorNameLabel, *_publishLabel;
     UILabel *_titleLabel, *_contentLabel;
     CustomIconButton *_likeButton, *_commentButton, *_shareButton;
+    UIButton *_tabComment, *_tabRelevant;
+    UIView *_tabContentContainer;
+    CommentsTableViewController *_commentsTable;
 }
 
 @end
@@ -125,6 +130,38 @@ static NSDateFormatter* formatter = nil;
         _imageView = [[UIImageView alloc] init];
         [scrollView addSubview:_imageView];
     }
+    
+    // tabs content - comment
+    _tabComment = [UIButton buttonWithType:UIButtonTypeCustom];
+    _tabComment.backgroundColor = [UIColor colorWithHex:0x444444];
+    _tabComment.layer.cornerRadius = 2;
+    _tabComment.userInteractionEnabled = NO;
+    _tabComment.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_tabComment addTarget:self action:@selector(tapCommentsTab) forControlEvents:UIControlEventTouchUpInside];
+    [_tabComment setTitle:@"评论" forState:UIControlStateNormal];
+    [_tabComment setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [scrollView addSubview:_tabComment];
+    
+    // tabs content - relevants
+    _tabRelevant = [UIButton buttonWithType:UIButtonTypeCustom];
+    _tabRelevant.backgroundColor = [UIColor colorWithHex:0x333333];
+    _tabRelevant.layer.cornerRadius = 2;
+    _tabRelevant.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_tabRelevant addTarget:self action:@selector(tapRelevantsTab) forControlEvents:UIControlEventTouchUpInside];
+    [_tabRelevant setTitle:@"相关阅读" forState:UIControlStateNormal];
+    [_tabRelevant setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [scrollView addSubview:_tabRelevant];
+    
+    // tab content
+    _tabContentContainer = [[UIView alloc] init];
+    _tabContentContainer.backgroundColor = [UIColor colorWithHex:0x444444];
+    [scrollView addSubview:_tabContentContainer];
+    
+    _commentsTable = [[CommentsTableViewController alloc] initWithAuthorId:_article.author.id andArticleId:_article.id];
+    _commentsTable.view.backgroundColor = [UIColor colorWithHex:0x444444];
+    _commentsTable.view.frame = _tabContentContainer.bounds;
+    _commentsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [_tabContentContainer addSubview:_commentsTable.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -193,6 +230,7 @@ static NSDateFormatter* formatter = nil;
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){}];
     }
 
+    [_commentsTable.tableView reloadData];
     [self layoutViews];
 }
 
@@ -221,7 +259,12 @@ static NSDateFormatter* formatter = nil;
         topOffset += _imageView.image.size.height + 10;
     }
     
+    _tabComment.frame = CGRectMake(0, topOffset, 78, 28);
+    _tabRelevant.frame = CGRectMake(83, topOffset, 78, 28);
+    topOffset += 26;
     
+    _tabContentContainer.frame = CGRectMake(0, topOffset, 300, 100);
+    topOffset += CGRectGetHeight(_tabContentContainer.frame) + 10;
     
     scrollView.contentSize = CGSizeMake(300, topOffset);
 }
@@ -248,5 +291,20 @@ static NSDateFormatter* formatter = nil;
     DLog(@"share");
 }
 
+- (void)tapCommentsTab {
+    DLog(@"comments");
+    _tabComment.userInteractionEnabled = NO;
+    _tabComment.backgroundColor = [UIColor colorWithHex:0x444444];
+    _tabRelevant.userInteractionEnabled = YES;
+    _tabRelevant.backgroundColor = [UIColor colorWithHex:0x333333];
+}
+
+- (void)tapRelevantsTab {
+    DLog(@"relevants");
+    _tabComment.userInteractionEnabled = YES;
+    _tabComment.backgroundColor = [UIColor colorWithHex:0x333333];
+    _tabRelevant.userInteractionEnabled = NO;
+    _tabRelevant.backgroundColor = [UIColor colorWithHex:0x444444];
+}
 
 @end

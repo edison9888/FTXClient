@@ -18,8 +18,8 @@ static NSDateFormatter* refFormatter = nil;
     if (self = [super init]) {
         if (nil == refFormatter) {
             refFormatter = [[NSDateFormatter alloc] init];
-            refFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-            refFormatter.locale = [NSLocale currentLocale];
+            refFormatter.dateFormat = @"yyyy-MM-dd";
+            refFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
         }
         
         _id = [attributes[@"id"] integerValue];
@@ -28,17 +28,16 @@ static NSDateFormatter* refFormatter = nil;
         _summary = attributes[@"summary"];
         _content = attributes[@"content"];
         _imageUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, attributes[@"imageId"]];
-//        _publishTime = [[NSDate alloc] initWithTimeIntervalSince1970:[attributes[@"publishTime"] integerValue]];
         _numOfLikes = [attributes[@"likeCount"] integerValue];
         _numOfComments = [attributes[@"reviewCount"] integerValue];
         _numOfRelevants = [attributes[@"newsCnt"] integerValue];
         
-        _author = [[Author alloc] initWithAttributes:attributes];
+        _author = [[Author alloc] initWithId:[attributes[@"authorId"] integerValue]
+                                     andName:attributes[@"authorName"]
+                                  andImageId:attributes[@"authorImageId"]];
 
         long long time = [attributes[@"publishTime"] longLongValue];
-        NSDate *date = [refFormatter dateFromString:@"1979-01-01 00:00:00"];
-        _publishTime = [[NSDate alloc] initWithTimeInterval:time sinceDate:date];
-        DLog(@"%@, time: %lld, date: %@",attributes[@"publishTime"], time, date);
+        _publishTime = [[NSDate alloc] initWithTimeIntervalSince1970:time/1000];
     }
     return self;
 }

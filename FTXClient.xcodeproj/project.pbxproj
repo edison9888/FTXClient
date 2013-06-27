@@ -52,6 +52,10 @@
 		C2B9306F17746209000BE06A /* category-fun.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9306D17746209000BE06A /* category-fun.png */; };
 		C2B9307017746209000BE06A /* category-fun@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9306E17746209000BE06A /* category-fun@2x.png */; };
 		C2B93073177463EF000BE06A /* CategoryPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B93072177463EF000BE06A /* CategoryPickerView.m */; };
+		C2B94A30177BD77700563377 /* CommentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B94A2F177BD77700563377 /* CommentsTableViewController.m */; };
+		C2B94A33177BD78900563377 /* RelevantsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B94A32177BD78900563377 /* RelevantsTableViewController.m */; };
+		C2B94A36177BD86C00563377 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B94A35177BD86C00563377 /* CommentTableViewCell.m */; };
+		C2B94A39177BD9FD00563377 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B94A38177BD9FD00563377 /* Review.m */; };
 		C2C776C31774170E00D3ABF5 /* libWeChatSDK_armv7_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2C776AA1774170E00D3ABF5 /* libWeChatSDK_armv7_armv7s.a */; };
 		C2C776C41774170E00D3ABF5 /* libUMSocial_Sdk_2.1.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2C776B81774170E00D3ABF5 /* libUMSocial_Sdk_2.1.3.a */; };
 		C2C776C51774170E00D3ABF5 /* libUMSocial_Sdk_Comment_2.1.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2C776B91774170E00D3ABF5 /* libUMSocial_Sdk_Comment_2.1.3.a */; };
@@ -185,6 +189,14 @@
 		C2B9306E17746209000BE06A /* category-fun@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category-fun@2x.png"; sourceTree = "<group>"; };
 		C2B93071177463EF000BE06A /* CategoryPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPickerView.h; sourceTree = "<group>"; };
 		C2B93072177463EF000BE06A /* CategoryPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryPickerView.m; sourceTree = "<group>"; };
+		C2B94A2E177BD77700563377 /* CommentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsTableViewController.h; sourceTree = "<group>"; };
+		C2B94A2F177BD77700563377 /* CommentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewController.m; sourceTree = "<group>"; };
+		C2B94A31177BD78900563377 /* RelevantsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelevantsTableViewController.h; sourceTree = "<group>"; };
+		C2B94A32177BD78900563377 /* RelevantsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelevantsTableViewController.m; sourceTree = "<group>"; };
+		C2B94A34177BD86C00563377 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
+		C2B94A35177BD86C00563377 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
+		C2B94A37177BD9FD00563377 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
+		C2B94A38177BD9FD00563377 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Review.m; sourceTree = "<group>"; };
 		C2C776AA1774170E00D3ABF5 /* libWeChatSDK_armv7_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK_armv7_armv7s.a; sourceTree = "<group>"; };
 		C2C776AB1774170E00D3ABF5 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C2C776AC1774170E00D3ABF5 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -310,6 +322,8 @@
 				C244B2041775F0C700DB34D5 /* Article.m */,
 				C2C853041777F40700927A80 /* Author.h */,
 				C2C853051777F40700927A80 /* Author.m */,
+				C2B94A37177BD9FD00563377 /* Review.h */,
+				C2B94A38177BD9FD00563377 /* Review.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -476,10 +490,14 @@
 				C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */,
 				C222A0C817797AA60078EBBD /* ArticleTableViewController.h */,
 				C222A0C917797AA60078EBBD /* ArticleTableViewController.m */,
+				C2B94A2E177BD77700563377 /* CommentsTableViewController.h */,
+				C2B94A2F177BD77700563377 /* CommentsTableViewController.m */,
 				C222A0CB177A6C040078EBBD /* DetailViewController.h */,
 				C222A0CC177A6C040078EBBD /* DetailViewController.m */,
 				C2C776F31774221800D3ABF5 /* HomeViewController.h */,
 				C2C776F41774221800D3ABF5 /* HomeViewController.m */,
+				C2B94A31177BD78900563377 /* RelevantsTableViewController.h */,
+				C2B94A32177BD78900563377 /* RelevantsTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -638,6 +656,8 @@
 			children = (
 				C2FB7B4D1776D6FB00A7A5F0 /* ArticleTableViewCell.h */,
 				C2FB7B4E1776D6FB00A7A5F0 /* ArticleTableViewCell.m */,
+				C2B94A34177BD86C00563377 /* CommentTableViewCell.h */,
+				C2B94A35177BD86C00563377 /* CommentTableViewCell.m */,
 				C2FB7B501776D72F00A7A5F0 /* CustomIconButton.h */,
 				C2FB7B511776D72F00A7A5F0 /* CustomIconButton.m */,
 			);
@@ -815,6 +835,10 @@
 				C2FB3B08177824720093C2EC /* AFFTXAPIClient.m in Sources */,
 				C222A0CA17797AA60078EBBD /* ArticleTableViewController.m in Sources */,
 				C222A0CD177A6C040078EBBD /* DetailViewController.m in Sources */,
+				C2B94A30177BD77700563377 /* CommentsTableViewController.m in Sources */,
+				C2B94A33177BD78900563377 /* RelevantsTableViewController.m in Sources */,
+				C2B94A36177BD86C00563377 /* CommentTableViewCell.m in Sources */,
+				C2B94A39177BD9FD00563377 /* Review.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
