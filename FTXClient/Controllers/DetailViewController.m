@@ -26,6 +26,7 @@
     UIButton *_tabComment, *_tabRelevant;
     UIView *_tabContentContainer;
     CommentsTableViewController *_commentsTable;
+    RelevantsTableViewController *_relevantsTable;
 }
 
 @end
@@ -230,7 +231,11 @@ static NSDateFormatter* formatter = nil;
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){}];
     }
 
-    [_commentsTable.tableView reloadData];
+    if (!_tabComment.userInteractionEnabled)
+        [_commentsTable.tableView reloadData];
+    if (!_tabRelevant.userInteractionEnabled)
+        [_relevantsTable.tableView deselectRowAtIndexPath:[_relevantsTable.tableView indexPathForSelectedRow] animated:YES];
+    
     [self layoutViews];
 }
 
@@ -263,7 +268,7 @@ static NSDateFormatter* formatter = nil;
     _tabRelevant.frame = CGRectMake(83, topOffset, 78, 28);
     topOffset += 26;
     
-    _tabContentContainer.frame = CGRectMake(0, topOffset, 300, 100);
+    _tabContentContainer.frame = CGRectMake(0, topOffset, 300, fmaxf(fmaxf(44, _article.numOfComments*44), _article.numOfRelevants*44));
     topOffset += CGRectGetHeight(_tabContentContainer.frame) + 10;
     
     scrollView.contentSize = CGSizeMake(300, topOffset);
@@ -295,16 +300,31 @@ static NSDateFormatter* formatter = nil;
     DLog(@"comments");
     _tabComment.userInteractionEnabled = NO;
     _tabComment.backgroundColor = [UIColor colorWithHex:0x444444];
+    _commentsTable.view.hidden = NO;
+    
     _tabRelevant.userInteractionEnabled = YES;
     _tabRelevant.backgroundColor = [UIColor colorWithHex:0x333333];
+    _relevantsTable.view.hidden = YES;
 }
 
 - (void)tapRelevantsTab {
     DLog(@"relevants");
     _tabComment.userInteractionEnabled = YES;
     _tabComment.backgroundColor = [UIColor colorWithHex:0x333333];
+    _commentsTable.view.hidden = YES;
+
     _tabRelevant.userInteractionEnabled = NO;
     _tabRelevant.backgroundColor = [UIColor colorWithHex:0x444444];
+    _relevantsTable.view.hidden = NO;
+    
+    if (_relevantsTable == nil) {
+        _relevantsTable = [[RelevantsTableViewController alloc] initWithRelevantIds:_article.relevantIds];
+        _relevantsTable.view.backgroundColor = [UIColor colorWithHex:0x444444];
+        _relevantsTable.view.frame = _tabContentContainer.bounds;
+        _relevantsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [_tabContentContainer addSubview:_relevantsTable.view];
+        [_relevantsTable.tableView reloadData];
+    }
 }
 
 @end

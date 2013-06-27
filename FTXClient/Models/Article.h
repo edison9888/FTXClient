@@ -15,6 +15,7 @@
 @property (readonly) NSString *summary;
 @property (readonly) NSString *content;
 @property (readonly) NSString *imageUrl;
+@property (readonly) NSString *relevantIds;
 @property (readonly) NSDate *publishTime;
 @property (readonly) NSUInteger numOfRelevants;
 @property (readonly) NSUInteger numOfLikes;

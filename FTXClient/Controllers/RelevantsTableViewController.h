@@ -8,4 +8,6 @@
 
 @interface RelevantsTableViewController : UITableViewController
 
+- (id)initWithRelevantIds:(NSString *)relevantIds;
+
 @end

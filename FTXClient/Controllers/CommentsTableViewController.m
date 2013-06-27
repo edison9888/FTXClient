@@ -40,7 +40,6 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    DLog(@"has %d reviews", [_reviews count]);
     return [_reviews count];
 }
 

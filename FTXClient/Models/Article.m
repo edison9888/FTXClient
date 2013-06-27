@@ -27,6 +27,7 @@ static NSDateFormatter* refFormatter = nil;
         _title = attributes[@"title"];
         _summary = attributes[@"summary"];
         _content = attributes[@"content"];
+        _relevantIds = attributes[@"newIds"];
         _imageUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, attributes[@"imageId"]];
         _numOfLikes = [attributes[@"likeCount"] integerValue];
         _numOfComments = [attributes[@"reviewCount"] integerValue];
