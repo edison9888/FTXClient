@@ -34,5 +34,7 @@ static inline BOOL isEmpty(id thing) {
 }
 
 #define UserDefaults [NSUserDefaults standardUserDefaults]
+//#define StagingBoxContentBase @"http://192.168.10.218:7500/v1/tfs"
+//#define StagingBoxInterfaceBase @"http://ftxcn-dev.ftxgame.local:7001/"
 #define StagingBoxContentBase @"http://static.ftx.cn/images"
 #define StagingBoxInterfaceBase @"http://www.ftx.cn"

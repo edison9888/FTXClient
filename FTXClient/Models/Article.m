@@ -11,26 +11,40 @@
 
 @implementation Article
 
+static NSDateFormatter* refFormatter = nil;
+
 - (id)initWithAttributes:(NSDictionary *)attributes {
+    
     if (self = [super init]) {
+        if (nil == refFormatter) {
+            refFormatter = [[NSDateFormatter alloc] init];
+            refFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+            refFormatter.locale = [NSLocale currentLocale];
+        }
+        
         _id = [attributes[@"id"] integerValue];
         _type = [attributes[@"type"] integerValue];
         _title = attributes[@"title"];
         _summary = attributes[@"summary"];
         _content = attributes[@"content"];
         _imageUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, attributes[@"imageId"]];
-        _publishTime = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[attributes[@"publishTime"] integerValue]];
+//        _publishTime = [[NSDate alloc] initWithTimeIntervalSince1970:[attributes[@"publishTime"] integerValue]];
         _numOfLikes = [attributes[@"likeCount"] integerValue];
         _numOfComments = [attributes[@"reviewCount"] integerValue];
         _numOfRelevants = [attributes[@"newsCnt"] integerValue];
         
         _author = [[Author alloc] initWithAttributes:attributes];
+
+        long long time = [attributes[@"publishTime"] longLongValue];
+        NSDate *date = [refFormatter dateFromString:@"1979-01-01 00:00:00"];
+        _publishTime = [[NSDate alloc] initWithTimeInterval:time sinceDate:date];
+        DLog(@"%@, time: %lld, date: %@",attributes[@"publishTime"], time, date);
     }
     return self;
 }
 
 + (void)retrieveArticlesWithBlock:(void (^)(NSArray *articles, NSError *error))block forCategory:(CategoryType)type atPage:(NSUInteger)pageIndex {
-    [[AFFTXAPIClient sharedClient] getPath:@"/app/article/list"
+    [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/article/list?pageNo=%d", pageIndex]
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
                                        NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];

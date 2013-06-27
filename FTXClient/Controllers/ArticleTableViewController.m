@@ -68,25 +68,49 @@
     }];
     
     // Refresh action
-    [self performSelector:@selector(getListForPage:) withObject:@1 afterDelay:2];
+    [self performSelector:@selector(getListData:) withObject:@YES afterDelay:0];
 }
 
 - (void)retrieveMore {
-    DLog(@"retrieve more");
+    DLog(@"retrieve more for page %d", nextPageNo);
+    isLoading = YES;
+    
+    // show the footer
+    [UIView animateWithDuration:0.3 animations:^{
+        UIView *footer = [self.tableView viewWithTag:kFooterTag];
+        [(UILabel *)[footer viewWithTag:kFooterLabelTag] setText:kFooterLoadingText];
+        [(UIActivityIndicatorView *)[footer viewWithTag:kFooterIndicatorTag] startAnimating];
+    }];
+    
+    // Refresh action
+    [self getListData:NO];
 }
 
-- (void)getListForPage:(NSUInteger)pageNo {
+- (void)getListData:(BOOL)latest {
     [Article retrieveArticlesWithBlock:^(NSArray *articles, NSError *error){
         isLoading = NO;
 
-        // Hide the header
-        [UIView animateWithDuration:0.3 animations:^{
-            self.tableView.contentInset = UIEdgeInsetsZero;
-        }];
-
-        UIView *header = [self.tableView viewWithTag:kHeaderTag];
-        [(UILabel *)[header viewWithTag:kHeaderLabelTag] setText:kHeaderPullText];
-        [(UIActivityIndicatorView *)[header viewWithTag:kHeaderIndicatorTag] stopAnimating];
+        if (latest) {
+            // Hide the header
+            [UIView animateWithDuration:0.3 animations:^{
+                self.tableView.contentInset = UIEdgeInsetsZero;
+            }];
+            
+            UIView *header = [self.tableView viewWithTag:kHeaderTag];
+            [(UILabel *)[header viewWithTag:kHeaderLabelTag] setText:kHeaderPullText];
+            [(UIActivityIndicatorView *)[header viewWithTag:kHeaderIndicatorTag] stopAnimating];
+        }
+        else {
+            // Hide the footer
+            [UIView animateWithDuration:0.3 animations:^{
+                self.tableView.contentInset = UIEdgeInsetsZero;
+            }];
+            
+            UIView *footer = [self.tableView viewWithTag:kFooterTag];
+            footer.hidden = YES;
+            [(UILabel *)[footer viewWithTag:kFooterLabelTag] setText:kFooterPullText];
+            [(UIActivityIndicatorView *)[footer viewWithTag:kFooterIndicatorTag] stopAnimating];
+        }
         
         if (error) {
             DLog(@"error: %@", [error localizedDescription]);
@@ -100,10 +124,13 @@
             }
             self.tableView.hidden = NO;
             [self.tableView reloadData];
+            
+            if (!latest || nextPageNo == 1)
+                nextPageNo++;
         }
     }
                            forCategory:CategoryTypeAll
-                                atPage:pageNo];
+                                atPage:latest ? 1 : nextPageNo];
 }
 
 - (void)viewDidLoad {
