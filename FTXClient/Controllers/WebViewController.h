@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 BitRice. All rights reserved.
 //
 
-@interface WebViewController : UIViewController
+@interface WebViewController : UIViewController<UIWebViewDelegate>
+
+- (id)initWithUrl:(NSString *)url;
 
 @end

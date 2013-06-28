@@ -11,14 +11,30 @@
 #import "AccessAccountViewController.h"
 
 @interface WebViewController ()
-
+{
+    UIWebView *webView;
+    NSString *_url;
+}
 @end
 
 @implementation WebViewController
 
+- (id)initWithUrl:(NSString *)url {
+    if (self = [super init]) {
+        _url = url;
+    }
+    return self;
+}
+
+- (void)loadView {
+    webView = [[UIWebView alloc] init];
+    self.view = webView;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
