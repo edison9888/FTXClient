@@ -11,6 +11,8 @@
 #import "UIImage+FTX.h"
 #import "UIColor+FTX.h"
 #import "AccessAccountViewController.h"
+#import "UMSocial.h"
+#import "HomeViewController.h"
 
 @implementation LoginView
 
@@ -64,25 +66,33 @@
         
         UIButton *btnWeibo = [UIButton buttonWithType:UIButtonTypeCustom];
         btnWeibo.frame = CGRectMake(160, 192, 44, 44);
+        btnWeibo.tag = UMSocialSnsTypeSina;
         [btnWeibo setImage:[UIImage imageNamed:@"login-way-weibo"] forState:UIControlStateNormal];
-        [btnWeibo addTarget:self action:@selector(loginViaWeibo) forControlEvents:UIControlEventTouchUpInside];
+        [btnWeibo addTarget:self action:@selector(loginViaSns:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnWeibo];
 
         UIButton *btnQQ = [UIButton buttonWithType:UIButtonTypeCustom];
         btnQQ.frame = CGRectMake(204, 192, 44, 44);
+        btnQQ.tag = UMSocialSnsTypeQzone;
         [btnQQ setImage:[UIImage imageNamed:@"login-way-qq"] forState:UIControlStateNormal];
-        [btnQQ addTarget:self action:@selector(loginViaQQ) forControlEvents:UIControlEventTouchUpInside];
+        [btnQQ addTarget:self action:@selector(loginViaSns:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnQQ];
     }
     return self;
 }
 
-- (void)loginViaWeibo {
-    DLog(@"via weibo");
-}
-
-- (void)loginViaQQ {
-    DLog(@"via qq");
+- (void)loginViaSns:(UIButton *)button {
+    NSString *platformName = [UMSocialSnsPlatformManager getSnsPlatformString:button.tag];
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:platformName];
+    snsPlatform.loginClickHandler([HomeViewController sharedHome], [UMSocialControllerService defaultControllerService], YES, ^(UMSocialResponseEntity *response){
+        
+        //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
+        if ([platformName isEqualToString:UMShareToSina]) {
+            [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse){
+                DLog(@"SinaWeibo's user name is %@", [[[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina] objectForKey:@"username"]);
+            }];
+        }
+    });
 }
 
 @end

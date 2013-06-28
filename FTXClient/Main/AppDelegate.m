@@ -17,7 +17,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Crashlytics startWithAPIKey:@"ed27e953e56c4a8fa6bda4ad36bc6fbcbdbdc449"];
-    [MobClick startWithAppkey:@"51ca575656240b81a504f65e"];
+    [MobClick startWithAppkey:@"51c003b256240b556b0c7b80"];
     [UMSocialData setAppKey:@"51c003b256240b556b0c7b80"];
     
     [self setupUserDefaults];
@@ -33,6 +33,14 @@
     self.window.rootViewController = _navigationController;
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [UMSocialSnsService applicationDidBecomeActive];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [UMSocialSnsService handleOpenURL:url wxApiDelegate:nil];
 }
 
 - (void)setupUserDefaults {

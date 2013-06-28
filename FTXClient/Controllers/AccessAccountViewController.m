@@ -8,6 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "AccessAccountViewController.h"
+#import "UMSocial.h"
 
 @interface AccessAccountViewController ()
 
@@ -39,6 +40,16 @@
         [self.view addSubview:_loginView];
         [self.view addSubview:_registerView];
     }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    NSDictionary *snsAccountDic = [UMSocialAccountManager socialAccountDictionary];
+    UMSocialAccountEntity *sinaAccount = [snsAccountDic valueForKey:UMShareToSina];
+    UMSocialAccountEntity *qqAccount = [snsAccountDic valueForKey:UMShareToQzone];
+    DLog(@"sina nickName is %@, iconURL is %@", sinaAccount.userName, sinaAccount.iconURL);
+    DLog(@"qq nickName is %@, iconURL is %@", qqAccount.userName, qqAccount.iconURL);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
