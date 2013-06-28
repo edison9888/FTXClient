@@ -122,6 +122,7 @@
 		C2FB7B681777EC8B00A7A5F0 /* cell-icon-heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2FB7B601777EC8B00A7A5F0 /* cell-icon-heart@2x.png */; };
 		C2FB7B691777EC8B00A7A5F0 /* cell-icon-share.png in Resources */ = {isa = PBXBuildFile; fileRef = C2FB7B611777EC8B00A7A5F0 /* cell-icon-share.png */; };
 		C2FB7B6A1777EC8B00A7A5F0 /* cell-icon-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2FB7B621777EC8B00A7A5F0 /* cell-icon-share@2x.png */; };
+		C2FC749A177DF4ED00E70207 /* cache.db in Resources */ = {isa = PBXBuildFile; fileRef = C2FC7499177DF4ED00E70207 /* cache.db */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -298,6 +299,7 @@
 		C2FB7B601777EC8B00A7A5F0 /* cell-icon-heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-icon-heart@2x.png"; sourceTree = "<group>"; };
 		C2FB7B611777EC8B00A7A5F0 /* cell-icon-share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-icon-share.png"; sourceTree = "<group>"; };
 		C2FB7B621777EC8B00A7A5F0 /* cell-icon-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-icon-share@2x.png"; sourceTree = "<group>"; };
+		C2FC7499177DF4ED00E70207 /* cache.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = cache.db; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,6 +394,7 @@
 		C2AE992117703412007B704D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C2FC7499177DF4ED00E70207 /* cache.db */,
 				C2D3CF75177AC12A00366CBD /* avatar-placeholder.png */,
 				C2D3CF76177AC12A00366CBD /* avatar-placeholder@2x.png */,
 				C2FB7B321776C02500A7A5F0 /* button-gray-bg.png */,
@@ -794,6 +797,7 @@
 				C2D3CF78177AC12A00366CBD /* avatar-placeholder@2x.png in Resources */,
 				C22C1253177C9A4D0034D02E /* cell-arrow-button.png in Resources */,
 				C22C1254177C9A4D0034D02E /* cell-arrow-button@2x.png in Resources */,
+				C2FC749A177DF4ED00E70207 /* cache.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

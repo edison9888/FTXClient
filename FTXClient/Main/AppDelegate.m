@@ -11,6 +11,7 @@
 #import "UMSocial.h"
 #import <Crashlytics/Crashlytics.h>
 #import "HomeViewController.h"
+#import "DataManager.h"
 
 @implementation AppDelegate
 
@@ -21,7 +22,7 @@
     [UMSocialData setAppKey:@"51c003b256240b556b0c7b80"];
     
     [self setupUserDefaults];
-    
+    [[DataManager sharedManager] checkDatabase];
     
     _navigationController = [[UINavigationController alloc] initWithRootViewController:[HomeViewController sharedHome]];
     UINavigationBar *navigationBar = [_navigationController navigationBar];
