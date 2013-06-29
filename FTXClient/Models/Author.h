@@ -10,6 +10,7 @@
 
 @property (readonly) NSUInteger id;
 @property (readonly) NSString *name;
+@property (readonly) NSString *imageId;
 @property (readonly) NSString *avatar;
 
 - (id)initWithId:(NSUInteger)id andName:(NSString *)name andImageId:(NSString *)imageId;

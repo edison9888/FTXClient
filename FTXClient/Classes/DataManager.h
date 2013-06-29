@@ -8,13 +8,16 @@
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
 #import "FMDatabaseAdditions.h"
+#import "Article.h"
 
 @interface DataManager : NSObject
 
 @property (nonatomic, readonly) FMDatabase *db;
-@property (nonatomic, readonly) FMDatabaseQueue *dbQueue;
 
 + (DataManager *)sharedManager;
 - (void)checkDatabase;
+
+- (void)cacheArticle:(Article *)article;
+- (void)updateArticle:(Article *)article withKey:(NSString *)key andValue:(id)value;
 
 @end

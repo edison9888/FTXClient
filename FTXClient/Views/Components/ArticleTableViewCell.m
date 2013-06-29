@@ -106,6 +106,7 @@
                                        dispatch_queue_t main_queue = dispatch_get_main_queue();
                                        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
                                        dispatch_async(queue, ^{
+                                           DLog(@"%d, (%f x %f), imageHeight=%d", article.id, image.size.width, image.size.height, article.imageHeight);
                                            CGFloat h = image.size.height * 300 / image.size.width;
                                            article.image = [image scaleToSize:CGSizeMake(300, h)];
                                            dispatch_sync(main_queue, ^{
@@ -114,6 +115,12 @@
                                                    [[HomeViewController sharedHome].tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                                                }
                                            });
+                                           
+                                           // save uiimage to file
+                                           NSString *appDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+                                           NSData *data = UIImagePNGRepresentation(article.image);
+                                           if (![data writeToFile:[appDirectory stringByAppendingPathComponent:article.imageId] atomically:YES])
+                                               DLog(@"write image file failed for article(%d)", article.id);
                                        });
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){}];

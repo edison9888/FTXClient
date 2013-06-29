@@ -14,6 +14,7 @@
     if (self = [super init]) {
         _id = id;
         _name = name;
+        _imageId = imageId;
         _avatar = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, imageId];
     }
     return self;

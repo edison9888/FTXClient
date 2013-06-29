@@ -8,6 +8,7 @@
 
 #import "Article.h"
 #import "AFFTXAPIClient.h"
+#import "DataManager.h"
 
 @implementation Article
 
@@ -28,10 +29,12 @@ static NSDateFormatter* refFormatter = nil;
         _summary = attributes[@"summary"];
         _content = attributes[@"content"];
         _relevantIds = attributes[@"newIds"];
-        _imageUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, attributes[@"imageId"]];
+        _imageId = attributes[@"imageId"];
+        _imageHeight = [attributes[@"middleImageHeight"] integerValue];
         _numOfLikes = [attributes[@"likeCount"] integerValue];
         _numOfComments = [attributes[@"reviewCount"] integerValue];
         _numOfRelevants = [attributes[@"newsCnt"] integerValue];
+        _videoUrl = attributes[@"videoUrl"];
         
         _author = [[Author alloc] initWithId:[attributes[@"authorId"] integerValue]
                                      andName:attributes[@"authorName"]
@@ -39,6 +42,45 @@ static NSDateFormatter* refFormatter = nil;
 
         long long time = [attributes[@"publishTime"] longLongValue];
         _publishTime = [[NSDate alloc] initWithTimeIntervalSince1970:time/1000];
+        
+        _imageUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, _imageId];
+    }
+    return self;
+}
+
+- (id)initWithResultSet:(FMResultSet *)rs {
+    if (self = [super init]) {
+        if (nil == refFormatter) {
+            refFormatter = [[NSDateFormatter alloc] init];
+            refFormatter.dateFormat = @"yyyy-MM-dd";
+            refFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+        }
+        
+        _id = [rs intForColumn:@"id"];
+        _type = [rs intForColumn:@"type"];
+        _title = [rs stringForColumn:@"title"];
+        _summary = [rs stringForColumn:@"summary"];
+        _content = [rs stringForColumn:@"content"];
+        _relevantIds = [rs stringForColumn:@"relevantIds"];
+        _imageId = [rs stringForColumn:@"imageId"];
+        _imageHeight = [rs intForColumn:@"imageHeight"];
+        _numOfLikes = [rs intForColumn:@"numOfLikes"];
+        _numOfComments = [rs intForColumn:@"numOfComments"];
+        _numOfRelevants = [rs intForColumn:@"numOfRelevants"];
+        _publishTime = [[NSDate alloc] initWithTimeIntervalSince1970:[rs intForColumn:@"publishTime"]];
+        _videoUrl = [rs stringForColumn:@"videoUrl"];
+        
+        _author = [[Author alloc] initWithId:[rs intForColumn:@"authorId"]
+                                     andName:[rs stringForColumn:@"authorName"]
+                                  andImageId:[rs stringForColumn:@"authorImageId"]];
+        
+        // composite properties
+        _imageUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, _imageId];
+        NSString *appDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *imageFile = [appDirectory stringByAppendingPathComponent:_imageId];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile]) {
+            _image = [UIImage imageWithContentsOfFile:imageFile];
+        }
     }
     return self;
 }
@@ -50,8 +92,13 @@ static NSDateFormatter* refFormatter = nil;
                                        NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
                                        NSMutableArray *mutableArticles = [NSMutableArray arrayWithCapacity:[postsFromResponse count]];
                                        for (NSDictionary *attributes in postsFromResponse) {
-                                           Article *article = [[Article alloc] initWithAttributes:attributes];
-                                           [mutableArticles addObject:article];
+                                           @autoreleasepool {
+                                               Article *article = [[Article alloc] initWithAttributes:attributes];
+                                               [mutableArticles addObject:article];
+                                               
+                                               // cache articles
+                                               [[DataManager sharedManager] cacheArticle:article];
+                                           }
                                        }
                                        
                                        if (block) {
