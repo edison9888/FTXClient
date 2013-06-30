@@ -15,6 +15,7 @@
 #import "UIColor+FTX.h"
 #import "UIImage+FTX.h"
 #import "UIImageView+AFNetworking.h"
+#import "UMSocial.h"
 
 @interface DetailViewController ()
 {
@@ -293,7 +294,13 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)shareAction {
-    DLog(@"share");
+    [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
+                                         appKey:kUMengAppKey
+                                      shareText:_article.title
+                                     shareImage:_article.image
+                                shareToSnsNames:@[UMShareToSina, UMShareToQzone]
+                                       delegate:nil];
+
 }
 
 - (void)tapCommentsTab {

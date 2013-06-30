@@ -1,8 +1,1 @@
-//
-//  Constants.h
-//  FTXClient
-//
-//  Created by Lei Perry on 6/18/13.
-//  Copyright (c) 2013 BitRice. All rights reserved.
-//
-
+#define kUMengAppKey @"51c003b256240b556b0c7b80"

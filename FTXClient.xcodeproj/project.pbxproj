@@ -18,6 +18,8 @@
 		C22C1257177CA0990034D02E /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C22C1256177CA0990034D02E /* WebViewController.m */; };
 		C244B2051775F0C700DB34D5 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = C244B2041775F0C700DB34D5 /* Article.m */; };
 		C2984E021780445900E9FBAC /* NetWorkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C2984E011780445900E9FBAC /* NetWorkReachability.m */; };
+		C2984E0517807D3A00E9FBAC /* icon-profile-online.png in Resources */ = {isa = PBXBuildFile; fileRef = C2984E0317807D3A00E9FBAC /* icon-profile-online.png */; };
+		C2984E0617807D3A00E9FBAC /* icon-profile-online@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2984E0417807D3A00E9FBAC /* icon-profile-online@2x.png */; };
 		C2ACFFC41775FC900018EBBE /* AccessAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */; };
 		C2AE98F317702E38007B704D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F217702E38007B704D /* UIKit.framework */; };
 		C2AE98F517702E38007B704D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F417702E38007B704D /* Foundation.framework */; };
@@ -143,6 +145,8 @@
 		C244B2041775F0C700DB34D5 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		C2984E001780445900E9FBAC /* NetWorkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkReachability.h; sourceTree = "<group>"; };
 		C2984E011780445900E9FBAC /* NetWorkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkReachability.m; sourceTree = "<group>"; };
+		C2984E0317807D3A00E9FBAC /* icon-profile-online.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-profile-online.png"; sourceTree = "<group>"; };
+		C2984E0417807D3A00E9FBAC /* icon-profile-online@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-profile-online@2x.png"; sourceTree = "<group>"; };
 		C2ACFFC21775FC900018EBBE /* AccessAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessAccountViewController.h; sourceTree = "<group>"; };
 		C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessAccountViewController.m; sourceTree = "<group>"; };
 		C2AE98EF17702E38007B704D /* 饭特稀体育.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "饭特稀体育.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -434,6 +438,8 @@
 				C222A0C5177976B30078EBBD /* cell-image-placeholder@2x.png */,
 				C222A0CE177A6E260078EBBD /* icon-back.png */,
 				C222A0CF177A6E260078EBBD /* icon-back@2x.png */,
+				C2984E0317807D3A00E9FBAC /* icon-profile-online.png */,
+				C2984E0417807D3A00E9FBAC /* icon-profile-online@2x.png */,
 				C2C776F6177426CB00D3ABF5 /* icon-profile.png */,
 				C2C776F7177426CB00D3ABF5 /* icon-profile@2x.png */,
 				C2C776F8177426CB00D3ABF5 /* icon-settings.png */,
@@ -803,6 +809,8 @@
 				C22C1253177C9A4D0034D02E /* cell-arrow-button.png in Resources */,
 				C22C1254177C9A4D0034D02E /* cell-arrow-button@2x.png in Resources */,
 				C2FC749A177DF4ED00E70207 /* cache.db in Resources */,
+				C2984E0517807D3A00E9FBAC /* icon-profile-online.png in Resources */,
+				C2984E0617807D3A00E9FBAC /* icon-profile-online@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

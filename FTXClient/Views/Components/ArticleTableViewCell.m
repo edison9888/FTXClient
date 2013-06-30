@@ -13,6 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "HomeViewController.h"
 #import "CustomIconButton.h"
+#import "UMSocial.h"
 
 @interface ArticleTableViewCell ()
 {
@@ -196,7 +197,12 @@
 }
 
 - (void)shareAction {
-    DLog(@"share");
+    [UMSocialSnsService presentSnsIconSheetView:[HomeViewController sharedHome].parentViewController
+                                         appKey:kUMengAppKey
+                                      shareText:_article.title
+                                     shareImage:_article.image
+                                shareToSnsNames:@[UMShareToSina, UMShareToQzone]
+                                       delegate:nil];
 }
 
 - (void)relevantAction {
