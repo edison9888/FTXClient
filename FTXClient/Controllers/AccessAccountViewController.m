@@ -75,14 +75,6 @@
     self.title = _isLogin ? @"登录" : @"注册";
 }
 
-- (void)loginAction {
-    DLog(@"login");
-}
-
-- (void)registerAction {
-    DLog(@"register");
-}
-
 - (void)switchLoginAndRegister {
     _isLogin = !_isLogin;
     if (_isLogin) {

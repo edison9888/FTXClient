@@ -59,17 +59,11 @@
 }
 
 - (void)cacheArticle:(Article *)article {
-    __block Article *art = article;
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    dispatch_async(queue, ^{
-        [_dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            FMResultSet *rs = [db executeQuery:@"SELECT * FROM Article WHERE id = ?", @(art.id)];
-            if (![rs next]) {
-                NSString *q = @"INSERT INTO Article (id, type, title, summary, content, imageId, imageHeight, relevantIds, publishTime, numOfRelevants, numOfLikes, numOfComments, authorId, authorName, authorImageId, videoUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                [db executeUpdate:q, @(art.id), @(art.type), art.title, art.summary, art.content, art.imageId, @(art.imageHeight), art.relevantIds, @([art.publishTime timeIntervalSince1970]), @(art.numOfRelevants), @(art.numOfLikes), @(art.numOfComments), @(art.author.id), art.author.name, art.author.imageId, art.videoUrl];
-            }
-        }];
-    });
+    FMResultSet *rs = [_db executeQuery:@"SELECT * FROM Article WHERE id = ?", @(article.id)];
+    if (![rs next]) {
+        NSString *q = @"INSERT INTO Article (id, type, title, summary, content, imageId, imageHeight, relevantIds, publishTime, numOfRelevants, numOfLikes, numOfComments, authorId, authorName, authorImageId, videoUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        [_db executeUpdate:q, @(article.id), @(article.type), article.title, article.summary, article.content, article.imageId, @(article.imageHeight), article.relevantIds, @([article.publishTime timeIntervalSince1970]), @(article.numOfRelevants), @(article.numOfLikes), @(article.numOfComments), @(article.author.id), article.author.name, article.author.imageId, article.videoUrl];
+    }
 }
 
 - (void)updateArticle:(Article *)article withKey:(NSString *)key andValue:(id)value {

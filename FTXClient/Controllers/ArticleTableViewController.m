@@ -194,7 +194,9 @@
     self.tableView.rowHeight = 249;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor colorWithWhite:1 alpha:.7];
-    [self updateToLatest];
+    
+    if ([_articles count] == 0)
+        [self updateToLatest];
 }
 
 #pragma mark - UITableViewDataSource

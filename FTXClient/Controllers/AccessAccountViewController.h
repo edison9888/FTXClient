@@ -17,8 +17,6 @@
 
 - (id)initWithLogin:(BOOL)isLogin;
 
-- (void)loginAction;
-- (void)registerAction;
 - (void)switchLoginAndRegister;
 
 @end

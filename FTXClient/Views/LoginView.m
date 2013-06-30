@@ -13,6 +13,15 @@
 #import "AccessAccountViewController.h"
 #import "UMSocial.h"
 #import "HomeViewController.h"
+#import "NetWorkReachability.h"
+#import "AFFTXAPIClient.h"
+
+@interface LoginView ()
+{
+    UITextField *userField, *passField;
+}
+
+@end
 
 @implementation LoginView
 
@@ -22,15 +31,16 @@
     if (self) {
         self.backgroundColor = [UIColor blackColor];
         
-        UITextField *userField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
-        userField.placeholder = @"用户名";
+        userField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
+        userField.keyboardType = UIKeyboardTypeEmailAddress;
+        userField.placeholder = @"注册邮箱@";
         userField.textAlignment = UITextAlignmentCenter;
         userField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         userField.layer.backgroundColor = [UIColor whiteColor].CGColor;
         userField.layer.cornerRadius = 4;
         [self addSubview:userField];
         
-        UITextField *passField = [[UITextField alloc] initWithFrame:CGRectMake(30, 84, 260, 44)];
+        passField = [[UITextField alloc] initWithFrame:CGRectMake(30, 84, 260, 44)];
         passField.placeholder = @"密码";
         passField.secureTextEntry = YES;
         passField.textAlignment = UITextAlignmentCenter;
@@ -45,7 +55,7 @@
         loginButton.layer.cornerRadius = 4;
         [loginButton setTitle:@"登录" forState:UIControlStateNormal];
         [loginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [loginButton addTarget:_controller action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
+        [loginButton addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:loginButton];
         
         UIButton *goRegisterButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -93,6 +103,40 @@
             }];
         }
     });
+}
+
+- (void)loginAction {
+    // check mail address
+    NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    if ([emailTest evaluateWithObject:userField.text] == NO) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入正确的邮箱地址" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [userField becomeFirstResponder];
+        return;
+    }
+    
+    // check password
+    if ([passField.text length] < 6) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"密码长度不能少于6位" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [passField becomeFirstResponder];
+        return;
+    }
+    
+    if ([NetworkReachability sharedReachability].reachable) {
+        [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/user/login?uid=%@&password=%@&sourceId=0", userField.text, passField.text]
+                                    parameters:nil
+                                       success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                           DLog(@"success: %@", JSON);
+                                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[JSON objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                           [alert show];
+                                       }
+                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                           DLog(@"error: %@", [error description]);
+                                       }];
+    }
+
 }
 
 @end

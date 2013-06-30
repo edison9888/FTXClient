@@ -7,7 +7,7 @@
 //
 @class AccessAccountViewController;
 
-@interface RegisterView : UIView
+@interface RegisterView : UIScrollView <UITextFieldDelegate>
 
 @property (nonatomic, assign) AccessAccountViewController *controller;
 

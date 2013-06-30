@@ -17,6 +17,7 @@
 		C22C1254177C9A4D0034D02E /* cell-arrow-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C22C1252177C9A4D0034D02E /* cell-arrow-button@2x.png */; };
 		C22C1257177CA0990034D02E /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C22C1256177CA0990034D02E /* WebViewController.m */; };
 		C244B2051775F0C700DB34D5 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = C244B2041775F0C700DB34D5 /* Article.m */; };
+		C2984E021780445900E9FBAC /* NetWorkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C2984E011780445900E9FBAC /* NetWorkReachability.m */; };
 		C2ACFFC41775FC900018EBBE /* AccessAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */; };
 		C2AE98F317702E38007B704D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F217702E38007B704D /* UIKit.framework */; };
 		C2AE98F517702E38007B704D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F417702E38007B704D /* Foundation.framework */; };
@@ -140,6 +141,8 @@
 		C22C1256177CA0990034D02E /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		C244B2031775F0C700DB34D5 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		C244B2041775F0C700DB34D5 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
+		C2984E001780445900E9FBAC /* NetWorkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkReachability.h; sourceTree = "<group>"; };
+		C2984E011780445900E9FBAC /* NetWorkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkReachability.m; sourceTree = "<group>"; };
 		C2ACFFC21775FC900018EBBE /* AccessAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessAccountViewController.h; sourceTree = "<group>"; };
 		C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessAccountViewController.m; sourceTree = "<group>"; };
 		C2AE98EF17702E38007B704D /* 饭特稀体育.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "饭特稀体育.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -495,6 +498,8 @@
 			children = (
 				C2AE993B17703CB4007B704D /* Constants.h */,
 				C2AE993F17703D3E007B704D /* Enums.h */,
+				C2984E001780445900E9FBAC /* NetWorkReachability.h */,
+				C2984E011780445900E9FBAC /* NetWorkReachability.m */,
 				C2AE994017703D5B007B704D /* UserDefaultsKeys.h */,
 			);
 			path = Helpers;
@@ -863,6 +868,7 @@
 				C2B94A39177BD9FD00563377 /* Review.m in Sources */,
 				C2B94A3C177C2C6700563377 /* Relevant.m in Sources */,
 				C22C1257177CA0990034D02E /* WebViewController.m in Sources */,
+				C2984E021780445900E9FBAC /* NetWorkReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
