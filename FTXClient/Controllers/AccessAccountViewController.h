@@ -7,16 +7,15 @@
 //
 #import "LoginView.h"
 #import "RegisterView.h"
+#import "MyAccountView.h"
 
 @interface AccessAccountViewController : UIViewController
 {
     LoginView *_loginView;
     RegisterView *_registerView;
-    BOOL _isLogin;
+    MyAccountView *_myAccountView;
 }
 
-- (id)initWithLogin:(BOOL)isLogin;
-
-- (void)switchLoginAndRegister;
+- (void)switchToView:(AccountViewType)viewType;
 
 @end

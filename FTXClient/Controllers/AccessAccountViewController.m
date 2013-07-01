@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AccessAccountViewController.h"
 #import "UMSocial.h"
+#import "DataManager.h"
 
 @interface AccessAccountViewController ()
 
@@ -16,29 +17,31 @@
 
 @implementation AccessAccountViewController
 
-- (id)initWithLogin:(BOOL)isLogin {
-    if (self = [super init]) {
-        _isLogin = isLogin;
-    }
-    return self;
-}
-
 - (void)loadView {
     [super loadView];
     
     _loginView = [[LoginView alloc] initWithFrame:self.view.bounds];
+    _loginView.controller = self;
     _loginView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     _registerView = [[RegisterView alloc] initWithFrame:self.view.bounds];
+    _registerView.controller = self;
     _registerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    if (_isLogin) {
-        [self.view addSubview:_registerView];
+    _myAccountView = [[MyAccountView alloc] initWithFrame:self.view.bounds];
+    _myAccountView.controller = self;
+    _myAccountView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [_myAccountView populateInterface];
+    
+    if ([[DataManager sharedManager].currentAccount success]) {
         [self.view addSubview:_loginView];
+        [self.view addSubview:_registerView];
+        [self.view addSubview:_myAccountView];
     }
     else {
-        [self.view addSubview:_loginView];
+        [self.view addSubview:_myAccountView];
         [self.view addSubview:_registerView];
+        [self.view addSubview:_loginView];
     }
 }
 
@@ -72,30 +75,49 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftView];
     
     // title
-    self.title = _isLogin ? @"登录" : @"注册";
+    self.title = [[DataManager sharedManager].currentAccount success] ? @"我的账号" : @"登录";
+    
+    [[NSNotificationCenter defaultCenter] addObserver:_myAccountView selector:@selector(populateInterface) name:kAccountChangeNotification object:[DataManager sharedManager]];
 }
 
-- (void)switchLoginAndRegister {
-    _isLogin = !_isLogin;
-    if (_isLogin) {
-        [UIView transitionFromView:_registerView
-                            toView:_loginView
-                          duration:.5
-                           options:UIViewAnimationOptionTransitionFlipFromLeft
-                        completion:^(BOOL finished){
-                           self.title = @"登录";
-                        }];
-    }
-    else {
-        [UIView transitionFromView:_loginView
-                            toView:_registerView
-                          duration:.5
-                           options:UIViewAnimationOptionTransitionFlipFromRight
-                        completion:^(BOOL finished){
-                            self.title = @"注册";
-                        }];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:_myAccountView name:kAccountChangeNotification object:[DataManager sharedManager]];
+}
 
+- (void)switchToView:(AccountViewType)viewType {
+    UIView *fromView = self.view.subviews[self.view.subviews.count - 1];
+    UIView *toView;
+    NSString *title;
+    UIViewAnimationOptions animation;
+    switch (viewType) {
+        case AccountViewTypeLogin: {
+            toView = _loginView;
+            title = @"登录";
+            animation = UIViewAnimationOptionTransitionFlipFromLeft;
+        }
+            break;
+        case AccountViewTypeRegister: {
+            toView = _registerView;
+            title = @"注册";
+            animation = UIViewAnimationOptionTransitionFlipFromRight;
+        }
+            break;
+        case AccountViewTypeProfile: {
+            toView = _myAccountView;
+            title = @"我的账户";
+            animation = UIViewAnimationOptionTransitionNone;
+        }
+            break;
     }
+    
+    [UIView transitionFromView:fromView
+                        toView:toView
+                      duration:.5
+                       options:animation
+                    completion:^(BOOL finished){
+                        self.title = title;
+                    }];
 }
 
 - (void)tapLeftBarButton {

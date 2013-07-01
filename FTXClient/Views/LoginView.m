@@ -66,7 +66,7 @@
         goRegisterButton.layer.cornerRadius = 4;
         [goRegisterButton setTitle:@"注册" forState:UIControlStateNormal];
         [goRegisterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [goRegisterButton addTarget:_controller action:@selector(switchLoginAndRegister) forControlEvents:UIControlEventTouchUpInside];
+        [goRegisterButton addTarget:self action:@selector(gotoRegister) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:goRegisterButton];
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, 192, 130, 44)];
@@ -91,6 +91,10 @@
         [self addSubview:btnQQ];
     }
     return self;
+}
+
+- (void)gotoRegister {
+    [_controller switchToView:AccountViewTypeRegister];
 }
 
 - (void)loginViaSns:(UIButton *)button {
@@ -137,12 +141,12 @@
                                                [alert show];
                                            }
                                            else {
-                                               [DataManager sharedManager].currentAccount = account;
-                                               [[HomeViewController sharedHome].navigationController popViewControllerAnimated:YES];
-                                               
                                                [UserDefaults setValue:mailField.text forKey:kUCAccountId];
                                                [UserDefaults setValue:passField.text forKey:kUCAccountPwd];
                                                [UserDefaults synchronize];
+                                               
+                                               [DataManager sharedManager].currentAccount = account;
+                                               [[HomeViewController sharedHome].navigationController popViewControllerAnimated:YES];
                                            }
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {

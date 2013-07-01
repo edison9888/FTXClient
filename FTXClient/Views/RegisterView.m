@@ -34,7 +34,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor blackColor];
         
         mailField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
         mailField.delegate = self;
@@ -93,7 +93,7 @@
         goLoginButton.layer.cornerRadius = 4;
         [goLoginButton setTitle:@"登录" forState:UIControlStateNormal];
         [goLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [goLoginButton addTarget:_controller action:@selector(switchLoginAndRegister) forControlEvents:UIControlEventTouchUpInside];
+        [goLoginButton addTarget:self action:@selector(gotoLogin) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:goLoginButton];
         
         CGRect rect = [UIScreen mainScreen].applicationFrame;
@@ -112,6 +112,10 @@
 
 - (void)toggleAgreeButton:(UIButton *)button {
     button.selected = !button.selected;
+}
+
+- (void)gotoLogin {
+    [_controller switchToView:AccountViewTypeLogin];
 }
 
 - (void)registerAction {
@@ -159,12 +163,12 @@
                                                [alert show];
                                            }
                                            else {
-                                               [DataManager sharedManager].currentAccount = account;
-                                               [[HomeViewController sharedHome].navigationController popViewControllerAnimated:YES];
-                                               
                                                [UserDefaults setValue:mailField.text forKey:kUCAccountId];
                                                [UserDefaults setValue:passField.text forKey:kUCAccountPwd];
                                                [UserDefaults synchronize];
+
+                                               [DataManager sharedManager].currentAccount = account;
+                                               [[HomeViewController sharedHome].navigationController popViewControllerAnimated:YES];
                                            }
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {

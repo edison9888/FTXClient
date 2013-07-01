@@ -1,11 +1,3 @@
-//
-//  Enums.h
-//  FTXClient
-//
-//  Created by Lei Perry on 6/18/13.
-//  Copyright (c) 2013 BitRice. All rights reserved.
-//
-
 typedef enum {
     CategoryTypeAll         = 0,
     CategoryTypeBasketball  = 1,
@@ -14,3 +6,15 @@ typedef enum {
     CategoryTypeSexy        = 4,
     CategoryTypeVideo       = 5
 } CategoryType;
+
+typedef enum {
+    AccountViewTypeLogin    = 0,
+    AccountViewTypeRegister = 1,
+    AccountViewTypeProfile  = 2
+} AccountViewType;
+
+typedef enum {
+    LoginTypeFtx            = 0,
+    LoginTypeSina           = 1,
+    LoginTypeTencent        = 2
+} LoginType;

@@ -99,7 +99,7 @@
 }
 
 - (void)tapRightBarButton {
-    AccessAccountViewController *vc = [[AccessAccountViewController alloc] initWithLogin:YES];
+    AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
