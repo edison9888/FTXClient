@@ -9,10 +9,12 @@
 #import "FMDatabaseQueue.h"
 #import "FMDatabaseAdditions.h"
 #import "Article.h"
+#import "Account.h"
 
 @interface DataManager : NSObject
 
 @property (nonatomic, readonly) FMDatabase *db;
+@property (nonatomic, strong) Account *currentAccount;
 
 + (DataManager *)sharedManager;
 - (void)checkDatabase;

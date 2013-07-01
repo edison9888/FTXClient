@@ -15,6 +15,7 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import "Enums.h"
     #import "Constants.h"
+    #import "UserDefaultsKeys.h"
 #endif
 
 #ifdef DEBUG

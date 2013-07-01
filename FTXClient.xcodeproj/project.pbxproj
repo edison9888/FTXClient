@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C21073EE17811F8100EDCA46 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C21073ED17811F8100EDCA46 /* CommentViewController.m */; };
+		C21073F11781305A00EDCA46 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = C21073F01781305A00EDCA46 /* Account.m */; };
 		C222A0C6177976B30078EBBD /* cell-image-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0C4177976B30078EBBD /* cell-image-placeholder.png */; };
 		C222A0C7177976B30078EBBD /* cell-image-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0C5177976B30078EBBD /* cell-image-placeholder@2x.png */; };
 		C222A0CA17797AA60078EBBD /* ArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222A0C917797AA60078EBBD /* ArticleTableViewController.m */; };
@@ -129,6 +131,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C21073EC17811F8100EDCA46 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
+		C21073ED17811F8100EDCA46 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
+		C21073EF1781305A00EDCA46 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		C21073F01781305A00EDCA46 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
 		C222A0C4177976B30078EBBD /* cell-image-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-image-placeholder.png"; sourceTree = "<group>"; };
 		C222A0C5177976B30078EBBD /* cell-image-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-image-placeholder@2x.png"; sourceTree = "<group>"; };
 		C222A0C817797AA60078EBBD /* ArticleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTableViewController.h; sourceTree = "<group>"; };
@@ -337,6 +343,8 @@
 		C244B2021775F0AF00DB34D5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C21073EF1781305A00EDCA46 /* Account.h */,
+				C21073F01781305A00EDCA46 /* Account.m */,
 				C244B2031775F0C700DB34D5 /* Article.h */,
 				C244B2041775F0C700DB34D5 /* Article.m */,
 				C2C853041777F40700927A80 /* Author.h */,
@@ -518,6 +526,8 @@
 				C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */,
 				C222A0C817797AA60078EBBD /* ArticleTableViewController.h */,
 				C222A0C917797AA60078EBBD /* ArticleTableViewController.m */,
+				C21073EC17811F8100EDCA46 /* CommentViewController.h */,
+				C21073ED17811F8100EDCA46 /* CommentViewController.m */,
 				C2B94A2E177BD77700563377 /* CommentsTableViewController.h */,
 				C2B94A2F177BD77700563377 /* CommentsTableViewController.m */,
 				C222A0CB177A6C040078EBBD /* DetailViewController.h */,
@@ -877,6 +887,8 @@
 				C2B94A3C177C2C6700563377 /* Relevant.m in Sources */,
 				C22C1257177CA0990034D02E /* WebViewController.m in Sources */,
 				C2984E021780445900E9FBAC /* NetWorkReachability.m in Sources */,
+				C21073EE17811F8100EDCA46 /* CommentViewController.m in Sources */,
+				C21073F11781305A00EDCA46 /* Account.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

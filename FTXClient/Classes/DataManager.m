@@ -58,6 +58,11 @@
     [_db open];
 }
 
+- (void)setCurrentAccount:(Account *)currentAccount {
+    _currentAccount = currentAccount;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAccountChangeNotification object:self];
+}
+
 - (void)cacheArticle:(Article *)article {
     FMResultSet *rs = [_db executeQuery:@"SELECT * FROM Article WHERE id = ?", @(article.id)];
     if (![rs next]) {

@@ -14,6 +14,9 @@
 #import "CustomIconButton.h"
 #import "NetWorkReachability.h"
 #import "AFFTXAPIClient.h"
+#import "Account.h"
+#import "DataManager.h"
+#import "HomeViewController.h"
 
 #define kAgreeButtonTag 1
 
@@ -146,10 +149,23 @@
     }
 
     if ([NetworkReachability sharedReachability].reachable) {
-        [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/user/register?uid=%@&nickname=%@&password=%@&sourceId=0", mailField.text, userField.text, passField.text]
+        [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/user/register?accountId=%@&nickName=%@&password=%@&sourceId=0", mailField.text, userField.text, passField.text]
                                     parameters:nil
                                        success:^(AFHTTPRequestOperation *operation, id JSON) {
                                            DLog(@"success: %@", JSON);
+                                           Account *account = [[Account alloc] initWithAttributes:JSON];
+                                           if (!account.success) {
+                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:account.msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                               [alert show];
+                                           }
+                                           else {
+                                               [DataManager sharedManager].currentAccount = account;
+                                               [[HomeViewController sharedHome].navigationController popViewControllerAnimated:YES];
+                                               
+                                               [UserDefaults setValue:mailField.text forKey:kUCAccountId];
+                                               [UserDefaults setValue:passField.text forKey:kUCAccountPwd];
+                                               [UserDefaults synchronize];
+                                           }
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            DLog(@"error: %@", [error description]);

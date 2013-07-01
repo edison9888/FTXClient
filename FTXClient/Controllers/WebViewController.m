@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WebViewController.h"
 #import "AccessAccountViewController.h"
+#import "DataManager.h"
 
 @interface WebViewController ()
 {
@@ -60,7 +61,6 @@
     // right bar button
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightButton setFrame:CGRectMake(0, 0, 44, 44)];
-    [rightButton setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(tapRightBarButton) forControlEvents:UIControlEventTouchUpInside];
     
     UIView *rightView = [[UIView alloc] initWithFrame:buttonRect];
@@ -72,6 +72,15 @@
     
     // title
     self.title = @"相关新闻";
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [self updateProfileStatus];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:[DataManager sharedManager]];
 }
 
 - (void)tapLeftBarButton {
@@ -81,6 +90,15 @@
 - (void)tapRightBarButton {
     AccessAccountViewController *vc = [[AccessAccountViewController alloc] initWithLogin:YES];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)updateProfileStatus {
+    UIView *view = self.navigationItem.rightBarButtonItem.customView;
+    UIButton *button = (UIButton *)view.subviews[0];
+    if ([[DataManager sharedManager].currentAccount success])
+        [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
+    else
+        [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
 }
 
 @end

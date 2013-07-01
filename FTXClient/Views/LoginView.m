@@ -15,10 +15,12 @@
 #import "HomeViewController.h"
 #import "NetWorkReachability.h"
 #import "AFFTXAPIClient.h"
+#import "Account.h"
+#import "DataManager.h"
 
 @interface LoginView ()
 {
-    UITextField *userField, *passField;
+    UITextField *mailField, *passField;
 }
 
 @end
@@ -31,14 +33,14 @@
     if (self) {
         self.backgroundColor = [UIColor blackColor];
         
-        userField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
-        userField.keyboardType = UIKeyboardTypeEmailAddress;
-        userField.placeholder = @"注册邮箱@";
-        userField.textAlignment = UITextAlignmentCenter;
-        userField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        userField.layer.backgroundColor = [UIColor whiteColor].CGColor;
-        userField.layer.cornerRadius = 4;
-        [self addSubview:userField];
+        mailField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
+        mailField.keyboardType = UIKeyboardTypeEmailAddress;
+        mailField.placeholder = @"注册邮箱@";
+        mailField.textAlignment = UITextAlignmentCenter;
+        mailField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        mailField.layer.backgroundColor = [UIColor whiteColor].CGColor;
+        mailField.layer.cornerRadius = 4;
+        [self addSubview:mailField];
         
         passField = [[UITextField alloc] initWithFrame:CGRectMake(30, 84, 260, 44)];
         passField.placeholder = @"密码";
@@ -109,10 +111,10 @@
     // check mail address
     NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-    if ([emailTest evaluateWithObject:userField.text] == NO) {
+    if ([emailTest evaluateWithObject:mailField.text] == NO) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请输入正确的邮箱地址" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
-        [userField becomeFirstResponder];
+        [mailField becomeFirstResponder];
         return;
     }
     
@@ -125,18 +127,28 @@
     }
     
     if ([NetworkReachability sharedReachability].reachable) {
-        [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/user/login?uid=%@&password=%@&sourceId=0", userField.text, passField.text]
+        [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/user/login?accountId=%@&password=%@&sourceId=0", mailField.text, passField.text]
                                     parameters:nil
                                        success:^(AFHTTPRequestOperation *operation, id JSON) {
                                            DLog(@"success: %@", JSON);
-                                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[JSON objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                           [alert show];
+                                           Account *account = [[Account alloc] initWithAttributes:JSON];
+                                           if (!account.success) {
+                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:account.msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                               [alert show];
+                                           }
+                                           else {
+                                               [DataManager sharedManager].currentAccount = account;
+                                               [[HomeViewController sharedHome].navigationController popViewControllerAnimated:YES];
+                                               
+                                               [UserDefaults setValue:mailField.text forKey:kUCAccountId];
+                                               [UserDefaults setValue:passField.text forKey:kUCAccountPwd];
+                                               [UserDefaults synchronize];
+                                           }
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            DLog(@"error: %@", [error description]);
                                        }];
     }
-
 }
 
 @end
