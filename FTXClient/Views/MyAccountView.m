@@ -35,10 +35,10 @@
         self.backgroundColor = [UIColor blackColor];
         _articles = [NSMutableArray array];
         
-        _avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 30, 30)];
+        _avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 70, 70)];
         [self addSubview:_avatarView];
         
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 200, 30)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 20, 200, 24)];
         _nameLabel.backgroundColor = [UIColor clearColor];
         _nameLabel.font = [UIFont systemFontOfSize:14];
         _nameLabel.textColor = [UIColor colorWithHex:0xdddddd];
@@ -54,11 +54,11 @@
         [button addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         
-        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 75, 320, 1)];
+        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 115, 320, 1)];
         line.backgroundColor = [UIColor colorWithHex:0xbbbbbb];
         [self addSubview:line];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, 70, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 70, 30)];
         label.backgroundColor = [UIColor blackColor];
         label.font = [UIFont systemFontOfSize:15];
         label.text = @"我喜欢的";
@@ -67,7 +67,7 @@
         [self addSubview:label];
         
         CGRect rect = [UIScreen mainScreen].applicationFrame;
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 95, 300, CGRectGetHeight(rect) - 44 - 105)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 135, 300, CGRectGetHeight(rect) - 44 - 145)];
         _tableView.backgroundColor = [UIColor colorWithHex:0x444444];
         _tableView.separatorColor = [UIColor blackColor];
         _tableView.dataSource = self;
@@ -79,8 +79,7 @@
 
 - (void)populateInterface {
     if ([DataManager sharedManager].currentAccount) {
-        NSString *url = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, [DataManager sharedManager].currentAccount.middleImageId];
-        [_avatarView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"avatar-placeholder"]];
+        [_avatarView setImageWithURL:[NSURL URLWithString:[DataManager sharedManager].currentAccount.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar-placeholder"]];
         _nameLabel.text = [DataManager sharedManager].currentAccount.nickName;
         
         [_articles removeAllObjects];
@@ -102,6 +101,11 @@
 }
 
 - (void)logout {
+    [UserDefaults setValue:@"" forKey:kUCLoginAccountId];
+    [UserDefaults setValue:@"" forKey:kUCLoginPassword];
+    [UserDefaults setInteger:-1 forKey:kUCLoginType];
+    [UserDefaults synchronize];
+    
     [DataManager sharedManager].currentAccount = nil;
     [_controller switchToView:AccountViewTypeLogin];
 }

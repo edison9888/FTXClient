@@ -8,6 +8,8 @@
 
 #import "DataManager.h"
 #import "FMResultSet.h"
+#import "AFFTXAPIClient.h"
+#import "UMSocial.h"
 
 @interface DataManager ()
 
@@ -77,6 +79,47 @@
         if (![db executeUpdate:query, value, article.id])
             DLog(@"update article(%d) with key(%@) and value(%@) failed", article.id, key, value);
     }];
+}
+
+- (void)loginVia:(LoginType)loginType withAccountId:(NSString *)accountId andPassword:(NSString *)password andNickName:(NSString *)nickName popViewController:(UIViewController *)controller {
+    if ([NetworkReachability sharedReachability].reachable) {
+        [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/user/login?accountId=%@&nickName=%@&password=%@&sourceId=%d", accountId, nickName, password, loginType]
+                                    parameters:nil
+                                       success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                           DLog(@"success: %@", JSON);
+                                           Account *account = [[Account alloc] initWithAttributes:JSON];
+                                           if (!account.success) {
+                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:account.msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                               [alert show];
+                                           }
+                                           else {
+                                               LoginType loginType = [[JSON objectForKey:@"sourceId"] integerValue];
+                                               if (loginType == LoginTypeSina) {
+                                                   NSDictionary *snsAccountDic = [UMSocialAccountManager socialAccountDictionary];
+                                                   UMSocialAccountEntity *snsAccount = [snsAccountDic valueForKey:UMShareToSina];
+                                                   account.avatarUrl = snsAccount.iconURL;
+                                               }
+                                               else if (loginType == LoginTypeTencent) {
+                                                   NSDictionary *snsAccountDic = [UMSocialAccountManager socialAccountDictionary];
+                                                   UMSocialAccountEntity *snsAccount = [snsAccountDic valueForKey:UMShareToQzone];
+                                                   account.avatarUrl = snsAccount.iconURL;
+                                               }
+                                               
+                                               
+                                               [UserDefaults setValue:accountId forKey:kUCLoginAccountId];
+                                               [UserDefaults setValue:password forKey:kUCLoginPassword];
+                                               [UserDefaults setInteger:loginType forKey:kUCLoginType];
+                                               [UserDefaults synchronize];
+                                               
+                                               self.currentAccount = account;
+                                               if (controller)
+                                                   [controller.navigationController popViewControllerAnimated:YES];
+                                           }
+                                       }
+                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                           DLog(@"error: %@", [error description]);
+                                       }];
+    }
 }
 
 @end

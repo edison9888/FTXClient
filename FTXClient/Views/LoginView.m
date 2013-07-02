@@ -105,8 +105,25 @@
         //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
         if ([platformName isEqualToString:UMShareToSina]) {
             [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse){
-                DLog(@"SinaWeibo's user name is %@", [[[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina] objectForKey:@"username"]);
+                NSDictionary *dict = [[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina];
+                DLog(@"sina: %@", accountResponse.data);
+                [[DataManager sharedManager] loginVia:LoginTypeSina
+                                        withAccountId:dict[@"usid"]
+                                          andPassword:@""
+                                          andNickName:dict[@"username"]
+                                    popViewController:[HomeViewController sharedHome]];
             }];
+        }
+        
+        if ([platformName isEqualToString:UMShareToQzone]) {
+            NSDictionary *dict = [response.data objectForKey:UMShareToQzone];
+            if (dict) {
+                [[DataManager sharedManager] loginVia:LoginTypeTencent
+                                        withAccountId:dict[@"usid"]
+                                          andPassword:@""
+                                          andNickName:dict[@"username"]
+                                    popViewController:[HomeViewController sharedHome]];
+            }
         }
     });
 }
@@ -130,29 +147,11 @@
         return;
     }
     
-    if ([NetworkReachability sharedReachability].reachable) {
-        [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/user/login?accountId=%@&password=%@&sourceId=0", mailField.text, passField.text]
-                                    parameters:nil
-                                       success:^(AFHTTPRequestOperation *operation, id JSON) {
-                                           DLog(@"success: %@", JSON);
-                                           Account *account = [[Account alloc] initWithAttributes:JSON];
-                                           if (!account.success) {
-                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:account.msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                               [alert show];
-                                           }
-                                           else {
-                                               [UserDefaults setValue:mailField.text forKey:kUCAccountId];
-                                               [UserDefaults setValue:passField.text forKey:kUCAccountPwd];
-                                               [UserDefaults synchronize];
-                                               
-                                               [DataManager sharedManager].currentAccount = account;
-                                               [[HomeViewController sharedHome].navigationController popViewControllerAnimated:YES];
-                                           }
-                                       }
-                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                           DLog(@"error: %@", [error description]);
-                                       }];
-    }
+    [[DataManager sharedManager] loginVia:LoginTypeFtx
+                            withAccountId:mailField.text
+                              andPassword:passField.text
+                              andNickName:@""
+                        popViewController:[HomeViewController sharedHome]];
 }
 
 @end

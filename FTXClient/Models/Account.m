@@ -20,6 +20,8 @@
         _msg = attributes[@"msg"];
         _sourceId = [attributes[@"sourceId"] integerValue];
         _success = [attributes[@"success"] boolValue];
+        
+        _avatarUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, _middleImageId];
     }
     return self;
 }

@@ -10,6 +10,7 @@
 #import "FMDatabaseAdditions.h"
 #import "Article.h"
 #import "Account.h"
+#import "NetWorkReachability.h"
 
 @interface DataManager : NSObject
 
@@ -21,5 +22,7 @@
 
 - (void)cacheArticle:(Article *)article;
 - (void)updateArticle:(Article *)article withKey:(NSString *)key andValue:(id)value;
+
+- (void)loginVia:(LoginType)loginType withAccountId:(NSString *)accountId andPassword:(NSString *)password andNickName:(NSString *)nickName popViewController:(UIViewController *)controller;
 
 @end

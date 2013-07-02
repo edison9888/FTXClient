@@ -33,6 +33,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = _navigationController;
     [self.window makeKeyAndVisible];
+    
+    int loginType = [UserDefaults integerForKey:kUCLoginType];
+    if (loginType > -1) {
+        [[DataManager sharedManager] loginVia:loginType
+                                withAccountId:[UserDefaults stringForKey:kUCLoginAccountId]
+                                  andPassword:[UserDefaults stringForKey:kUCLoginPassword]
+                                  andNickName:[UserDefaults stringForKey:kUCLoginPassword]
+                            popViewController:nil];
+    }
+    
     return YES;
 }
 
@@ -45,6 +55,9 @@
 }
 
 - (void)setupUserDefaults {
+    NSDictionary *dict = @{kUCLoginType: @-1};
+    [UserDefaults registerDefaults:dict];
+    [UserDefaults synchronize];
 }
 
 @end

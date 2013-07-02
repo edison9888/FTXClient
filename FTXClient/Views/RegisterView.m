@@ -163,8 +163,9 @@
                                                [alert show];
                                            }
                                            else {
-                                               [UserDefaults setValue:mailField.text forKey:kUCAccountId];
-                                               [UserDefaults setValue:passField.text forKey:kUCAccountPwd];
+                                               [UserDefaults setValue:mailField.text forKey:kUCLoginAccountId];
+                                               [UserDefaults setValue:passField.text forKey:kUCLoginPassword];
+                                               [UserDefaults setInteger:LoginTypeFtx forKey:kUCLoginType];
                                                [UserDefaults synchronize];
 
                                                [DataManager sharedManager].currentAccount = account;
