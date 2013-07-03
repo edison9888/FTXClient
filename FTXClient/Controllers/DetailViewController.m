@@ -8,7 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "DetailViewController.h"
-#import "AccessAccountViewController.h"
 #import "CommentsTableViewController.h"
 #import "RelevantsTableViewController.h"
 #import "CustomIconButton.h"
@@ -16,7 +15,7 @@
 #import "UIImage+FTX.h"
 #import "UIImageView+AFNetworking.h"
 #import "UMSocial.h"
-#import "DataManager.h"
+#import "CommentViewController.h"
 
 @interface DetailViewController ()
 {
@@ -299,7 +298,8 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)commentAction {
-    DLog(@"comment");
+    CommentViewController *vc = [[CommentViewController alloc] initWithArticle:_article];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)shareAction {

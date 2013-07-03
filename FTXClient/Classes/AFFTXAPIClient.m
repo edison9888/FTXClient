@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 BitRice. All rights reserved.
 //
 
-#import "AFFTXAPIClient.h"
 #import "AFJSONRequestOperation.h"
 
 @implementation AFFTXAPIClient

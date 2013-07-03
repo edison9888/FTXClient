@@ -7,8 +7,6 @@
 //
 
 #import "Article.h"
-#import "AFFTXAPIClient.h"
-#import "DataManager.h"
 
 @implementation Article
 

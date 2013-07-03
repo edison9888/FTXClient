@@ -16,6 +16,9 @@
     #import "Enums.h"
     #import "Constants.h"
     #import "UserDefaultsKeys.h"
+    #import "DataManager.h"
+    #import "AccessAccountViewController.h"
+    #import "AFFTXAPIClient.h"
 #endif
 
 #ifdef DEBUG

@@ -8,13 +8,13 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "CommentViewController.h"
-#import "AccessAccountViewController.h"
-#import "DataManager.h"
+#import "UIColor+FTX.h"
+#import "UIImage+FTX.h"
 
 @interface CommentViewController ()
 {
     Article *_article;
-    UITextField *_commentLabel;
+    UITextView *_commentLabel;
 }
 @end
 
@@ -30,7 +30,33 @@
 - (void)loadView {
     [super loadView];
     
+    UILabel *label = [[UILabel alloc] init];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont systemFontOfSize:18];
+    label.numberOfLines = 0;
+    label.text = _article.title;
+    label.textColor = [UIColor colorWithHex:0xdddddd];
+    [self.view addSubview:label];
+
+    CGSize size = [_article.title sizeWithFont:label.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    label.frame = CGRectMake(10, 20, 300, size.height);
+
+    _commentLabel = [[UITextView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(label.frame)+20, 300, 100)];
+    _commentLabel.font = [UIFont systemFontOfSize:14];
+    _commentLabel.textColor = [UIColor darkGrayColor];
+    _commentLabel.layer.backgroundColor = [UIColor whiteColor].CGColor;
+    _commentLabel.layer.cornerRadius = 4;
+    [self.view addSubview:_commentLabel];
     
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, 125, 44);
+    button.center = CGPointMake(160, CGRectGetMaxY(_commentLabel.frame)+42);
+    button.layer.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]]].CGColor;
+    button.layer.cornerRadius = 4;
+    [button setTitle:@"发表评论" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(postReview) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -72,6 +98,14 @@
     [self updateProfileStatus];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([DataManager sharedManager].currentAccount == nil) {
+        AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
@@ -94,6 +128,20 @@
         [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
     else
         [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
+}
+
+- (void)postReview {
+    NSString *path = [NSString stringWithFormat:@"/app/article/add_review?userId=%d&authorId=%d&articleId=%d&content=%@", [DataManager sharedManager].currentAccount.userId, _article.author.id, _article.id, [_commentLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    DLog(@"path=%@", path);
+    [[AFFTXAPIClient sharedClient] getPath:path
+                                parameters:nil
+                                   success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                       DLog(@"comment: %@", JSON);
+//                                       [self.navigationController popViewControllerAnimated:YES];
+                                   }
+                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                       DLog(@"error: %@", error.description);
+                                   }];
 }
 
 @end

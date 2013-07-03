@@ -18,3 +18,9 @@ typedef enum {
     LoginTypeSina           = 1,
     LoginTypeTencent        = 2
 } LoginType;
+
+typedef enum {
+    AboutActionNone        = 0,
+    AboutActionComment     = 1,
+    AbountActionLove        = 2
+} AboutAction;

@@ -10,13 +10,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+FTX.h"
 #import "UIColor+FTX.h"
-#import "AccessAccountViewController.h"
 #import "UMSocial.h"
 #import "HomeViewController.h"
 #import "NetWorkReachability.h"
-#import "AFFTXAPIClient.h"
 #import "Account.h"
-#import "DataManager.h"
 
 @interface LoginView ()
 {

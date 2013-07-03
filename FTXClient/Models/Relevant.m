@@ -7,7 +7,6 @@
 //
 
 #import "Relevant.h"
-#import "AFFTXAPIClient.h"
 
 @implementation Relevant
 

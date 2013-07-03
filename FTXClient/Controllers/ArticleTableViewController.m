@@ -11,7 +11,6 @@
 #import "UIColor+FTX.h"
 #import "DetailViewController.h"
 #import "HomeViewController.h"
-#import "DataManager.h"
 
 #define kHeaderTag 9
 #define kFooterTag 10

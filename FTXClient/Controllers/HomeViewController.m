@@ -10,8 +10,6 @@
 #import "HomeViewController.h"
 #import "UIColor+FTX.h"
 #import "CategoryPickerView.h"
-#import "AccessAccountViewController.h"
-#import "DataManager.h"
 
 @interface HomeViewController ()
 {

@@ -7,7 +7,6 @@
 //
 
 #import "Review.h"
-#import "AFFTXAPIClient.h"
 
 @implementation Review
 

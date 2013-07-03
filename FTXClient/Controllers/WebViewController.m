@@ -8,8 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "WebViewController.h"
-#import "AccessAccountViewController.h"
-#import "DataManager.h"
 
 @interface WebViewController ()
 {

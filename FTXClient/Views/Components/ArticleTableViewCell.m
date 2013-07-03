@@ -14,6 +14,7 @@
 #import "HomeViewController.h"
 #import "CustomIconButton.h"
 #import "UMSocial.h"
+#import "CommentViewController.h"
 
 @interface ArticleTableViewCell ()
 {
@@ -193,7 +194,8 @@
 }
 
 - (void)commentAction {
-    DLog(@"comment");
+    CommentViewController *vc = [[CommentViewController alloc] initWithArticle:_article];
+    [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
 }
 
 - (void)shareAction {

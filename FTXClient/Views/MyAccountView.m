@@ -10,11 +10,8 @@
 #import "MyAccountView.h"
 #import "UIColor+FTX.h"
 #import "UIImage+FTX.h"
-#import "AccessAccountViewController.h"
-#import "DataManager.h"
 #import "UIImageView+AFNetworking.h"
 #import "Article.h"
-#import "AFFTXAPIClient.h"
 
 @interface MyAccountView ()
 {
@@ -83,7 +80,8 @@
         _nameLabel.text = [DataManager sharedManager].currentAccount.nickName;
         
         [_articles removeAllObjects];
-        [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/article/like_list?userId=%d&pageNo=1", [DataManager sharedManager].currentAccount.userId]
+        NSString *path = [NSString stringWithFormat:@"/app/article/like_list?userId=%d&pageNo=1", [DataManager sharedManager].currentAccount.userId];
+        [[AFFTXAPIClient sharedClient] getPath:path
                                     parameters:nil
                                        success:^(AFHTTPRequestOperation *operation, id JSON) {
                                            NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];

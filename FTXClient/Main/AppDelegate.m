@@ -11,7 +11,6 @@
 #import "UMSocial.h"
 #import <Crashlytics/Crashlytics.h>
 #import "HomeViewController.h"
-#import "DataManager.h"
 
 @implementation AppDelegate
 

@@ -6,9 +6,7 @@
 //  Copyright (c) 2013 BitRice. All rights reserved.
 //
 
-#import "DataManager.h"
 #import "FMResultSet.h"
-#import "AFFTXAPIClient.h"
 #import "UMSocial.h"
 
 @interface DataManager ()

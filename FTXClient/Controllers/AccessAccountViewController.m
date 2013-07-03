@@ -7,9 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "AccessAccountViewController.h"
 #import "UMSocial.h"
-#import "DataManager.h"
 
 @interface AccessAccountViewController ()
 

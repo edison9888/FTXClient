@@ -10,12 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+FTX.h"
 #import "UIColor+FTX.h"
-#import "AccessAccountViewController.h"
 #import "CustomIconButton.h"
 #import "NetWorkReachability.h"
-#import "AFFTXAPIClient.h"
 #import "Account.h"
-#import "DataManager.h"
 #import "HomeViewController.h"
 
 #define kAgreeButtonTag 1
