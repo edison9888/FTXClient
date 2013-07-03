@@ -38,9 +38,13 @@
     rect.origin.y = 44;
     rect.size.height -= 44;
     
-    _tableViewController = [[ArticleTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _tableViewController.tableView.frame = rect;
-    [self.view addSubview:_tableViewController.tableView];
+//    _tableViewController = [[ArticleTableViewController alloc] initWithStyle:UITableViewStylePlain];
+//    _tableViewController.tableView.frame = rect;
+//    [self.view addSubview:_tableViewController.tableView];
+    
+    _articlesCollection = [[ArticlesViewController alloc] init];
+    _articlesCollection.view.frame = rect;
+    [self.view addSubview:_articlesCollection.view];
 }
 
 - (void)viewDidLoad {

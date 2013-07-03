@@ -131,6 +131,12 @@
 		C2FB7B691777EC8B00A7A5F0 /* cell-icon-share.png in Resources */ = {isa = PBXBuildFile; fileRef = C2FB7B611777EC8B00A7A5F0 /* cell-icon-share.png */; };
 		C2FB7B6A1777EC8B00A7A5F0 /* cell-icon-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2FB7B621777EC8B00A7A5F0 /* cell-icon-share@2x.png */; };
 		C2FC749A177DF4ED00E70207 /* cache.db in Resources */ = {isa = PBXBuildFile; fileRef = C2FC7499177DF4ED00E70207 /* cache.db */; };
+		C2FED99D17847A110061DCE4 /* EGORefreshTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED99917847A110061DCE4 /* EGORefreshTableFooterView.m */; };
+		C2FED99E17847A110061DCE4 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED99B17847A110061DCE4 /* EGORefreshTableHeaderView.m */; };
+		C2FED9A417847A780061DCE4 /* PSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED9A117847A780061DCE4 /* PSCollectionView.m */; };
+		C2FED9A517847A780061DCE4 /* PSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED9A317847A780061DCE4 /* PSCollectionViewCell.m */; };
+		C2FED9A817847C5B0061DCE4 /* ArticlesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED9A717847C5B0061DCE4 /* ArticlesViewController.m */; };
+		C2FED9AB178480290061DCE4 /* ArticleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED9AA178480290061DCE4 /* ArticleViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -320,6 +326,19 @@
 		C2FB7B611777EC8B00A7A5F0 /* cell-icon-share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-icon-share.png"; sourceTree = "<group>"; };
 		C2FB7B621777EC8B00A7A5F0 /* cell-icon-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-icon-share@2x.png"; sourceTree = "<group>"; };
 		C2FC7499177DF4ED00E70207 /* cache.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = cache.db; sourceTree = "<group>"; };
+		C2FED99817847A110061DCE4 /* EGORefreshTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableFooterView.h; sourceTree = "<group>"; };
+		C2FED99917847A110061DCE4 /* EGORefreshTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableFooterView.m; sourceTree = "<group>"; };
+		C2FED99A17847A110061DCE4 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		C2FED99B17847A110061DCE4 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		C2FED99C17847A110061DCE4 /* EGOViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOViewCommon.h; sourceTree = "<group>"; };
+		C2FED9A017847A780061DCE4 /* PSCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionView.h; sourceTree = "<group>"; };
+		C2FED9A117847A780061DCE4 /* PSCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionView.m; sourceTree = "<group>"; };
+		C2FED9A217847A780061DCE4 /* PSCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionViewCell.h; sourceTree = "<group>"; };
+		C2FED9A317847A780061DCE4 /* PSCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionViewCell.m; sourceTree = "<group>"; };
+		C2FED9A617847C5B0061DCE4 /* ArticlesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlesViewController.h; sourceTree = "<group>"; };
+		C2FED9A717847C5B0061DCE4 /* ArticlesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlesViewController.m; sourceTree = "<group>"; };
+		C2FED9A9178480290061DCE4 /* ArticleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewCell.h; sourceTree = "<group>"; };
+		C2FED9AA178480290061DCE4 /* ArticleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -533,6 +552,8 @@
 			children = (
 				C2ACFFC21775FC900018EBBE /* AccessAccountViewController.h */,
 				C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */,
+				C2FED9A617847C5B0061DCE4 /* ArticlesViewController.h */,
+				C2FED9A717847C5B0061DCE4 /* ArticlesViewController.m */,
 				C222A0C817797AA60078EBBD /* ArticleTableViewController.h */,
 				C222A0C917797AA60078EBBD /* ArticleTableViewController.m */,
 				C21073EC17811F8100EDCA46 /* CommentViewController.h */,
@@ -566,6 +587,7 @@
 				C2AE994717705873007B704D /* AFNetworking */,
 				C2AE994517704014007B704D /* Crashlytics.framework */,
 				C2C776D717741E2200D3ABF5 /* fmdb */,
+				C2FED99F17847A780061DCE4 /* PSCollectionView */,
 				C2AE993517703BA8007B704D /* UMeng */,
 				C2C776A71774170E00D3ABF5 /* UMSocial_Sdk_2.1.3 */,
 			);
@@ -576,6 +598,7 @@
 			isa = PBXGroup;
 			children = (
 				C2FB7B4C1776D6FB00A7A5F0 /* Components */,
+				C2FED99717847A110061DCE4 /* EGO */,
 				C2B93071177463EF000BE06A /* CategoryPickerView.h */,
 				C2B93072177463EF000BE06A /* CategoryPickerView.m */,
 				C2FB7B361776C38E00A7A5F0 /* LoginView.h */,
@@ -707,12 +730,37 @@
 			children = (
 				C2FB7B4D1776D6FB00A7A5F0 /* ArticleTableViewCell.h */,
 				C2FB7B4E1776D6FB00A7A5F0 /* ArticleTableViewCell.m */,
+				C2FED9A9178480290061DCE4 /* ArticleViewCell.h */,
+				C2FED9AA178480290061DCE4 /* ArticleViewCell.m */,
 				C2B94A34177BD86C00563377 /* CommentTableViewCell.h */,
 				C2B94A35177BD86C00563377 /* CommentTableViewCell.m */,
 				C2FB7B501776D72F00A7A5F0 /* CustomIconButton.h */,
 				C2FB7B511776D72F00A7A5F0 /* CustomIconButton.m */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		C2FED99717847A110061DCE4 /* EGO */ = {
+			isa = PBXGroup;
+			children = (
+				C2FED99817847A110061DCE4 /* EGORefreshTableFooterView.h */,
+				C2FED99917847A110061DCE4 /* EGORefreshTableFooterView.m */,
+				C2FED99A17847A110061DCE4 /* EGORefreshTableHeaderView.h */,
+				C2FED99B17847A110061DCE4 /* EGORefreshTableHeaderView.m */,
+				C2FED99C17847A110061DCE4 /* EGOViewCommon.h */,
+			);
+			path = EGO;
+			sourceTree = "<group>";
+		};
+		C2FED99F17847A780061DCE4 /* PSCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				C2FED9A017847A780061DCE4 /* PSCollectionView.h */,
+				C2FED9A117847A780061DCE4 /* PSCollectionView.m */,
+				C2FED9A217847A780061DCE4 /* PSCollectionViewCell.h */,
+				C2FED9A317847A780061DCE4 /* PSCollectionViewCell.m */,
+			);
+			path = PSCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -903,6 +951,12 @@
 				C21073EE17811F8100EDCA46 /* CommentViewController.m in Sources */,
 				C21073F11781305A00EDCA46 /* Account.m in Sources */,
 				C21073F41781C1FD00EDCA46 /* MyAccountView.m in Sources */,
+				C2FED99D17847A110061DCE4 /* EGORefreshTableFooterView.m in Sources */,
+				C2FED99E17847A110061DCE4 /* EGORefreshTableHeaderView.m in Sources */,
+				C2FED9A417847A780061DCE4 /* PSCollectionView.m in Sources */,
+				C2FED9A517847A780061DCE4 /* PSCollectionViewCell.m in Sources */,
+				C2FED9A817847C5B0061DCE4 /* ArticlesViewController.m in Sources */,
+				C2FED9AB178480290061DCE4 /* ArticleViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
