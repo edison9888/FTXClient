@@ -131,7 +131,7 @@
 }
 
 - (void)postReview {
-    NSString *path = [NSString stringWithFormat:@"/app/article/add_review?userId=%d&authorId=%d&articleId=%d&content=%@", [DataManager sharedManager].currentAccount.userId, _article.author.id, _article.id, [_commentLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *path = [NSString stringWithFormat:@"/app/article/add_review?userId=%d&pwd=%@&authorId=%d&articleId=%d&content=%@", [DataManager sharedManager].currentAccount.userId, [DataManager sharedManager].currentAccount.password, _article.author.id, _article.id, [_commentLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     DLog(@"path=%@", path);
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil

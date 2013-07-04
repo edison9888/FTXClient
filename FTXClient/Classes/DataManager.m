@@ -63,6 +63,13 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kAccountChangeNotification object:self];
 }
 
+- (void)setCategoryTag:(NSUInteger)categoryTag {
+    if (_categoryTag != categoryTag) {
+        _categoryTag = categoryTag;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCategoryChangeNotification object:self];
+    }
+}
+
 - (void)cacheArticle:(Article *)article {
     FMResultSet *rs = [_db executeQuery:@"SELECT * FROM Article WHERE id = ?", @(article.id)];
     if (![rs next]) {

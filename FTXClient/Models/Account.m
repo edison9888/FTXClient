@@ -14,6 +14,7 @@
     if (self = [super init]) {
         _accountId = attributes[@"accountId"];
         _nickName = attributes[@"nickName"];
+        _password = attributes[@"password"];
         _userId = [attributes[@"userId"] integerValue];
         _smallImageId = attributes[@"smallImageId"];
         _middleImageId = attributes[@"middleImageId"];

@@ -84,7 +84,8 @@ static NSDateFormatter* refFormatter = nil;
 }
 
 + (void)retrieveArticlesWithBlock:(void (^)(NSArray *articles, NSError *error))block forCategory:(CategoryType)type atPage:(NSUInteger)pageIndex {
-    [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/article/list?pageNo=%d", pageIndex]
+    NSString *path = [NSString stringWithFormat:@"/app/article/list?pageNo=%d", pageIndex];
+    [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
                                        NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];

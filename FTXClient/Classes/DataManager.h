@@ -16,6 +16,7 @@
 
 @property (nonatomic, readonly) FMDatabase *db;
 @property (nonatomic, strong) Account *currentAccount;
+@property (nonatomic) NSUInteger categoryTag;
 
 + (DataManager *)sharedManager;
 - (void)checkDatabase;

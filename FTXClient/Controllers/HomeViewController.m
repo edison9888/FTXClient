@@ -35,8 +35,8 @@
     [self.view addSubview:categoryPicker];
     
     CGRect rect = [UIScreen mainScreen].applicationFrame;
-    rect.origin.y = 44;
-    rect.size.height -= 44;
+    rect.origin.y = CGRectGetHeight(categoryPicker.frame);
+    rect.size.height -= CGRectGetHeight(categoryPicker.frame);
     
 //    _tableViewController = [[ArticleTableViewController alloc] initWithStyle:UITableViewStylePlain];
 //    _tableViewController.tableView.frame = rect;
@@ -87,6 +87,8 @@
     self.title = @"饭特稀体育";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCategoryType) name:kCategoryChangeNotification object:[DataManager sharedManager]];
+
     [self updateProfileStatus];
 }
 
@@ -94,6 +96,7 @@
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCategoryChangeNotification object:[DataManager sharedManager]];
 }
 
 - (void)tapLeftBarButton {
@@ -112,6 +115,10 @@
         [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
     else
         [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
+}
+
+- (void)changeCategoryType {
+    
 }
 
 @end

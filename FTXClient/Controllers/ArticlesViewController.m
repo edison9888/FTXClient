@@ -66,17 +66,32 @@
 }
 
 - (void)loadDataSource {
-    [Article retrieveArticlesWithBlock:^(NSArray *articles, NSError *error){
-        for (Article *article in articles) {
-            if (![_articleIds containsObject:@(article.id)]) {
-                [_articleIds addObject:@(article.id)];
-                [_articles addObject:article];
-            }
-        }
-        [_collectionView reloadData];
-    }
-                           forCategory:CategoryTypeAll
-                                atPage:nextPageNo];
+    NSString *path = [NSString stringWithFormat:@"/app/article/list?pageNo=%d", nextPageNo];
+    [[AFFTXAPIClient sharedClient] getPath:path
+                                parameters:nil
+                                   success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                       NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
+                                       for (NSDictionary *attributes in postsFromResponse) {
+                                           @autoreleasepool {
+                                               Article *article = [[Article alloc] initWithAttributes:attributes];
+                                               if (![_articleIds containsObject:@(article.id)]) {
+                                                   [_articleIds addObject:@(article.id)];
+                                                   [_articles addObject:article];
+                                               }
+                                               
+                                               // cache articles
+                                               [[DataManager sharedManager] cacheArticle:article];
+                                               
+                                               // interface update
+                                               [_refreshHeaderView setState:EGOOPullRefreshNormal];
+                                           }
+                                       }
+                                       
+                                       [_collectionView reloadData];
+                                   }
+                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                       DLog(@"error: %@", error.description);
+                                   }];
 }
 
 #pragma mark - PSCollectionViewDelegate

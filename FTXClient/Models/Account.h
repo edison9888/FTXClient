@@ -10,6 +10,7 @@
 
 @property (readonly) NSString *accountId;
 @property (readonly) NSString *nickName;
+@property (readonly) NSString *password;
 @property (readonly) NSUInteger userId;
 @property (readonly) NSString *smallImageId;
 @property (readonly) NSString *middleImageId;
