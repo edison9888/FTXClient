@@ -91,7 +91,7 @@
         [[AFFTXAPIClient sharedClient] getPath:[NSString stringWithFormat:@"/app/user/login?accountId=%@&nickName=%@&password=%@&sourceId=%d", accountId, nickName, password, loginType]
                                     parameters:nil
                                        success:^(AFHTTPRequestOperation *operation, id JSON) {
-                                           DLog(@"success: %@", JSON);
+//                                           DLog(@"success: %@", JSON);
                                            Account *account = [[Account alloc] initWithAttributes:JSON];
                                            if (!account.success) {
                                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:account.msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

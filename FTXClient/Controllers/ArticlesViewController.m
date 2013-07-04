@@ -24,7 +24,6 @@
 {
     NSMutableArray *_articles;
     NSMutableArray *_articleIds;
-    NSUInteger nextPageNo;
     
     PSCollectionView *_collectionView;
 }
@@ -36,7 +35,7 @@
     if (self = [super init]) {
         _articles = [NSMutableArray array];
         _articleIds = [NSMutableArray array];
-        nextPageNo = 1;
+        _currentPageNo = 1;
         
         // retrieve from cache database
 //        FMResultSet *rs = [[DataManager sharedManager].db executeQuery:@"SELECT * FROM Article"];
@@ -96,24 +95,26 @@
 
 #pragma mark - methods for creating and removing the header view
 
--(void)createHeaderView{
+- (void)createHeaderView {
     if (_refreshHeaderView && [_refreshHeaderView superview]) {
         [_refreshHeaderView removeFromSuperview];
     }
-	_refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height, self.view.frame.size.width, self.view.bounds.size.height)];
+    
+    CGRect rect = self.view.bounds;
+	_refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -CGRectGetHeight(rect), CGRectGetWidth(rect), CGRectGetHeight(rect))];
     _refreshHeaderView.delegate = self;
     
 	[_collectionView addSubview:_refreshHeaderView];
 }
 
--(void)removeHeaderView{
+- (void)removeHeaderView {
     if (_refreshHeaderView && [_refreshHeaderView superview]) {
         [_refreshHeaderView removeFromSuperview];
     }
     _refreshHeaderView = nil;
 }
 
--(void)setFooterView{
+- (void)setFooterView {
     // if the footerView is nil, then create it, reset the position of the footer
     CGFloat height = MAX(_collectionView.contentSize.height, _collectionView.frame.size.height);
     if (_refreshFooterView && [_refreshFooterView superview]) {
@@ -122,14 +123,13 @@
     }
     else {
         // create the footerView
-        _refreshFooterView = [[EGORefreshTableFooterView alloc] initWithFrame:
-                              CGRectMake(0.0f, height, _collectionView.frame.size.width, self.view.bounds.size.height)];
+        _refreshFooterView = [[EGORefreshTableFooterView alloc] initWithFrame:CGRectMake(0.0f, height, _collectionView.frame.size.width, self.view.bounds.size.height)];
         _refreshFooterView.delegate = self;
         [_collectionView addSubview:_refreshFooterView];
     }
 }
 
--(void)removeFooterView{
+- (void)removeFooterView {
     if (_refreshFooterView && [_refreshFooterView superview]) {
         [_refreshFooterView removeFromSuperview];
     }
@@ -165,7 +165,7 @@
     
     if (aRefreshPos == EGORefreshHeader) {
         // pull down to refresh data
-        [self performSelector:@selector(refreshView:) withObject:@NO afterDelay:.0];
+        [self refreshView:NO];
     }
     else if (aRefreshPos == EGORefreshFooter) {
         // pull up to load more data
@@ -230,8 +230,15 @@
 }
 
 - (void)refreshView:(BOOL)clean {
+    DLog(@"clean? %d", clean);
+
+    // show header view
     _collectionView.contentOffset = CGPointMake(0, -65);
-    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:_collectionView];
+    [_refreshHeaderView setState:EGOOPullRefreshLoading];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.2];
+    _collectionView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
+    [UIView commitAnimations];
 
     if (clean) {
         [_articles removeAllObjects];
@@ -239,7 +246,7 @@
         [_collectionView reloadData];
     }
     
-    NSString *path = [NSString stringWithFormat:@"/app/article/list?tag=%d&pageNo=%d", [DataManager sharedManager].categoryTag, nextPageNo];
+    NSString *path = [NSString stringWithFormat:@"/app/article/list?tag=%d&pageNo=1", [DataManager sharedManager].categoryTag];
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -260,6 +267,7 @@
                                        }
                                        
                                        [_collectionView reloadData];
+                                       [self setFooterView];
                                    }
                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                        DLog(@"error: %@", error.description);
@@ -267,9 +275,35 @@
 }
 
 -(void)getNextPageView{
-    [self removeFooterView];
-    
-    [self finishReloadingData];
+    NSString *path = [NSString stringWithFormat:@"/app/article/list?tag=%d&direction=1&pageNo=%d", [DataManager sharedManager].categoryTag, _currentPageNo+1];
+    DLog(@"getNextPageView: %@", path);
+    [[AFFTXAPIClient sharedClient] getPath:path
+                                parameters:nil
+                                   success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                       _currentPageNo++;
+                                       NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
+                                       for (NSDictionary *attributes in postsFromResponse) {
+                                           @autoreleasepool {
+                                               Article *article = [[Article alloc] initWithAttributes:attributes];
+                                               if (![_articleIds containsObject:@(article.id)]) {
+                                                   [_articleIds addObject:@(article.id)];
+                                                   [_articles addObject:article];
+                                               }
+                                               
+                                               // cache articles
+                                               [[DataManager sharedManager] cacheArticle:article];
+                                               
+                                               [self removeFooterView];
+                                               [self finishReloadingData];
+                                           }
+                                       }
+                                       
+                                       [_collectionView reloadData];
+                                       [self setFooterView];
+                                   }
+                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                       DLog(@"error: %@", error.description);
+                                   }];
 }
 
 @end

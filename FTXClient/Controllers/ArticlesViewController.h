@@ -16,6 +16,8 @@
     BOOL _reloading;
 }
 
+@property (nonatomic) NSUInteger currentPageNo;
+
 -(void)refreshView:(BOOL)clean;
 
 @end

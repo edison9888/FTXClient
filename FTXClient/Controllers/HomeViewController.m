@@ -118,6 +118,7 @@
 }
 
 - (void)changeCategoryType {
+    _articlesCollection.currentPageNo = 1;
     [_articlesCollection refreshView:YES];
 }
 
