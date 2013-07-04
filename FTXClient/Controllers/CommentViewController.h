@@ -7,7 +7,7 @@
 //
 #import "Article.h"
 
-@interface CommentViewController : UIViewController
+@interface CommentViewController : UIViewController <UITextViewDelegate>
 
 - (id)initWithArticle:(Article *)article;
 

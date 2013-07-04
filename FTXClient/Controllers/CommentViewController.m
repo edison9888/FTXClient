@@ -15,6 +15,7 @@
 {
     Article *_article;
     UITextView *_commentLabel;
+    UIScrollView *_scrollView;
 }
 @end
 
@@ -28,7 +29,7 @@
 }
 
 - (void)loadView {
-    [super loadView];
+    self.view = _scrollView = [[UIScrollView alloc] init];
     
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor clearColor];
@@ -42,6 +43,7 @@
     label.frame = CGRectMake(10, 20, 300, size.height);
 
     _commentLabel = [[UITextView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(label.frame)+20, 300, 100)];
+    _commentLabel.delegate = self;
     _commentLabel.font = [UIFont systemFontOfSize:14];
     _commentLabel.textColor = [UIColor darkGrayColor];
     _commentLabel.layer.backgroundColor = [UIColor whiteColor].CGColor;
@@ -100,6 +102,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
     if ([DataManager sharedManager].currentAccount == nil) {
         AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -110,6 +116,13 @@
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:[DataManager sharedManager]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)tapLeftBarButton {
@@ -137,11 +150,27 @@
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
                                        DLog(@"comment: %@", JSON);
-//                                       [self.navigationController popViewControllerAnimated:YES];
+                                       if ([JSON[@"success"] boolValue])
+                                           [self.navigationController popViewControllerAnimated:YES];
                                    }
                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                        DLog(@"error: %@", error.description);
                                    }];
 }
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+}
+
+#pragma mark - UITextViewDelegate
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    CGPoint targetPoint = CGPointMake(0, CGRectGetMinY(textView.frame) - 10);
+    targetPoint.y = fminf(targetPoint.y, 74);
+    [_scrollView setContentOffset:targetPoint animated:YES];
+}
+
 
 @end

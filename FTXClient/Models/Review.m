@@ -22,6 +22,7 @@ static NSDateFormatter* refFormatter = nil;
         }
         
         _id = [attributes[@"id"] integerValue];
+        _articleId = [attributes[@"articleId"] integerValue];
         _content = attributes[@"content"];
         
         _author = [[Author alloc] initWithId:[attributes[@"authorId"] integerValue]

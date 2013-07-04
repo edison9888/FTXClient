@@ -11,6 +11,7 @@
 @interface Review : NSObject
 
 @property (readonly) NSUInteger id;
+@property (readonly) NSUInteger articleId;
 @property (readonly) NSString *content;
 @property (readonly) NSDate *reviewTime;
 
