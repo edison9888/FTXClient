@@ -91,7 +91,7 @@
 
 #pragma mark - PSCollectionViewDelegateDataSource
 - (NSInteger)numberOfRowsInCollectionView:(PSCollectionView *)collectionView {
-    return MIN(10, _articles.count);//[_articles count];
+    return [_articles count];
 }
 
 - (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
@@ -114,14 +114,10 @@
     if (_refreshHeaderView && [_refreshHeaderView superview]) {
         [_refreshHeaderView removeFromSuperview];
     }
-	_refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:
-                          CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,
-                                     self.view.frame.size.width, self.view.bounds.size.height)];
+	_refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.view.bounds.size.height, self.view.frame.size.width, self.view.bounds.size.height)];
     _refreshHeaderView.delegate = self;
     
 	[_collectionView addSubview:_refreshHeaderView];
-    
-    [_refreshHeaderView refreshLastUpdatedDate];
 }
 
 -(void)removeHeaderView{
@@ -136,21 +132,14 @@
     CGFloat height = MAX(_collectionView.contentSize.height, _collectionView.frame.size.height);
     if (_refreshFooterView && [_refreshFooterView superview]) {
         // reset position
-        _refreshFooterView.frame = CGRectMake(0.0f,
-                                              height,
-                                              _collectionView.frame.size.width,
-                                              self.view.bounds.size.height);
-    }else {
+        _refreshFooterView.frame = CGRectMake(0.0f, height, _collectionView.frame.size.width, self.view.bounds.size.height);
+    }
+    else {
         // create the footerView
         _refreshFooterView = [[EGORefreshTableFooterView alloc] initWithFrame:
-                              CGRectMake(0.0f, height,
-                                         _collectionView.frame.size.width, self.view.bounds.size.height)];
+                              CGRectMake(0.0f, height, _collectionView.frame.size.width, self.view.bounds.size.height)];
         _refreshFooterView.delegate = self;
         [_collectionView addSubview:_refreshFooterView];
-    }
-    
-    if (_refreshFooterView) {
-        [_refreshFooterView refreshLastUpdatedDate];
     }
 }
 

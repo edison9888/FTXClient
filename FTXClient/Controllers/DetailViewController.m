@@ -256,6 +256,15 @@ static NSDateFormatter* formatter = nil;
     _publishLabel.frame = CGRectMake(CGRectGetMaxX(_authorNameLabel.frame)+10, 50-size.height, size.width, size.height);
     
     int topOffset = 70;
+
+    if (_imageView.image) {
+        CGFloat objectWidth = 250;
+        CGFloat objectHeight = _article.imageHeight;
+        CGFloat scaledHeight = floorf(objectHeight / (objectWidth / 300.f));
+        _imageView.frame = CGRectMake(0, topOffset, 300, scaledHeight);
+        topOffset += scaledHeight + 10;
+    }
+    
     if (!isEmpty(_titleLabel.text)) {
         size = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
         _titleLabel.frame = CGRectMake(0, topOffset, 300, size.height);
@@ -266,11 +275,6 @@ static NSDateFormatter* formatter = nil;
         size = [_contentLabel.text sizeWithFont:_contentLabel.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
         _contentLabel.frame = CGRectMake(0, topOffset, 300, size.height);
         topOffset += size.height + 10;
-    }
-    
-    if (_imageView.image) {
-        _imageView.frame = CGRectMake(0, topOffset, _imageView.image.size.width, _imageView.image.size.height);
-        topOffset += _imageView.image.size.height + 10;
     }
     
     _tabComment.frame = CGRectMake(0, topOffset, 78, 28);
