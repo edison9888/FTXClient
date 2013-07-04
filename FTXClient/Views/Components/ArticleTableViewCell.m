@@ -101,7 +101,7 @@
     else {
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:article.imageUrl]];
         [req addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-        __block ArticleTableViewCell *cell = self;
+//        __block ArticleTableViewCell *cell = self;
         [_imageView setImageWithURLRequest:req
                           placeholderImage:[UIImage imageNamed:@"cell-image-placeholder"]
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){

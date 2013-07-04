@@ -313,7 +313,7 @@ static NSDateFormatter* formatter = nil;
                                          appKey:kUMengAppKey
                                       shareText:_article.title
                                      shareImage:_article.image
-                                shareToSnsNames:@[UMShareToSina, UMShareToQzone]
+                                shareToSnsNames:@[UMShareToSina, UMShareToQzone, UMShareToWechat]
                                        delegate:nil];
 
 }

@@ -11,6 +11,7 @@
 #import "UMSocial.h"
 #import <Crashlytics/Crashlytics.h>
 #import "HomeViewController.h"
+#import "WXApi.h"
 
 @implementation AppDelegate
 
@@ -19,6 +20,11 @@
     [Crashlytics startWithAPIKey:@"ed27e953e56c4a8fa6bda4ad36bc6fbcbdbdc449"];
     [MobClick startWithAppkey:kUMengAppKey];
     [UMSocialData setAppKey:kUMengAppKey];
+    
+    // wechat
+    [WXApi registerApp:@"wx62c0b969df327319"];
+    [UMSocialControllerService defaultControllerService].socialData.extConfig.wxMessageType = UMSocialWXMessageTypeApp;
+    [UMSocialData defaultData].extConfig.appUrl = @"http://www.umeng.com";
     
     [self setupUserDefaults];
     [[DataManager sharedManager] checkDatabase];
