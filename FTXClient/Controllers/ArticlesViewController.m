@@ -62,36 +62,7 @@
     [self.view addSubview:_collectionView];
     
     [self createHeaderView];
-    [self loadDataSource];
-}
-
-- (void)loadDataSource {
-    NSString *path = [NSString stringWithFormat:@"/app/article/list?pageNo=%d", nextPageNo];
-    [[AFFTXAPIClient sharedClient] getPath:path
-                                parameters:nil
-                                   success:^(AFHTTPRequestOperation *operation, id JSON) {
-                                       NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
-                                       for (NSDictionary *attributes in postsFromResponse) {
-                                           @autoreleasepool {
-                                               Article *article = [[Article alloc] initWithAttributes:attributes];
-                                               if (![_articleIds containsObject:@(article.id)]) {
-                                                   [_articleIds addObject:@(article.id)];
-                                                   [_articles addObject:article];
-                                               }
-                                               
-                                               // cache articles
-                                               [[DataManager sharedManager] cacheArticle:article];
-                                               
-                                               // interface update
-                                               [_refreshHeaderView setState:EGOOPullRefreshNormal];
-                                           }
-                                       }
-                                       
-                                       [_collectionView reloadData];
-                                   }
-                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                       DLog(@"error: %@", error.description);
-                                   }];
+    [self refreshView:NO];
 }
 
 #pragma mark - PSCollectionViewDelegate
@@ -194,7 +165,7 @@
     
     if (aRefreshPos == EGORefreshHeader) {
         // pull down to refresh data
-        [self performSelector:@selector(refreshView) withObject:nil afterDelay:2.0];
+        [self performSelector:@selector(refreshView:) withObject:@NO afterDelay:.0];
     }
     else if (aRefreshPos == EGORefreshFooter) {
         // pull up to load more data
@@ -216,9 +187,10 @@
     
     if (_refreshFooterView) {
         [_refreshFooterView egoRefreshScrollViewDataSourceDidFinishedLoading:_collectionView];
-        [self setFooterView];
+        
     }
     
+    [self setFooterView];
     // overide, the actula reloading tableView operation and reseting position operation is done in the subclass
 }
 
@@ -257,29 +229,47 @@
 	return _reloading; // should return if data source model is reloading
 }
 
+- (void)refreshView:(BOOL)clean {
+    _collectionView.contentOffset = CGPointMake(0, -65);
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:_collectionView];
 
-// if we don't realize this method, it won't display the refresh timestamp
-- (NSDate *)egoRefreshTableDataSourceLastUpdated:(UIView*)view{
-	
-	return [NSDate date]; // should return date data source was last changed
-	
-}
-
--(void)refreshView{
-    [self testFinishedLoadData];
+    if (clean) {
+        [_articles removeAllObjects];
+        [_articleIds removeAllObjects];
+        [_collectionView reloadData];
+    }
+    
+    NSString *path = [NSString stringWithFormat:@"/app/article/list?tag=%d&pageNo=%d", [DataManager sharedManager].categoryTag, nextPageNo];
+    [[AFFTXAPIClient sharedClient] getPath:path
+                                parameters:nil
+                                   success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                       NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
+                                       for (NSDictionary *attributes in postsFromResponse) {
+                                           @autoreleasepool {
+                                               Article *article = [[Article alloc] initWithAttributes:attributes];
+                                               if (![_articleIds containsObject:@(article.id)]) {
+                                                   [_articleIds addObject:@(article.id)];
+                                                   [_articles addObject:article];
+                                               }
+                                               
+                                               // cache articles
+                                               [[DataManager sharedManager] cacheArticle:article];
+                                               
+                                               [self finishReloadingData];
+                                           }
+                                       }
+                                       
+                                       [_collectionView reloadData];
+                                   }
+                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                       DLog(@"error: %@", error.description);
+                                   }];
 }
 
 -(void)getNextPageView{
     [self removeFooterView];
     
-    [self testFinishedLoadData];
-    
-}
-
--(void)testFinishedLoadData{
-    
     [self finishReloadingData];
-    [self setFooterView];
 }
 
 @end

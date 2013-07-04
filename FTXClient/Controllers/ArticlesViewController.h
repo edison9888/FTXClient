@@ -16,4 +16,6 @@
     BOOL _reloading;
 }
 
+-(void)refreshView:(BOOL)clean;
+
 @end

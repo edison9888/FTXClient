@@ -281,7 +281,9 @@ static NSDateFormatter* formatter = nil;
     _tabRelevant.frame = CGRectMake(83, topOffset, 78, 28);
     topOffset += 26;
     
-    _tabContentContainer.frame = CGRectMake(0, topOffset, 300, fmaxf(fmaxf(44, _article.numOfComments*44), _article.numOfRelevants*44));
+    CGFloat h = fmaxf(fmaxf(44, _article.numOfComments*44), _article.numOfRelevants*44);
+    h = fmaxf(h, CGRectGetHeight(scrollView.frame) - topOffset - 10);
+    _tabContentContainer.frame = CGRectMake(0, topOffset, 300, h);
     topOffset += CGRectGetHeight(_tabContentContainer.frame) + 10;
     
     scrollView.contentSize = CGSizeMake(300, topOffset);

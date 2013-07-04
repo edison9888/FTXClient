@@ -118,7 +118,7 @@
 }
 
 - (void)changeCategoryType {
-    
+    [_articlesCollection refreshView:YES];
 }
 
 @end
