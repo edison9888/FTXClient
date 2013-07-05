@@ -50,8 +50,39 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftView];
     
     // title
-    self.title = @"设置";
+    self.title  = @"设置";
     
+    btnNames    = @[@"清空缓存",@"检查版本",@"意见反馈",@"关于我们"];
+    tableView   = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 320) style:UITableViewStyleGrouped];
+    [self.view addSubview:tableView];
+    tableView.allowsSelection = NO;
+    tableView.backgroundView = nil;
+    tableView.delegate      = self;
+    tableView.dataSource    = self;
+    [tableView reloadData];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 4;
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"";
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *MyIdentifier = @"MyReuseIdentifier";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+    cell.textLabel.text = btnNames[indexPath.row];
+    cell.textLabel.font = [UIFont systemFontOfSize:17];
+    return cell;
 }
 
 - (void)tapLeftBarButton {

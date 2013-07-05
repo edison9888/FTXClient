@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingViewController : UIViewController
+@interface SettingViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>{
+    UITableView *tableView;
+    NSArray *btnNames;
+}
 
 @end
