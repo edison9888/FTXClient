@@ -36,14 +36,6 @@
         _articles = [NSMutableArray array];
         _articleIds = [NSMutableArray array];
         _currentPageNo = 1;
-        
-        // retrieve from cache database
-//        FMResultSet *rs = [[DataManager sharedManager].db executeQuery:@"SELECT * FROM Article"];
-//        while ([rs next]) {
-//            Article *article = [[Article alloc] initWithResultSet:rs];
-//            [_articleIds addObject:@(article.id)];
-//            [_articles addObject:article];
-//        }
     }
     return self;
 }
@@ -61,7 +53,7 @@
     [self.view addSubview:_collectionView];
     
     [self createHeaderView];
-    [self refreshView:NO];
+    [self refreshView:YES];
 }
 
 #pragma mark - PSCollectionViewDelegate
@@ -244,43 +236,68 @@
         [_articles removeAllObjects];
         [_articleIds removeAllObjects];
         [_collectionView reloadData];
+        
+        // retrieve from cache database
+        NSString *q = @"SELECT * FROM Article AS A JOIN Article_Tag AS AT ON A.id=AT.articleId WHERE AT.tag = ? ORDER BY A.id DESC";
+        FMResultSet *rs = [[DataManager sharedManager].db executeQuery:q, @([DataManager sharedManager].categoryTag)];
+        while ([rs next]) {
+            Article *article = [[Article alloc] initWithResultSet:rs];
+            [_articleIds addObject:@(article.id)];
+            [_articles addObject:article];
+        }
+        
+        // update interface
+        [_collectionView reloadData];
+        [self setFooterView];
     }
     
     NSString *path = [NSString stringWithFormat:@"/app/article/list?tag=%d&pageNo=1", [DataManager sharedManager].categoryTag];
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
-                                       NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
-                                       for (NSDictionary *attributes in postsFromResponse) {
-                                           @autoreleasepool {
-                                               Article *article = [[Article alloc] initWithAttributes:attributes];
-                                               if (![_articleIds containsObject:@(article.id)]) {
-                                                   [_articleIds addObject:@(article.id)];
-                                                   [_articles addObject:article];
+                                       BOOL success = [JSON[@"success"] boolValue];
+                                       if (success) {
+                                           int tag = [JSON[@"tag"] integerValue];
+                                           int maxId = [JSON[@"maxId"] integerValue];
+                                           //int minId = [JSON[@"minId"] integerValue];
+                                           if ([_articleIds count] == 0 || maxId > [_articleIds[0] integerValue]) {
+                                               NSArray *articles = JSON[@"articles"];
+                                               for (int i=0; i<[articles count]; i++) {
+                                                   @autoreleasepool {
+                                                       Article *article = [[Article alloc] initWithAttributes:articles[i]];
+                                                       if (![_articleIds containsObject:@(article.id)]) {
+                                                           [_articleIds insertObject:@(article.id) atIndex:i];
+                                                           [_articles insertObject:article atIndex:i];
+                                                       }
+                                                       
+                                                       // cache articles
+                                                       [[DataManager sharedManager] cacheArticle:article withTag:tag];
+                                                   }
                                                }
                                                
-                                               // cache articles
-                                               [[DataManager sharedManager] cacheArticle:article];
-                                               
-                                               [self finishReloadingData];
+                                               // update interface
+                                               [_collectionView reloadData];
+                                               [self setFooterView];
                                            }
+                                           
+                                           // finish loading status anyway
+                                           [self finishReloadingData];
                                        }
-                                       
-                                       [_collectionView reloadData];
-                                       [self setFooterView];
                                    }
                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                        DLog(@"error: %@", error.description);
+                                       [self finishReloadingData];
                                    }];
 }
 
--(void)getNextPageView{
+- (void)getNextPageView {
     NSString *path = [NSString stringWithFormat:@"/app/article/list?tag=%d&direction=1&pageNo=%d", [DataManager sharedManager].categoryTag, _currentPageNo+1];
     DLog(@"getNextPageView: %@", path);
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
                                        _currentPageNo++;
+                                       int tag = [[JSON valueForKeyPath:@"tag"] integerValue];
                                        NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
                                        for (NSDictionary *attributes in postsFromResponse) {
                                            @autoreleasepool {
@@ -291,7 +308,7 @@
                                                }
                                                
                                                // cache articles
-                                               [[DataManager sharedManager] cacheArticle:article];
+                                               [[DataManager sharedManager] cacheArticle:article withTag:tag];
                                                
                                                [self removeFooterView];
                                                [self finishReloadingData];

@@ -21,7 +21,7 @@
 + (DataManager *)sharedManager;
 - (void)checkDatabase;
 
-- (void)cacheArticle:(Article *)article;
+- (void)cacheArticle:(Article *)article withTag:(NSUInteger)tag;
 - (void)updateArticle:(Article *)article withKey:(NSString *)key andValue:(id)value;
 
 - (void)loginVia:(LoginType)loginType withAccountId:(NSString *)accountId andPassword:(NSString *)password andNickName:(NSString *)nickName popViewController:(UIViewController *)controller;

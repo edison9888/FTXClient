@@ -9,6 +9,8 @@
 #import "FMResultSet.h"
 #import "UMSocial.h"
 
+#define MAX_RECORDS_PER_TAG 100
+
 @interface DataManager ()
 
 @property (readonly) NSString *dbPath;
@@ -70,11 +72,22 @@
     }
 }
 
-- (void)cacheArticle:(Article *)article {
-    FMResultSet *rs = [_db executeQuery:@"SELECT * FROM Article WHERE id = ?", @(article.id)];
-    if (![rs next]) {
+- (void)cacheArticle:(Article *)article withTag:(NSUInteger)tag {
+    NSUInteger count = [_db intForQuery:@"SELECT COUNT(*) FROM Article WHERE id = ?", @(article.id)];
+    if (count == 0) {
         NSString *q = @"INSERT INTO Article (id, type, title, summary, content, imageId, imageHeight, relevantIds, publishTime, numOfRelevants, numOfLikes, numOfComments, authorId, authorName, authorImageId, videoUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         [_db executeUpdate:q, @(article.id), @(article.type), article.title, article.summary, article.content, article.imageId, @(article.imageHeight), article.relevantIds, @([article.publishTime timeIntervalSince1970]), @(article.numOfRelevants), @(article.numOfLikes), @(article.numOfComments), @(article.author.id), article.author.name, article.author.imageId, article.videoUrl];
+    }
+    
+    count = [_db intForQuery:@"SELECT COUNT(*) FROM Article_Tag WHERE articleId = ? AND tag = ?", @(article.id), @(tag)];
+    if (count == 0) {
+        NSString *q = @"INSERT INTO Article_Tag (articleId, tag) VALUES (?, ?)";
+        [_db executeUpdate:q, @(article.id), @(tag)];
+        
+        count = [_db intForQuery:@"SELECT COUNT(*) FROM Article_Tag WHERE tag = ?", @(tag)];
+        if (count > MAX_RECORDS_PER_TAG) {
+            [_db executeUpdate:@"DELETE FROM Article_Tag WHERE articleId = (SELECT MIN(articleId) FROM Article_Tag WHERE tag = ?)", @(tag)];
+        }
     }
 }
 

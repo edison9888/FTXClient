@@ -136,17 +136,31 @@
         _imageView.image = article.image;
     }
     else {
-        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:article.imageUrl]];
-        [req addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-        __block ArticleViewCell *cell = self;
-        [_imageView setImageWithURLRequest:req
-                          placeholderImage:[UIImage imageNamed:@"cell-image-placeholder"]
-                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
-                                       cell.imageView.image = article.image = image;
-                                   }
-                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){
-                                       DLog(@"failed: %@", error.description);
-                                   }];
+        NSString *appDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *imageFile = [appDirectory stringByAppendingPathComponent:article.imageId];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile]) {
+            article.image = _imageView.image = [UIImage imageWithContentsOfFile:imageFile];
+        }
+        else {
+            NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:article.imageUrl]];
+            [req addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+            __block ArticleViewCell *cell = self;
+            [_imageView setImageWithURLRequest:req
+                              placeholderImage:[UIImage imageNamed:@"cell-image-placeholder"]
+                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
+                                           cell.imageView.image = article.image = image;
+                                           dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+                                           dispatch_async(queue, ^{
+                                               // save uiimage to file
+                                               NSData *data = UIImagePNGRepresentation(article.image);
+                                               if (![data writeToFile:imageFile atomically:YES])
+                                                   DLog(@"write image file failed for article(%d)", article.id);
+                                           });
+                                       }
+                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){
+                                           DLog(@"failed: %@", error.description);
+                                       }];
+        }
     }
     [self setNeedsLayout];
 }

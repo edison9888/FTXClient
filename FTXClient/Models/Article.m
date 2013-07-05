@@ -88,6 +88,7 @@ static NSDateFormatter* refFormatter = nil;
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                       int tag = [[JSON valueForKeyPath:@"tag"] integerValue];
                                        NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
                                        NSMutableArray *mutableArticles = [NSMutableArray arrayWithCapacity:[postsFromResponse count]];
                                        for (NSDictionary *attributes in postsFromResponse) {
@@ -96,7 +97,7 @@ static NSDateFormatter* refFormatter = nil;
                                                [mutableArticles addObject:article];
                                                
                                                // cache articles
-                                               [[DataManager sharedManager] cacheArticle:article];
+                                               [[DataManager sharedManager] cacheArticle:article withTag:tag];
                                            }
                                        }
                                        
