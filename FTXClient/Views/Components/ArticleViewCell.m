@@ -86,6 +86,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
+    _imageView.contentMode = UIViewContentModeCenter;
     _imageView.image = nil;
     _titleLabel.text = nil;
 }
@@ -125,6 +126,7 @@
 
 - (void)setArticle:(Article *)article {
     [super setObject:article];
+    _imageView.contentMode = UIViewContentModeCenter;
     _article = article;
     
     _titleLabel.text = article.title;
@@ -134,12 +136,14 @@
 
     if (article.image) {
         _imageView.image = article.image;
+        _imageView.contentMode = UIViewContentModeScaleToFill;
     }
     else {
         NSString *appDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         NSString *imageFile = [appDirectory stringByAppendingPathComponent:article.imageId];
         if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile]) {
             article.image = _imageView.image = [UIImage imageWithContentsOfFile:imageFile];
+            _imageView.contentMode = UIViewContentModeScaleToFill;
         }
         else {
             NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:article.imageUrl]];
@@ -149,6 +153,7 @@
                               placeholderImage:[UIImage imageNamed:@"cell-image-placeholder"]
                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
                                            cell.imageView.image = article.image = image;
+                                           cell.imageView.contentMode = UIViewContentModeScaleToFill;
                                            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
                                            dispatch_async(queue, ^{
                                                // save uiimage to file
