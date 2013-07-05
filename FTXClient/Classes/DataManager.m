@@ -33,10 +33,18 @@
 - (id)init {
     if (self = [super init]) {
         // get db path
-        NSString *appDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString *path = [appDirectory stringByAppendingPathComponent:@"cache"];
+        NSString *docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *path = [docDirectory stringByAppendingPathComponent:@"cache"];
         _dbPath = [path stringByAppendingString: @".db"];
         
+        // create images folder if not exists
+        NSString *imagesFolder = [docDirectory stringByAppendingPathComponent:@"images"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:imagesFolder]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:imagesFolder
+                                      withIntermediateDirectories:NO
+                                                       attributes:nil
+                                                            error:nil];
+        }
     }
     return self;
 }

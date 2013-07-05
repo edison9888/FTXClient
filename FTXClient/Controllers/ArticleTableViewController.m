@@ -95,50 +95,50 @@
 }
 
 - (void)getListData:(BOOL)latest {
-    [Article retrieveArticlesWithBlock:^(NSArray *articles, NSError *error){
-        isLoading = NO;
-
-        if (latest) {
-            // Hide the header
-            [UIView animateWithDuration:0.3 animations:^{
-                self.tableView.contentInset = UIEdgeInsetsZero;
-            }];
-            
-            UIView *header = [self.tableView viewWithTag:kHeaderTag];
-            [(UILabel *)[header viewWithTag:kHeaderLabelTag] setText:kHeaderPullText];
-            [(UIActivityIndicatorView *)[header viewWithTag:kHeaderIndicatorTag] stopAnimating];
-        }
-        else {
-            // Hide the footer
-            [UIView animateWithDuration:0.3 animations:^{
-                self.tableView.contentInset = UIEdgeInsetsZero;
-            }];
-            
-            UIView *footer = [self.tableView viewWithTag:kFooterTag];
-            footer.hidden = YES;
-            [(UILabel *)[footer viewWithTag:kFooterLabelTag] setText:kFooterPullText];
-            [(UIActivityIndicatorView *)[footer viewWithTag:kFooterIndicatorTag] stopAnimating];
-        }
-        
-        if (error) {
-            DLog(@"error: %@", [error localizedDescription]);
-        }
-        else {
-            for (Article *article in articles) {
-                if (![_articleIds containsObject:@(article.id)]) {
-                    [_articleIds addObject:@(article.id)];
-                    [_articles addObject:article];
-                }
-            }
-            self.tableView.hidden = NO;
-            [self.tableView reloadData];
-            
-            if (!latest || nextPageNo == 1)
-                nextPageNo++;
-        }
-    }
-                           forCategory:CategoryTypeAll
-                                atPage:latest ? 1 : nextPageNo];
+//    [Article retrieveArticlesWithBlock:^(NSArray *articles, NSError *error){
+//        isLoading = NO;
+//
+//        if (latest) {
+//            // Hide the header
+//            [UIView animateWithDuration:0.3 animations:^{
+//                self.tableView.contentInset = UIEdgeInsetsZero;
+//            }];
+//            
+//            UIView *header = [self.tableView viewWithTag:kHeaderTag];
+//            [(UILabel *)[header viewWithTag:kHeaderLabelTag] setText:kHeaderPullText];
+//            [(UIActivityIndicatorView *)[header viewWithTag:kHeaderIndicatorTag] stopAnimating];
+//        }
+//        else {
+//            // Hide the footer
+//            [UIView animateWithDuration:0.3 animations:^{
+//                self.tableView.contentInset = UIEdgeInsetsZero;
+//            }];
+//            
+//            UIView *footer = [self.tableView viewWithTag:kFooterTag];
+//            footer.hidden = YES;
+//            [(UILabel *)[footer viewWithTag:kFooterLabelTag] setText:kFooterPullText];
+//            [(UIActivityIndicatorView *)[footer viewWithTag:kFooterIndicatorTag] stopAnimating];
+//        }
+//        
+//        if (error) {
+//            DLog(@"error: %@", [error localizedDescription]);
+//        }
+//        else {
+//            for (Article *article in articles) {
+//                if (![_articleIds containsObject:@(article.id)]) {
+//                    [_articleIds addObject:@(article.id)];
+//                    [_articles addObject:article];
+//                }
+//            }
+//            self.tableView.hidden = NO;
+//            [self.tableView reloadData];
+//            
+//            if (!latest || nextPageNo == 1)
+//                nextPageNo++;
+//        }
+//    }
+//                           forCategory:CategoryTypeAll
+//                                atPage:latest ? 1 : nextPageNo];
 }
 
 - (void)viewDidLoad {

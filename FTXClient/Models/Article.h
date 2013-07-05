@@ -32,6 +32,4 @@
 - (id)initWithAttributes:(NSDictionary *)attributes;
 - (id)initWithResultSet:(FMResultSet *)rs;
 
-+ (void)retrieveArticlesWithBlock:(void (^)(NSArray *articles, NSError *error))block forCategory:(CategoryType)type atPage:(NSUInteger)pageIndex;
-
 @end

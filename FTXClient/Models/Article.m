@@ -74,42 +74,13 @@ static NSDateFormatter* refFormatter = nil;
         
         // composite properties
         _imageUrl = [NSString stringWithFormat:@"%@/%@", StagingBoxContentBase, _imageId];
-        NSString *appDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString *imageFile = [appDirectory stringByAppendingPathComponent:_imageId];
+        NSString *docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *imageFile = [docDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"images/%@", _imageId]];
         if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile]) {
             _image = [UIImage imageWithContentsOfFile:imageFile];
         }
     }
     return self;
-}
-
-+ (void)retrieveArticlesWithBlock:(void (^)(NSArray *articles, NSError *error))block forCategory:(CategoryType)type atPage:(NSUInteger)pageIndex {
-    NSString *path = [NSString stringWithFormat:@"/app/article/list?pageNo=%d", pageIndex];
-    [[AFFTXAPIClient sharedClient] getPath:path
-                                parameters:nil
-                                   success:^(AFHTTPRequestOperation *operation, id JSON) {
-                                       int tag = [[JSON valueForKeyPath:@"tag"] integerValue];
-                                       NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
-                                       NSMutableArray *mutableArticles = [NSMutableArray arrayWithCapacity:[postsFromResponse count]];
-                                       for (NSDictionary *attributes in postsFromResponse) {
-                                           @autoreleasepool {
-                                               Article *article = [[Article alloc] initWithAttributes:attributes];
-                                               [mutableArticles addObject:article];
-                                               
-                                               // cache articles
-                                               [[DataManager sharedManager] cacheArticle:article withTag:tag];
-                                           }
-                                       }
-                                       
-                                       if (block) {
-                                           block([NSArray arrayWithArray:mutableArticles], nil);
-                                       }
-                                   }
-                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                       if (block) {
-                                           block([NSArray array], error);
-                                       }
-                                   }];
 }
 
 @end

@@ -119,9 +119,10 @@
                                            });
                                            
                                            // save uiimage to file
-                                           NSString *appDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+                                           NSString *docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+                                           NSString *imageFile = [docDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"images/%@", article.imageId]];
                                            NSData *data = UIImagePNGRepresentation(article.image);
-                                           if (![data writeToFile:[appDirectory stringByAppendingPathComponent:article.imageId] atomically:YES])
+                                           if (![data writeToFile:imageFile atomically:YES])
                                                DLog(@"write image file failed for article(%d)", article.id);
                                        });
                                    }

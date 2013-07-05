@@ -3,7 +3,7 @@ typedef enum {
     CategoryTypeBasketball  = 1,
     CategoryTypeFootball    = 2,
     CategoryTypeFun         = 5,
-    CategoryTypeSexy        = 6,
+//    CategoryTypeSexy        = 6,
     CategoryTypeVideo       = 8
 } CategoryType;
 

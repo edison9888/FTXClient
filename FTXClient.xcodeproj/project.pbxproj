@@ -24,6 +24,7 @@
 		C24BB1F5178555E400E580D0 /* category-picker-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C24BB1F3178555E400E580D0 /* category-picker-line@2x.png */; };
 		C272DA421782944A0065A2C8 /* category-item-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C272DA401782944A0065A2C8 /* category-item-bg.png */; };
 		C272DA431782944A0065A2C8 /* category-item-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C272DA411782944A0065A2C8 /* category-item-bg@2x.png */; };
+		C283CB471787265D00DDDE3D /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C283CB441787265D00DDDE3D /* libUMFeedback.a */; };
 		C2984E021780445900E9FBAC /* NetWorkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C2984E011780445900E9FBAC /* NetWorkReachability.m */; };
 		C2984E0517807D3A00E9FBAC /* icon-profile-online.png in Resources */ = {isa = PBXBuildFile; fileRef = C2984E0317807D3A00E9FBAC /* icon-profile-online.png */; };
 		C2984E0617807D3A00E9FBAC /* icon-profile-online@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2984E0417807D3A00E9FBAC /* icon-profile-online@2x.png */; };
@@ -174,6 +175,8 @@
 		C24BB1F3178555E400E580D0 /* category-picker-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category-picker-line@2x.png"; sourceTree = "<group>"; };
 		C272DA401782944A0065A2C8 /* category-item-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category-item-bg.png"; sourceTree = "<group>"; };
 		C272DA411782944A0065A2C8 /* category-item-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category-item-bg@2x.png"; sourceTree = "<group>"; };
+		C283CB441787265D00DDDE3D /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
+		C283CB461787265D00DDDE3D /* UMFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedback.h; sourceTree = "<group>"; };
 		C2984E001780445900E9FBAC /* NetWorkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkReachability.h; sourceTree = "<group>"; };
 		C2984E011780445900E9FBAC /* NetWorkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkReachability.m; sourceTree = "<group>"; };
 		C2984E0317807D3A00E9FBAC /* icon-profile-online.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-profile-online.png"; sourceTree = "<group>"; };
@@ -381,6 +384,7 @@
 				C2C776C31774170E00D3ABF5 /* libWeChatSDK_armv7_armv7s.a in Frameworks */,
 				C2C776C41774170E00D3ABF5 /* libUMSocial_Sdk_2.1.3.a in Frameworks */,
 				C2C776C51774170E00D3ABF5 /* libUMSocial_Sdk_Comment_2.1.3.a in Frameworks */,
+				C283CB471787265D00DDDE3D /* libUMFeedback.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,10 +600,10 @@
 				C2C776F41774221800D3ABF5 /* HomeViewController.m */,
 				C2B94A31177BD78900563377 /* RelevantsTableViewController.h */,
 				C2B94A32177BD78900563377 /* RelevantsTableViewController.m */,
-				C22C1255177CA0990034D02E /* WebViewController.h */,
-				C22C1256177CA0990034D02E /* WebViewController.m */,
 				E57FE3E617865E5E00C85FDC /* SettingViewController.h */,
 				E57FE3E717865E5F00C85FDC /* SettingViewController.m */,
+				C22C1255177CA0990034D02E /* WebViewController.h */,
+				C22C1256177CA0990034D02E /* WebViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -648,6 +652,8 @@
 			children = (
 				C2AE993617703BA8007B704D /* libMobClickLibrary.a */,
 				C2AE993717703BA8007B704D /* MobClick.h */,
+				C283CB441787265D00DDDE3D /* libUMFeedback.a */,
+				C283CB461787265D00DDDE3D /* UMFeedback.h */,
 			);
 			path = UMeng;
 			sourceTree = "<group>";

@@ -6,11 +6,6 @@
 //  Copyright (c) 2013 BitRice. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface SettingViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>{
-    UITableView *tableView;
-    NSArray *btnNames;
-}
+@interface SettingViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

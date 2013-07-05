@@ -101,8 +101,8 @@
 }
 
 - (void)tapLeftBarButton {
-    SettingViewController *sv = [[SettingViewController alloc]init];
-    [self.navigationController pushViewController:sv animated:YES];
+    SettingViewController *vc = [[SettingViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)tapRightBarButton {

@@ -139,8 +139,8 @@
         _imageView.contentMode = UIViewContentModeScaleToFill;
     }
     else {
-        NSString *appDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString *imageFile = [appDirectory stringByAppendingPathComponent:article.imageId];
+        NSString *docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *imageFile = [docDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"images/%@", article.imageId]];
         if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile]) {
             article.image = _imageView.image = [UIImage imageWithContentsOfFile:imageFile];
             _imageView.contentMode = UIViewContentModeScaleToFill;
