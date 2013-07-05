@@ -146,6 +146,7 @@
 		C2FED9A517847A780061DCE4 /* PSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED9A317847A780061DCE4 /* PSCollectionViewCell.m */; };
 		C2FED9A817847C5B0061DCE4 /* ArticlesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED9A717847C5B0061DCE4 /* ArticlesViewController.m */; };
 		C2FED9AB178480290061DCE4 /* ArticleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FED9AA178480290061DCE4 /* ArticleViewCell.m */; };
+		E57FE3E817865E5F00C85FDC /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57FE3E717865E5F00C85FDC /* SettingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -357,6 +358,8 @@
 		C2FED9A717847C5B0061DCE4 /* ArticlesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlesViewController.m; sourceTree = "<group>"; };
 		C2FED9A9178480290061DCE4 /* ArticleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewCell.h; sourceTree = "<group>"; };
 		C2FED9AA178480290061DCE4 /* ArticleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewCell.m; sourceTree = "<group>"; };
+		E57FE3E617865E5E00C85FDC /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		E57FE3E717865E5F00C85FDC /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -595,6 +598,8 @@
 				C2B94A32177BD78900563377 /* RelevantsTableViewController.m */,
 				C22C1255177CA0990034D02E /* WebViewController.h */,
 				C22C1256177CA0990034D02E /* WebViewController.m */,
+				E57FE3E617865E5E00C85FDC /* SettingViewController.h */,
+				E57FE3E717865E5F00C85FDC /* SettingViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -993,6 +998,7 @@
 				C2FED9A517847A780061DCE4 /* PSCollectionViewCell.m in Sources */,
 				C2FED9A817847C5B0061DCE4 /* ArticlesViewController.m in Sources */,
 				C2FED9AB178480290061DCE4 /* ArticleViewCell.m in Sources */,
+				E57FE3E817865E5F00C85FDC /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
