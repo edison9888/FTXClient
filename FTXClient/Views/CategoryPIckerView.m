@@ -16,12 +16,12 @@ static NSArray *tags;
 {
     if (self = [super initWithFrame:frame]) {
         if (tags == nil)
-            tags = @[@(CategoryTypeBasketball), @(CategoryTypeFootball), @(CategoryTypeFun), @(CategoryTypeSexy), @(CategoryTypeVideo)];
+            tags = @[@(CategoryTypeBasketball), @(CategoryTypeFootball), @(CategoryTypeFun),  @(CategoryTypeVideo)];
         
-        NSArray *images = @[@"basketball", @"football", @"fun", @"sexy", @"video"];
+        NSArray *images = @[@"basketball", @"football", @"fun",  @"video"];
         for (int i=0; i<[images count]; i++) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(10 + i*60, 0, 60, CGRectGetHeight(frame));
+            button.frame = CGRectMake(20 + i*70, 0, 60, CGRectGetHeight(frame));
             button.tag = [tags[i] integerValue];
             [button setBackgroundImage:[UIImage imageNamed:@"category-item-bg"] forState:UIControlStateSelected];
             [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"category-%@", images[i]]] forState:UIControlStateNormal];
