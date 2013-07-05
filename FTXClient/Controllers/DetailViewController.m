@@ -20,7 +20,7 @@
 @interface DetailViewController ()
 {
     UIScrollView *scrollView;
-    UIImageView *_avatarView, *_imageView;
+    UIImageView *_avatarView;
     UILabel *_authorNameLabel, *_publishLabel;
     UILabel *_titleLabel, *_contentLabel;
     CustomIconButton *_likeButton, *_commentButton, *_shareButton;
@@ -29,6 +29,8 @@
     CommentsTableViewController *_commentsTable;
     RelevantsTableViewController *_relevantsTable;
 }
+
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -130,6 +132,7 @@ static NSDateFormatter* formatter = nil;
     
     if (!isEmpty(_article.imageUrl)) {
         _imageView = [[UIImageView alloc] init];
+        _imageView.contentMode = UIViewContentModeCenter;
         [scrollView addSubview:_imageView];
     }
     
@@ -210,6 +213,7 @@ static NSDateFormatter* formatter = nil;
     
     [_avatarView setImageWithURL:[NSURL URLWithString:_article.author.avatar] placeholderImage:[UIImage imageNamed:@"avatar-placeholder"]];
     if (_article.image) {
+        _imageView.contentMode = UIViewContentModeScaleToFill;
         _imageView.image = _article.image;
         _imageView.frame = CGRectMake(0, 0, _article.image.size.width, _article.image.size.height);
     }
@@ -221,14 +225,10 @@ static NSDateFormatter* formatter = nil;
         [_imageView setImageWithURLRequest:req
                           placeholderImage:[UIImage imageNamed:@"cell-image-placeholder"]
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
-                                       dispatch_queue_t main_queue = dispatch_get_main_queue();
                                        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
                                        dispatch_async(queue, ^{
-                                           CGFloat h = image.size.height * 300 / image.size.width;
-                                           article.image = [image scaleToSize:CGSizeMake(300, h)];
-                                           dispatch_sync(main_queue, ^{
-                                               [viewController layoutViews];
-                                           });
+                                           viewController.imageView.contentMode = UIViewContentModeScaleToFill;
+                                           article.image = viewController.imageView.image = image;
                                        });
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){}];
@@ -240,6 +240,8 @@ static NSDateFormatter* formatter = nil;
         [_relevantsTable.tableView deselectRowAtIndexPath:[_relevantsTable.tableView indexPathForSelectedRow] animated:YES];
     
     [self layoutViews];
+    
+    [self tapRelevantsTab];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

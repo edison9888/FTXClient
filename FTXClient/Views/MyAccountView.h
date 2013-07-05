@@ -10,6 +10,7 @@
 @interface MyAccountView : UIView <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, assign) AccessAccountViewController *controller;
+@property (nonatomic, readonly) UITableView *tableView;
 
 - (void)populateInterface;
 

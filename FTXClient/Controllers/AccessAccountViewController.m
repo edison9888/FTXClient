@@ -78,6 +78,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:_myAccountView selector:@selector(populateInterface) name:kAccountChangeNotification object:[DataManager sharedManager]];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [_myAccountView.tableView deselectRowAtIndexPath:[_myAccountView.tableView indexPathForSelectedRow] animated:YES];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:_myAccountView name:kAccountChangeNotification object:[DataManager sharedManager]];

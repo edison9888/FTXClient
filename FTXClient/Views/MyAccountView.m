@@ -12,12 +12,12 @@
 #import "UIImage+FTX.h"
 #import "UIImageView+AFNetworking.h"
 #import "Article.h"
+#import "DetailViewController.h"
 
 @interface MyAccountView ()
 {
     UIImageView *_avatarView;
     UILabel *_nameLabel;
-    UITableView *_tableView;
     NSMutableArray *_articles;
 }
 
@@ -138,6 +138,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Article *article = _articles[indexPath.row];
+    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:article];
+    [self.controller.navigationController pushViewController:vc animated:YES];
 }
 
 @end
