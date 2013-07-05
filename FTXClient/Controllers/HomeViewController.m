@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "UIColor+FTX.h"
 #import "CategoryPickerView.h"
+#import "SettingViewController.h"
 
 @interface HomeViewController ()
 {
@@ -100,7 +101,8 @@
 }
 
 - (void)tapLeftBarButton {
-    DLog(@"tap left");
+    SettingViewController *sv = [[SettingViewController alloc]init];
+    [self.navigationController pushViewController:sv animated:YES];
 }
 
 - (void)tapRightBarButton {
