@@ -50,10 +50,12 @@
         
         UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
         loginButton.frame = CGRectMake(30, 138, 125, 44);
-        loginButton.layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"button-gray-bg"]].CGColor;
+        loginButton.clipsToBounds = YES;
         loginButton.layer.cornerRadius = 4;
+        [loginButton setBackgroundImage:[[UIImage imageNamed:@"button-gray-bg"] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
         [loginButton setTitle:@"登录" forState:UIControlStateNormal];
         [loginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
         [loginButton addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:loginButton];
         
@@ -61,8 +63,11 @@
         goRegisterButton.frame = CGRectMake(165, 138, 125, 44);
         goRegisterButton.layer.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]]].CGColor;
         goRegisterButton.layer.cornerRadius = 4;
+        goRegisterButton.clipsToBounds = YES;
+        [goRegisterButton setBackgroundImage:[[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
         [goRegisterButton setTitle:@"注册" forState:UIControlStateNormal];
-        [goRegisterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [goRegisterButton setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateNormal];
+        [goRegisterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [goRegisterButton addTarget:self action:@selector(gotoRegister) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:goRegisterButton];
         

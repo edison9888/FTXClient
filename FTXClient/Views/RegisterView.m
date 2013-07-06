@@ -77,19 +77,23 @@
         
         UIButton *regButton = [UIButton buttonWithType:UIButtonTypeCustom];
         regButton.frame = CGRectMake(30, 226, 125, 44);
-        regButton.layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"button-gray-bg"]].CGColor;
         regButton.layer.cornerRadius = 4;
+        regButton.clipsToBounds = YES;
+        [regButton setBackgroundImage:[[UIImage imageNamed:@"button-gray-bg"] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
         [regButton setTitle:@"注册" forState:UIControlStateNormal];
         [regButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [regButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
         [regButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:regButton];
         
         UIButton *goLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
         goLoginButton.frame = CGRectMake(165, 226, 125, 44);
-        goLoginButton.layer.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]]].CGColor;
         goLoginButton.layer.cornerRadius = 4;
+        goLoginButton.clipsToBounds = YES;
         [goLoginButton setTitle:@"登录" forState:UIControlStateNormal];
-        [goLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [goLoginButton setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateNormal];
+        [goLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [goLoginButton setBackgroundImage:[[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
         [goLoginButton addTarget:self action:@selector(gotoLogin) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:goLoginButton];
         
