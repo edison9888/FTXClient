@@ -62,6 +62,7 @@
 		C2AE996217705873007B704D /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE995817705873007B704D /* AFXMLRequestOperation.m */; };
 		C2AE996317705873007B704D /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE995A17705873007B704D /* UIImageView+AFNetworking.m */; };
 		C2AE9965177058E8007B704D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE9964177058E8007B704D /* MobileCoreServices.framework */; };
+		C2B0392E1787B7AF008CF2C5 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B0392D1787B7AF008CF2C5 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C2B9306017745E8F000BE06A /* category-basketball.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9305617745E8F000BE06A /* category-basketball.png */; };
 		C2B9306117745E8F000BE06A /* category-basketball@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9305717745E8F000BE06A /* category-basketball@2x.png */; };
 		C2B9306417745E8F000BE06A /* category-football.png in Resources */ = {isa = PBXBuildFile; fileRef = C2B9305A17745E8F000BE06A /* category-football.png */; };
@@ -234,6 +235,9 @@
 		C2AE995917705873007B704D /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		C2AE995A17705873007B704D /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		C2AE9964177058E8007B704D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C2B0392C1787B7AF008CF2C5 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		C2B0392D1787B7AF008CF2C5 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		C2B0392F1787BA5B008CF2C5 /* GTMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		C2B9305617745E8F000BE06A /* category-basketball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category-basketball.png"; sourceTree = "<group>"; };
 		C2B9305717745E8F000BE06A /* category-basketball@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category-basketball@2x.png"; sourceTree = "<group>"; };
 		C2B9305A17745E8F000BE06A /* category-football.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category-football.png"; sourceTree = "<group>"; };
@@ -557,6 +561,9 @@
 		C2AE992417703412007B704D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C2B0392F1787BA5B008CF2C5 /* GTMDefines.h */,
+				C2B0392C1787B7AF008CF2C5 /* GTMNSString+HTML.h */,
+				C2B0392D1787B7AF008CF2C5 /* GTMNSString+HTML.m */,
 				C2C776F01774216C00D3ABF5 /* UIColor+FTX.h */,
 				C2C776F11774216C00D3ABF5 /* UIColor+FTX.m */,
 				C2C776D117741C4200D3ABF5 /* UIImage+FTX.h */,
@@ -1005,6 +1012,7 @@
 				C2FED9A817847C5B0061DCE4 /* ArticlesViewController.m in Sources */,
 				C2FED9AB178480290061DCE4 /* ArticleViewCell.m in Sources */,
 				E57FE3E817865E5F00C85FDC /* SettingViewController.m in Sources */,
+				C2B0392E1787B7AF008CF2C5 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

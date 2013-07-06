@@ -7,6 +7,7 @@
 //
 
 #import "Review.h"
+#import "GTMNSString+HTML.h"
 
 @implementation Review
 
@@ -24,6 +25,7 @@ static NSDateFormatter* refFormatter = nil;
         _id = [attributes[@"id"] integerValue];
         _articleId = [attributes[@"articleId"] integerValue];
         _content = attributes[@"content"];
+        _content = [_content stringByStrippingHTML];
         
         _author = [[Author alloc] initWithId:[attributes[@"authorId"] integerValue]
                                      andName:attributes[@"authorName"]

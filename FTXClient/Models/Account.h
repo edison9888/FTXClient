@@ -18,7 +18,7 @@
 @property (readonly) NSUInteger sourceId;
 @property (readonly) BOOL success;
 
-@property NSString *avatarUrl;
+@property (strong) NSString *avatarUrl;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 
