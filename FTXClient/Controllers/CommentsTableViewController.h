@@ -10,6 +10,7 @@
 
 @interface CommentsTableViewController : UITableViewController
 
+@property (nonatomic, strong) NSMutableArray *reviews;
 @property (nonatomic, assign) DetailViewController *controller;
 
 - (id)initWithAuthorId:(NSUInteger)authorId andArticleId:(NSUInteger)articleId;

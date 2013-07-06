@@ -22,7 +22,7 @@
 @property (readonly) NSDate *publishTime;
 @property (readonly) NSUInteger numOfRelevants;
 @property (readonly) NSUInteger numOfLikes;
-@property (readonly) NSUInteger numOfComments;
+@property (readwrite) NSUInteger numOfComments;
 @property (readonly) NSString *videoUrl;
 
 @property (nonatomic, strong) UIImage *image;

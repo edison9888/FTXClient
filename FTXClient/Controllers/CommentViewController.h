@@ -7,7 +7,11 @@
 //
 #import "Article.h"
 
+@class DetailViewController;
+
 @interface CommentViewController : UIViewController <UITextViewDelegate>
+
+@property (nonatomic, assign) DetailViewController *detailViewController;
 
 - (id)initWithArticle:(Article *)article;
 

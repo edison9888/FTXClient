@@ -10,6 +10,7 @@
 #import "CommentViewController.h"
 #import "UIColor+FTX.h"
 #import "UIImage+FTX.h"
+#import "DetailViewController.h"
 
 @interface CommentViewController ()
 {
@@ -150,8 +151,11 @@
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
                                        DLog(@"comment: %@", JSON);
-                                       if ([JSON[@"success"] boolValue])
+                                       if ([JSON[@"success"] boolValue]) {
+                                           Review *review = [[Review alloc] initWithAttributes:JSON[@"review"]];
+                                           self.detailViewController.addingReview = review;
                                            [self.navigationController popViewControllerAnimated:YES];
+                                       }
                                    }
                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                        DLog(@"error: %@", error.description);

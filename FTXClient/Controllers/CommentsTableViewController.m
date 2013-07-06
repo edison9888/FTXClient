@@ -13,7 +13,6 @@
 
 @interface CommentsTableViewController ()
 {
-    NSMutableArray *_reviews;
     NSUInteger _authorId, _articleId;
     NSIndexPath *_deletingIndexPath;
 }

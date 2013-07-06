@@ -70,7 +70,6 @@ static NSDateFormatter* formatter = nil;
     _likeButton.frame = CGRectMake(10, CGRectGetHeight(rect), 66, 28);
     [_likeButton addTarget:self action:@selector(likeAction) forControlEvents:UIControlEventTouchUpInside];
     [_likeButton setImage:[UIImage imageNamed:@"cell-icon-heart"] forState:UIControlStateNormal];
-    [_likeButton setTitle:[NSString stringWithFormat:@"%d", _article.numOfLikes] forState:UIControlStateNormal];
     [self.view addSubview:_likeButton];
     
     _commentButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
@@ -81,7 +80,6 @@ static NSDateFormatter* formatter = nil;
     _commentButton.frame = CGRectMake(76, CGRectGetHeight(rect), 66, 28);
     [_commentButton addTarget:self action:@selector(commentAction) forControlEvents:UIControlEventTouchUpInside];
     [_commentButton setImage:[UIImage imageNamed:@"cell-icon-bubble"] forState:UIControlStateNormal];
-    [_commentButton setTitle:[NSString stringWithFormat:@"%d", _article.numOfComments] forState:UIControlStateNormal];
     [self.view addSubview:_commentButton];
     
     _shareButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
@@ -248,6 +246,16 @@ static NSDateFormatter* formatter = nil;
     else {
         [self tapRelevantsTab];
     }
+    
+    // check if new review posted
+    if (_addingReview) {
+        [_commentsTable.reviews addObject:_addingReview];
+        [_commentsTable.tableView reloadData];
+        _article.numOfComments++;
+        
+        [self layoutViews];
+        _addingReview = nil;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -257,6 +265,9 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)layoutViews {
+    [_likeButton setTitle:[NSString stringWithFormat:@"%d", _article.numOfLikes] forState:UIControlStateNormal];
+    [_commentButton setTitle:[NSString stringWithFormat:@"%d", _article.numOfComments] forState:UIControlStateNormal];
+
     CGSize size = [_authorNameLabel.text sizeWithFont:_authorNameLabel.font];
     _authorNameLabel.frame = CGRectMake(40, 50-size.height, size.width, size.height);
     
@@ -317,6 +328,7 @@ static NSDateFormatter* formatter = nil;
 
 - (void)commentAction {
     CommentViewController *vc = [[CommentViewController alloc] initWithArticle:_article];
+    vc.detailViewController = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
