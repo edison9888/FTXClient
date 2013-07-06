@@ -11,6 +11,7 @@
 #import "UIColor+FTX.h"
 #import "WebViewController.h"
 #import "HomeViewController.h"
+#import "DetailViewController.h"
 
 @interface RelevantsTableViewController ()
 {
@@ -35,6 +36,7 @@
     [Relevant retrieveRelevantsWithBlock:^(NSArray *relevants, NSError *error){
         _relevants = relevants;
         [self.tableView reloadData];
+        [self.controller layoutViews];
     } forIds:_relevantIds];
 }
 

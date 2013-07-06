@@ -6,7 +6,11 @@
 //  Copyright (c) 2013 BitRice. All rights reserved.
 //
 
+@class DetailViewController;
+
 @interface CommentsTableViewController : UITableViewController
+
+@property (nonatomic, assign) DetailViewController *controller;
 
 - (id)initWithAuthorId:(NSUInteger)authorId andArticleId:(NSUInteger)articleId;
 

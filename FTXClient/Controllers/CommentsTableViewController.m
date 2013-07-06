@@ -9,6 +9,7 @@
 #import "CommentsTableViewController.h"
 #import "CommentTableViewCell.h"
 #import "Review.h"
+#import "DetailViewController.h"
 
 @interface CommentsTableViewController ()
 {
@@ -36,6 +37,7 @@
     [Review retrieveReviewsWithBlock:^(NSArray *reviews, NSError *error){
         _reviews = [reviews mutableCopy];
         [self.tableView reloadData];
+        [self.controller layoutViews];
     } withAuthodId:_authorId andArticleId:_articleId];
 }
 
@@ -89,7 +91,8 @@
 
 #pragma mark - UITableViewDataDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [CommentTableViewCell heightForCellWithReview:_reviews[indexPath.row]];
+    Review *review = _reviews[indexPath.row];
+    return [CommentTableViewCell heightForCellWithReview:review];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

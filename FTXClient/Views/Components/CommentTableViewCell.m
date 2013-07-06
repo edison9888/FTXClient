@@ -58,13 +58,12 @@
     _nameLabel.frame = CGRectMake(44, 7, size.width, size.height);
     
     size = [self.detailTextLabel.text sizeWithFont:self.detailTextLabel.font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    self.detailTextLabel.frame = CGRectMake(44, 7, 240, size.height);
+    self.detailTextLabel.frame = CGRectMake(44, 7, 249, size.height);
 }
 
 + (CGFloat)heightForCellWithReview:(Review *)review {
-    CGSize size = [[NSString stringWithFormat:@"%@: %@", review.reviewer.name, review.content] sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return fmaxf(44, size.height);
+    CGSize size = [[NSString stringWithFormat:@"%@: %@", review.reviewer.name, review.content] sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(249, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    return fmaxf(44, size.height + 14);
 }
 
 @end

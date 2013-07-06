@@ -13,5 +13,6 @@
 @property BOOL animateToComments;
 
 - (id)initWithArticle:(Article *)article;
+- (void)layoutViews;
 
 @end

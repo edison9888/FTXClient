@@ -163,6 +163,7 @@ static NSDateFormatter* formatter = nil;
     [scrollView addSubview:_tabContentContainer];
     
     _commentsTable = [[CommentsTableViewController alloc] initWithAuthorId:_article.author.id andArticleId:_article.id];
+    _commentsTable.controller = self;
     _commentsTable.view.backgroundColor = [UIColor colorWithHex:0x444444];
     _commentsTable.view.frame = _tabContentContainer.bounds;
     _commentsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -288,8 +289,12 @@ static NSDateFormatter* formatter = nil;
     _tabRelevant.frame = CGRectMake(83, topOffset, 78, 28);
     topOffset += 26;
     
+    // calculate container height
     CGFloat h = fmaxf(fmaxf(44, _article.numOfComments*44), _article.numOfRelevants*44);
     h = fmaxf(h, CGRectGetHeight(scrollView.frame) - topOffset - 10);
+    h = fmaxf(_commentsTable.tableView.contentSize.height, h);
+    h = fmaxf(_relevantsTable.tableView.contentSize.height, h);
+    
     _tabContentContainer.frame = CGRectMake(0, topOffset, 300, h);
     topOffset += CGRectGetHeight(_tabContentContainer.frame) + 10;
     
@@ -348,6 +353,7 @@ static NSDateFormatter* formatter = nil;
     
     if (_relevantsTable == nil) {
         _relevantsTable = [[RelevantsTableViewController alloc] initWithRelevantIds:_article.relevantIds];
+        _relevantsTable.controller = self;
         _relevantsTable.view.backgroundColor = [UIColor colorWithHex:0x444444];
         _relevantsTable.view.frame = _tabContentContainer.bounds;
         _relevantsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
