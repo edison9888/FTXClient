@@ -10,6 +10,7 @@
 @interface DetailViewController : UIViewController
 
 @property (readonly) Article *article;
+@property BOOL animateToComments;
 
 - (id)initWithArticle:(Article *)article;
 

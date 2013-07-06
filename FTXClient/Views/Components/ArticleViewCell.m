@@ -13,6 +13,7 @@
 #import "CustomIconButton.h"
 #import "CommentViewController.h"
 #import "HomeViewController.h"
+#import "DetailViewController.h"
 
 #define MAX_IMAGE_HEIGHT 355
 
@@ -199,7 +200,8 @@
 }
 
 - (void)commentAction {
-    CommentViewController *vc = [[CommentViewController alloc] initWithArticle:_article];
+    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_article];
+    vc.animateToComments = YES;
     [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
 }
 

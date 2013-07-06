@@ -241,7 +241,12 @@ static NSDateFormatter* formatter = nil;
     
     [self layoutViews];
     
-    [self tapRelevantsTab];
+    if (_animateToComments) {
+        [scrollView scrollRectToVisible:_tabContentContainer.frame animated:YES];
+    }
+    else {
+        [self tapRelevantsTab];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
