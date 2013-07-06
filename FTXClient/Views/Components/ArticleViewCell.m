@@ -14,6 +14,8 @@
 #import "CommentViewController.h"
 #import "HomeViewController.h"
 
+#define MAX_IMAGE_HEIGHT 355
+
 @interface ArticleViewCell ()
 {
     UILabel *_titleLabel;
@@ -104,6 +106,7 @@
     CGFloat objectWidth = 250;
     CGFloat objectHeight = _article.imageHeight;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
+    scaledHeight = fminf(MAX_IMAGE_HEIGHT, scaledHeight);
     _imageView.frame = CGRectMake(0, 0, width, scaledHeight);
     
     CGFloat topOffset = scaledHeight + 5;
@@ -136,14 +139,14 @@
 
     if (article.image) {
         _imageView.image = article.image;
-        _imageView.contentMode = UIViewContentModeScaleToFill;
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     else {
         NSString *docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         NSString *imageFile = [docDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"images/%@", article.imageId]];
         if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile]) {
             article.image = _imageView.image = [UIImage imageWithContentsOfFile:imageFile];
-            _imageView.contentMode = UIViewContentModeScaleToFill;
+            _imageView.contentMode = UIViewContentModeScaleAspectFill;
         }
         else {
             NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:article.imageUrl]];
@@ -153,7 +156,7 @@
                               placeholderImage:[UIImage imageNamed:@"cell-image-placeholder"]
                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
                                            cell.imageView.image = article.image = image;
-                                           cell.imageView.contentMode = UIViewContentModeScaleToFill;
+                                           cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
                                            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
                                            dispatch_async(queue, ^{
                                                // save uiimage to file
@@ -179,7 +182,7 @@
     CGFloat objectWidth = 250;
     CGFloat objectHeight = article.imageHeight;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
-    height += scaledHeight;
+    height += fminf(MAX_IMAGE_HEIGHT, scaledHeight);
     
     // Label
     NSString *caption = article.title;
