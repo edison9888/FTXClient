@@ -27,7 +27,7 @@
     [UMSocialData defaultData].extConfig.appUrl = @"http://www.umeng.com";
     
     [self setupUserDefaults];
-    [[DataManager sharedManager] checkDatabase];
+    [DataMgr checkDatabase];
     
     _navigationController = [[UINavigationController alloc] initWithRootViewController:[HomeViewController sharedHome]];
     UINavigationBar *navigationBar = [_navigationController navigationBar];
@@ -41,7 +41,7 @@
     
     int loginType = [UserDefaults integerForKey:kUCLoginType];
     if (loginType > -1) {
-        [[DataManager sharedManager] loginVia:loginType
+        [DataMgr loginVia:loginType
                                 withAccountId:[UserDefaults stringForKey:kUCLoginAccountId]
                                   andPassword:[UserDefaults stringForKey:kUCLoginPassword]
                                   andNickName:[UserDefaults stringForKey:kUCLoginPassword]
@@ -60,7 +60,7 @@
 }
 
 - (void)setupUserDefaults {
-    NSDictionary *dict = @{kUCLoginType: @-1};
+    NSDictionary *dict = @{kUCLoginType: @(LoginTypeNotLoggedIn)};
     [UserDefaults registerDefaults:dict];
     [UserDefaults synchronize];
 }

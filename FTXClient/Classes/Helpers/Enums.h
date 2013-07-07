@@ -14,6 +14,7 @@ typedef enum {
 } AccountViewType;
 
 typedef enum {
+    LoginTypeNotLoggedIn    = -1,
     LoginTypeFtx            = 0,
     LoginTypeSina           = 1,
     LoginTypeTencent        = 2

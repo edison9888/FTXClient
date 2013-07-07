@@ -21,9 +21,10 @@
 @property (readonly) NSString *relevantIds;
 @property (readonly) NSDate *publishTime;
 @property (readonly) NSUInteger numOfRelevants;
-@property (readonly) NSUInteger numOfLikes;
+@property (readwrite) NSUInteger numOfLikes;
 @property (readwrite) NSUInteger numOfComments;
 @property (readonly) NSString *videoUrl;
+@property (readwrite) BOOL isLike;
 
 @property (nonatomic, strong) UIImage *image;
 

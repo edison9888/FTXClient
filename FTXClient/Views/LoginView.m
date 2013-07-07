@@ -109,7 +109,7 @@
             [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse){
                 NSDictionary *dict = [[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina];
                 DLog(@"sina: %@", accountResponse.data);
-                [[DataManager sharedManager] loginVia:LoginTypeSina
+                [DataMgr loginVia:LoginTypeSina
                                         withAccountId:dict[@"usid"]
                                           andPassword:@""
                                           andNickName:dict[@"username"]
@@ -120,7 +120,7 @@
         if ([platformName isEqualToString:UMShareToQzone]) {
             NSDictionary *dict = [response.data objectForKey:UMShareToQzone];
             if (dict) {
-                [[DataManager sharedManager] loginVia:LoginTypeTencent
+                [DataMgr loginVia:LoginTypeTencent
                                         withAccountId:dict[@"usid"]
                                           andPassword:@""
                                           andNickName:dict[@"username"]
@@ -149,7 +149,7 @@
         return;
     }
     
-    [[DataManager sharedManager] loginVia:LoginTypeFtx
+    [DataMgr loginVia:LoginTypeFtx
                             withAccountId:mailField.text
                               andPassword:passField.text
                               andNickName:@""

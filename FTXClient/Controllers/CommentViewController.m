@@ -97,7 +97,7 @@
     // title
     self.title = @"评论";
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:DataMgr];
     [self updateProfileStatus];
 }
 
@@ -107,7 +107,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
-    if ([DataManager sharedManager].currentAccount == nil) {
+    if (DataMgr.currentAccount == nil) {
         AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -116,7 +116,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:DataMgr];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -138,14 +138,14 @@
 - (void)updateProfileStatus {
     UIView *view = self.navigationItem.rightBarButtonItem.customView;
     UIButton *button = (UIButton *)view.subviews[0];
-    if ([[DataManager sharedManager].currentAccount success])
+    if ([DataMgr.currentAccount success])
         [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
     else
         [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
 }
 
 - (void)postReview {
-    NSString *path = [NSString stringWithFormat:@"/app/article/add_review?userId=%d&pwd=%@&authorId=%d&articleId=%d&content=%@", [DataManager sharedManager].currentAccount.userId, [DataManager sharedManager].currentAccount.password, _article.author.id, _article.id, [_commentLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *path = [NSString stringWithFormat:@"/app/article/add_review?userId=%d&pwd=%@&authorId=%d&articleId=%d&content=%@", DataMgr.currentAccount.userId, DataMgr.currentAccount.password, _article.author.id, _article.id, [_commentLabel.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     DLog(@"path=%@", path);
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil

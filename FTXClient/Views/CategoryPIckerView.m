@@ -42,7 +42,7 @@ static NSArray *tags;
         btn.selected = (button == btn);
     }
     DLog(@"category: %d", button.tag);
-    [DataManager sharedManager].categoryTag = button.tag;
+    DataMgr.categoryTag = button.tag;
 }
 
 @end

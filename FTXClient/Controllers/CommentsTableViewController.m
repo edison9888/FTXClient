@@ -41,7 +41,7 @@
 }
 
 - (void)deleteReview:(Review *)review {
-    NSString *path = [NSString stringWithFormat:@"/app/article/del_review?userId=%d&pwd=%@&authorId=%d&articleId=%d&reviewId=%d", [DataManager sharedManager].currentAccount.userId, [DataManager sharedManager].currentAccount.password, review.author.id, review.articleId, review.id];
+    NSString *path = [NSString stringWithFormat:@"/app/article/del_review?userId=%d&pwd=%@&authorId=%d&articleId=%d&reviewId=%d", DataMgr.currentAccount.userId, DataMgr.currentAccount.password, review.author.id, review.articleId, review.id];
     DLog(@"path=%@", path);
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil
@@ -77,7 +77,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     Review *review = _reviews[indexPath.row];
-    return review.reviewer.id == [DataManager sharedManager].currentAccount.userId;
+    return review.reviewer.id == DataMgr.currentAccount.userId;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

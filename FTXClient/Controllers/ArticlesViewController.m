@@ -239,7 +239,7 @@
         
         // retrieve from cache database
         NSString *q = @"SELECT * FROM Article AS A JOIN Article_Tag AS AT ON A.id=AT.articleId WHERE AT.tag = ? ORDER BY A.id DESC";
-        FMResultSet *rs = [[DataManager sharedManager].db executeQuery:q, @([DataManager sharedManager].categoryTag)];
+        FMResultSet *rs = [DataMgr.db executeQuery:q, @(DataMgr.categoryTag)];
         while ([rs next]) {
             Article *article = [[Article alloc] initWithResultSet:rs];
             [_articleIds addObject:@(article.id)];
@@ -251,16 +251,17 @@
         [self setFooterView];
     }
     
-    NSString *path = [NSString stringWithFormat:@"/app/article/list?tag=%d&pageNo=1", [DataManager sharedManager].categoryTag];
+    NSString *path = [NSString stringWithFormat:@"/app/article/list?userId=%d&pwd=%@&tag=%d&pageNo=1", DataMgr.currentAccount.userId, DataMgr.currentAccount.password, DataMgr.categoryTag];
+    DLog(@"path = %@", path);
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
                                        BOOL success = [JSON[@"success"] boolValue];
                                        if (success) {
                                            int tag = [JSON[@"tag"] integerValue];
-                                           int maxId = [JSON[@"maxId"] integerValue];
+                                           //int maxId = [JSON[@"maxId"] integerValue];
                                            //int minId = [JSON[@"minId"] integerValue];
-                                           if ([_articleIds count] == 0 || maxId > [_articleIds[0] integerValue]) {
+                                           if (YES) {   //[_articleIds count] == 0 || maxId > [_articleIds[0] integerValue]) {
                                                NSArray *articles = JSON[@"articles"];
                                                for (int i=0; i<[articles count]; i++) {
                                                    @autoreleasepool {
@@ -269,9 +270,16 @@
                                                            [_articleIds insertObject:@(article.id) atIndex:i];
                                                            [_articles insertObject:article atIndex:i];
                                                        }
+                                                       else {
+                                                           int idx = [_articleIds indexOfObject:@(article.id)];
+                                                           Article *art = _articles[idx];
+                                                           art.numOfComments = article.numOfComments;
+                                                           art.numOfLikes = article.numOfLikes;
+                                                           art.isLike = article.isLike;
+                                                       }
                                                        
                                                        // cache articles
-                                                       [[DataManager sharedManager] cacheArticle:article withTag:tag];
+                                                       [DataMgr cacheArticle:article withTag:tag];
                                                    }
                                                }
                                                
@@ -291,7 +299,7 @@
 }
 
 - (void)getNextPageView {
-    NSString *path = [NSString stringWithFormat:@"/app/article/list?tag=%d&direction=1&pageNo=%d", [DataManager sharedManager].categoryTag, _currentPageNo+1];
+    NSString *path = [NSString stringWithFormat:@"/app/article/list?userId=%d&pwd=%@&tag=%d&direction=1&pageNo=%d", DataMgr.currentAccount.userId, DataMgr.currentAccount.password, DataMgr.categoryTag, _currentPageNo+1];
     DLog(@"getNextPageView: %@", path);
     [[AFFTXAPIClient sharedClient] getPath:path
                                 parameters:nil
@@ -308,7 +316,7 @@
                                                }
                                                
                                                // cache articles
-                                               [[DataManager sharedManager] cacheArticle:article withTag:tag];
+                                               [DataMgr cacheArticle:article withTag:tag];
                                                
                                                [self removeFooterView];
                                                [self finishReloadingData];

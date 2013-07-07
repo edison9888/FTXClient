@@ -54,7 +54,7 @@
         nextPageNo = 1;
         
         // retrieve from cache database
-//        FMResultSet *rs = [[DataManager sharedManager].db executeQuery:@"SELECT * FROM Article"];
+//        FMResultSet *rs = [DataMgr.db executeQuery:@"SELECT * FROM Article"];
 //        while ([rs next]) {
 //            Article *article = [[Article alloc] initWithResultSet:rs];
 //            [_articleIds addObject:@(article.id)];

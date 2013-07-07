@@ -17,6 +17,9 @@
 #import "UMSocial.h"
 #import "CommentViewController.h"
 
+#define LIKE_ALERT_TAG 1
+#define DISLIKE_ALERT_TAG 2
+
 @interface DetailViewController ()
 {
     UIScrollView *scrollView;
@@ -69,7 +72,6 @@ static NSDateFormatter* formatter = nil;
     _likeButton.titleLabel.font = [UIFont systemFontOfSize:14];
     _likeButton.frame = CGRectMake(10, CGRectGetHeight(rect), 66, 28);
     [_likeButton addTarget:self action:@selector(likeAction) forControlEvents:UIControlEventTouchUpInside];
-    [_likeButton setImage:[UIImage imageNamed:@"cell-icon-heart"] forState:UIControlStateNormal];
     [self.view addSubview:_likeButton];
     
     _commentButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
@@ -203,7 +205,7 @@ static NSDateFormatter* formatter = nil;
     // title
     self.title = @"饭特稀体育";
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:DataMgr];
     [self updateProfileStatus];
 }
 
@@ -261,10 +263,15 @@ static NSDateFormatter* formatter = nil;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:DataMgr];
 }
 
 - (void)layoutViews {
+    if (_article.isLike)
+        [_likeButton setImage:[[UIImage imageNamed:@"cell-icon-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
+    else
+        [_likeButton setImage:[UIImage imageNamed:@"cell-icon-heart"] forState:UIControlStateNormal];
+
     [_likeButton setTitle:[NSString stringWithFormat:@"%d", _article.numOfLikes] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"%d", _article.numOfComments] forState:UIControlStateNormal];
 
@@ -323,7 +330,30 @@ static NSDateFormatter* formatter = nil;
 
 #pragma mark - actions
 - (void)likeAction {
-    DLog(@"like");
+    if (DataMgr.currentAccount == nil) {
+        AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (_article.isLike) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"你确定取消喜欢这篇文章吗？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"否"
+                                                  otherButtonTitles:@"是",
+                                  nil];
+        alertView.tag = DISLIKE_ALERT_TAG;
+        [alertView show];
+    }
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"你喜欢这篇文章吗？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"否"
+                                                  otherButtonTitles:@"是",
+                                  nil];
+        alertView.tag = LIKE_ALERT_TAG;
+        [alertView show];
+    }
 }
 
 - (void)commentAction {
@@ -343,7 +373,6 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)tapCommentsTab {
-    DLog(@"comments");
     _tabComment.userInteractionEnabled = NO;
     _tabComment.backgroundColor = [UIColor colorWithHex:0x444444];
     _commentsTable.view.hidden = NO;
@@ -354,7 +383,6 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)tapRelevantsTab {
-    DLog(@"relevants");
     _tabComment.userInteractionEnabled = YES;
     _tabComment.backgroundColor = [UIColor colorWithHex:0x333333];
     _commentsTable.view.hidden = YES;
@@ -377,10 +405,31 @@ static NSDateFormatter* formatter = nil;
 - (void)updateProfileStatus {
     UIView *view = self.navigationItem.rightBarButtonItem.customView;
     UIButton *button = (UIButton *)view.subviews[0];
-    if ([[DataManager sharedManager].currentAccount success])
+    if ([DataMgr.currentAccount success])
         [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
     else
         [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 1) {
+        NSString *path = [NSString stringWithFormat:@"/app/article/like?userId=%d&pwd=%@&authorId=%d&articleId=%d&flag=%d", DataMgr.currentAccount.userId, DataMgr.currentAccount.password, _article.author.id, _article.id, !_article.isLike];
+        DLog(@"path=%@", path);
+        [[AFFTXAPIClient sharedClient] getPath:path
+                                    parameters:nil
+                                       success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                           DLog(@"like: %@", JSON);
+                                           if ([JSON[@"success"] boolValue]) {
+                                               if ([JSON[@"likeCount"] boolValue])
+                                                   [_likeButton setImage:[[UIImage imageNamed:@"cell-icon-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
+                                               else
+                                                   [_likeButton setImage:[UIImage imageNamed:@"cell-icon-heart"] forState:UIControlStateNormal];
+                                           }
+                                       }
+                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                           DLog(@"error: %@", error.description);
+                                       }];
+    }
 }
 
 @end

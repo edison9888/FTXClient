@@ -71,14 +71,14 @@
     // title
     self.title = @"相关新闻";
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:DataMgr];
     [self updateProfileStatus];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:DataMgr];
 }
 
 - (void)tapLeftBarButton {
@@ -93,7 +93,7 @@
 - (void)updateProfileStatus {
     UIView *view = self.navigationItem.rightBarButtonItem.customView;
     UIButton *button = (UIButton *)view.subviews[0];
-    if ([[DataManager sharedManager].currentAccount success])
+    if ([DataMgr.currentAccount success])
         [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
     else
         [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];

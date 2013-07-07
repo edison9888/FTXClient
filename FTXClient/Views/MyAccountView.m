@@ -75,12 +75,12 @@
 }
 
 - (void)populateInterface {
-    if ([DataManager sharedManager].currentAccount) {
-        [_avatarView setImageWithURL:[NSURL URLWithString:[DataManager sharedManager].currentAccount.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar-placeholder"]];
-        _nameLabel.text = [DataManager sharedManager].currentAccount.nickName;
+    if (DataMgr.currentAccount) {
+        [_avatarView setImageWithURL:[NSURL URLWithString:DataMgr.currentAccount.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar-placeholder"]];
+        _nameLabel.text = DataMgr.currentAccount.nickName;
         
         [_articles removeAllObjects];
-        NSString *path = [NSString stringWithFormat:@"/app/article/like_list?userId=%d&pageNo=1", [DataManager sharedManager].currentAccount.userId];
+        NSString *path = [NSString stringWithFormat:@"/app/article/like_list?userId=%d&pageNo=1", DataMgr.currentAccount.userId];
         [[AFFTXAPIClient sharedClient] getPath:path
                                     parameters:nil
                                        success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -101,10 +101,10 @@
 - (void)logout {
     [UserDefaults setValue:@"" forKey:kUCLoginAccountId];
     [UserDefaults setValue:@"" forKey:kUCLoginPassword];
-    [UserDefaults setInteger:-1 forKey:kUCLoginType];
+    [UserDefaults setInteger:LoginTypeNotLoggedIn forKey:kUCLoginType];
     [UserDefaults synchronize];
     
-    [DataManager sharedManager].currentAccount = nil;
+    DataMgr.currentAccount = nil;
     [_controller switchToView:AccountViewTypeLogin];
 }
 

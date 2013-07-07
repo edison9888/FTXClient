@@ -169,7 +169,7 @@
                                                [UserDefaults setInteger:LoginTypeFtx forKey:kUCLoginType];
                                                [UserDefaults synchronize];
 
-                                               [DataManager sharedManager].currentAccount = account;
+                                               DataMgr.currentAccount = account;
                                                [[HomeViewController sharedHome].navigationController popViewControllerAnimated:YES];
                                            }
                                        }

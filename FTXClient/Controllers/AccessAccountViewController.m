@@ -31,7 +31,7 @@
     _myAccountView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_myAccountView populateInterface];
     
-    if ([[DataManager sharedManager].currentAccount success]) {
+    if ([DataMgr.currentAccount success]) {
         [self.view addSubview:_loginView];
         [self.view addSubview:_registerView];
         [self.view addSubview:_myAccountView];
@@ -73,9 +73,9 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftView];
     
     // title
-    self.title = [[DataManager sharedManager].currentAccount success] ? @"我的账号" : @"登录";
+    self.title = [DataMgr.currentAccount success] ? @"我的账号" : @"登录";
     
-    [[NSNotificationCenter defaultCenter] addObserver:_myAccountView selector:@selector(populateInterface) name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] addObserver:_myAccountView selector:@selector(populateInterface) name:kAccountChangeNotification object:DataMgr];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -86,7 +86,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:_myAccountView name:kAccountChangeNotification object:[DataManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] removeObserver:_myAccountView name:kAccountChangeNotification object:DataMgr];
 }
 
 - (void)switchToView:(AccountViewType)viewType {

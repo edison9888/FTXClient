@@ -14,8 +14,11 @@
 #import "CommentViewController.h"
 #import "HomeViewController.h"
 #import "DetailViewController.h"
+#import "AccessAccountViewController.h"
 
 #define MAX_IMAGE_HEIGHT 355
+#define LIKE_ALERT_TAG 1
+#define DISLIKE_ALERT_TAG 2
 
 @interface ArticleViewCell ()
 {
@@ -62,7 +65,6 @@
         _likeButton.titleOriginX = 18;
         _likeButton.titleLabel.font = [UIFont systemFontOfSize:12];
         [_likeButton addTarget:self action:@selector(likeAction) forControlEvents:UIControlEventTouchUpInside];
-        [_likeButton setImage:[UIImage imageNamed:@"cell-bar-heart"] forState:UIControlStateNormal];
         [_likeButton setTitleColor:[UIColor colorWithHex:0xbbbbbb] forState:UIControlStateNormal];
         [bar addSubview:_likeButton];
         
@@ -134,6 +136,11 @@
     _article = article;
     
     _titleLabel.text = article.title;
+    if (_article.isLike)
+        [_likeButton setImage:[[UIImage imageNamed:@"cell-bar-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
+    else
+        [_likeButton setImage:[UIImage imageNamed:@"cell-bar-heart"] forState:UIControlStateNormal];
+
     [_likeButton setTitle:[NSString stringWithFormat:@"%d", article.numOfLikes] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"%d", article.numOfComments] forState:UIControlStateNormal];
     [_relevantButton setTitle:[NSString stringWithFormat:@"%d", article.numOfRelevants] forState:UIControlStateNormal];
@@ -196,7 +203,30 @@
 }
 
 - (void)likeAction {
-    DLog(@"like");
+    if (DataMgr.currentAccount == nil) {
+        AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
+        [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
+    }
+    else if (_article.isLike) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"你确定取消喜欢这篇文章吗？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"否"
+                                                  otherButtonTitles:@"是",
+                                  nil];
+        alertView.tag = DISLIKE_ALERT_TAG;
+        [alertView show];
+    }
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"你喜欢这篇文章吗？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"否"
+                                                  otherButtonTitles:@"是",
+                                  nil];
+        alertView.tag = LIKE_ALERT_TAG;
+        [alertView show];
+    }
 }
 
 - (void)commentAction {
@@ -207,6 +237,27 @@
 
 - (void)relevantAction {
     DLog(@"relevant");
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 1) {
+        NSString *path = [NSString stringWithFormat:@"/app/article/like?userId=%d&pwd=%@&authorId=%d&articleId=%d&flag=%d", DataMgr.currentAccount.userId, DataMgr.currentAccount.password, _article.author.id, _article.id, !_article.isLike];
+        DLog(@"path=%@", path);
+        [[AFFTXAPIClient sharedClient] getPath:path
+                                    parameters:nil
+                                       success:^(AFHTTPRequestOperation *operation, id JSON) {
+                                           DLog(@"like: %@", JSON);
+                                           if ([JSON[@"success"] boolValue]) {
+                                               if ([JSON[@"likeCount"] boolValue])
+                                                   [_likeButton setImage:[[UIImage imageNamed:@"cell-bar-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
+                                               else
+                                                   [_likeButton setImage:[UIImage imageNamed:@"cell-bar-heart"] forState:UIControlStateNormal];
+                                           }
+                                       }
+                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                           DLog(@"error: %@", error.description);
+                                       }];
+    }
 }
 
 @end

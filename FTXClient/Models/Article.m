@@ -33,6 +33,7 @@ static NSDateFormatter* refFormatter = nil;
         _numOfComments = [attributes[@"reviewCount"] integerValue];
         _numOfRelevants = [attributes[@"newsCnt"] integerValue];
         _videoUrl = attributes[@"videoUrl"];
+        _isLike = [attributes[@"isLike"] boolValue];
         
         _author = [[Author alloc] initWithId:[attributes[@"authorId"] integerValue]
                                      andName:attributes[@"authorName"]
