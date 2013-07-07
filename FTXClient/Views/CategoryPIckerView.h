@@ -8,5 +8,6 @@
 
 @interface CategoryPickerView : UIView
 
+@property (nonatomic) NSUInteger selectedIndex;
 
 @end

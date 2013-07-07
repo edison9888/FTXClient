@@ -6,12 +6,10 @@
 //  Copyright (c) 2013 BitRice. All rights reserved.
 //
 #import "ArticlesViewController.h"
-//#import "ArticleTableViewController.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : UIViewController <UIScrollViewDelegate>
 
 @property (readonly) ArticlesViewController *articlesCollection;
-//@property (readonly) ArticleTableViewController *tableViewController;
 
 + (HomeViewController *)sharedHome;
 

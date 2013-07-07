@@ -12,7 +12,6 @@
 		C21073F41781C1FD00EDCA46 /* MyAccountView.m in Sources */ = {isa = PBXBuildFile; fileRef = C21073F31781C1FD00EDCA46 /* MyAccountView.m */; };
 		C222A0C6177976B30078EBBD /* cell-image-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0C4177976B30078EBBD /* cell-image-placeholder.png */; };
 		C222A0C7177976B30078EBBD /* cell-image-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0C5177976B30078EBBD /* cell-image-placeholder@2x.png */; };
-		C222A0CA17797AA60078EBBD /* ArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222A0C917797AA60078EBBD /* ArticleTableViewController.m */; };
 		C222A0CD177A6C040078EBBD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222A0CC177A6C040078EBBD /* DetailViewController.m */; };
 		C222A0D0177A6E260078EBBD /* icon-back.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0CE177A6E260078EBBD /* icon-back.png */; };
 		C222A0D1177A6E260078EBBD /* icon-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C222A0CF177A6E260078EBBD /* icon-back@2x.png */; };
@@ -164,8 +163,6 @@
 		C21073F31781C1FD00EDCA46 /* MyAccountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountView.m; sourceTree = "<group>"; };
 		C222A0C4177976B30078EBBD /* cell-image-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-image-placeholder.png"; sourceTree = "<group>"; };
 		C222A0C5177976B30078EBBD /* cell-image-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-image-placeholder@2x.png"; sourceTree = "<group>"; };
-		C222A0C817797AA60078EBBD /* ArticleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTableViewController.h; sourceTree = "<group>"; };
-		C222A0C917797AA60078EBBD /* ArticleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTableViewController.m; sourceTree = "<group>"; };
 		C222A0CB177A6C040078EBBD /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		C222A0CC177A6C040078EBBD /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		C222A0CE177A6E260078EBBD /* icon-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back.png"; sourceTree = "<group>"; };
@@ -607,8 +604,6 @@
 				C2ACFFC31775FC900018EBBE /* AccessAccountViewController.m */,
 				C2FED9A617847C5B0061DCE4 /* ArticlesViewController.h */,
 				C2FED9A717847C5B0061DCE4 /* ArticlesViewController.m */,
-				C222A0C817797AA60078EBBD /* ArticleTableViewController.h */,
-				C222A0C917797AA60078EBBD /* ArticleTableViewController.m */,
 				C21073EC17811F8100EDCA46 /* CommentViewController.h */,
 				C21073ED17811F8100EDCA46 /* CommentViewController.m */,
 				C2B94A2E177BD77700563377 /* CommentsTableViewController.h */,
@@ -1009,7 +1004,6 @@
 				C2FB7B521776D72F00A7A5F0 /* CustomIconButton.m in Sources */,
 				C2C853061777F40700927A80 /* Author.m in Sources */,
 				C2FB3B08177824720093C2EC /* AFFTXAPIClient.m in Sources */,
-				C222A0CA17797AA60078EBBD /* ArticleTableViewController.m in Sources */,
 				C222A0CD177A6C040078EBBD /* DetailViewController.m in Sources */,
 				C2B94A30177BD77700563377 /* CommentsTableViewController.m in Sources */,
 				C2B94A33177BD78900563377 /* RelevantsTableViewController.m in Sources */,

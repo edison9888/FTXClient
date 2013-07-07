@@ -73,11 +73,18 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kAccountChangeNotification object:self];
 }
 
-- (void)setCategoryTag:(NSUInteger)categoryTag {
-    if (_categoryTag != categoryTag) {
-        _categoryTag = categoryTag;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kCategoryChangeNotification object:self];
+- (void)setCategoryIndex:(NSUInteger)categoryIndex {
+    if (_categoryIndex != categoryIndex) {
+        _categoryIndex = categoryIndex;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCategoryIndexChangeNotification object:self];
     }
+}
+
+static NSArray *tags;
+- (NSUInteger)categoryTag {
+    if (tags == nil)
+        tags = @[@0, @(CategoryTypeBasketball), @(CategoryTypeFootball), @(CategoryTypeFun),  @(CategoryTypeVideo)];
+    return [tags[_categoryIndex] integerValue];
 }
 
 - (void)cacheArticle:(Article *)article withTag:(NSUInteger)tag {
