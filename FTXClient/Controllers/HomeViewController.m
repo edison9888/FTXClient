@@ -57,6 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _targetOffset = CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -93,7 +94,13 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
     // title
-    self.title = @"饭特稀体育";
+    UIButton *titleButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    [titleButton setTitle:@"饭特稀体育" forState:UIControlStateNormal];
+    [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [titleButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [titleButton addTarget:self action:@selector(tapTitle) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = titleButton;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:DataMgr];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCategoryIndex) name:kCategoryIndexChangeNotification object:DataMgr];
@@ -112,6 +119,10 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:DataMgr];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCategoryIndexChangeNotification object:DataMgr];
+}
+
+- (void)tapTitle {
+    _categoryPicker.selectedIndex = 0;
 }
 
 - (void)tapLeftBarButton {
@@ -145,9 +156,10 @@
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
-    if (CGPointEqualToPoint(_targetOffset, CGPointZero) || CGPointEqualToPoint(_targetOffset, _scrollView.contentOffset)) {
+    CGPoint maxPoint = CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
+    if (CGPointEqualToPoint(_targetOffset, maxPoint) || CGPointEqualToPoint(_targetOffset, _scrollView.contentOffset)) {
         int pageIndex = floor((_scrollView.contentOffset.x - 160) / 320) + 1;
-        if (pageIndex == DataMgr.categoryIndex && CGPointEqualToPoint(_targetOffset, CGPointZero))
+        if (pageIndex == DataMgr.categoryIndex && CGPointEqualToPoint(_targetOffset, maxPoint))
             return;
         
         _categoryPicker.selectedIndex = pageIndex;
@@ -157,7 +169,7 @@
         [_articlesCollection refreshView:YES];
         
         if (CGPointEqualToPoint(_targetOffset, _scrollView.contentOffset))
-            _targetOffset = CGPointZero;
+            _targetOffset = maxPoint;
     }
 }
 

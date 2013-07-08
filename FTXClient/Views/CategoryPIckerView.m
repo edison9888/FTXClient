@@ -48,6 +48,8 @@
     if (_selectedIndex != selectedIndex) {
         CGRect from = _bgView.frame;
         CGRect to = CGRectMake(20 + (selectedIndex-1) * 70, 0, 60, 40);
+        if (selectedIndex == 0)
+            to.origin.x = -60;
         
         _bgView.frame = from;
         [UIView animateWithDuration:.2
