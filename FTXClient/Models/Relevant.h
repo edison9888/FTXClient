@@ -13,6 +13,7 @@
 @property (readonly) NSString *title;
 @property (readonly) NSString *sourceUrl;
 @property (readonly) NSUInteger sourceType;
+@property (readonly) NSString *sourceTypeName;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
 

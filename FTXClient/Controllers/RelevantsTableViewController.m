@@ -40,6 +40,12 @@
     } forIds:_relevantIds];
 }
 
+- (CGFloat)cellHeightForRelevant:(Relevant *)relevant {
+    CGFloat h = 30;
+    CGSize size = [relevant.title sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(260, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    return h + size.height;
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [_relevants count];
@@ -52,21 +58,27 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         
-        cell.textLabel.font = [UIFont systemFontOfSize:13];
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
         cell.textLabel.numberOfLines = 0;
-        cell.textLabel.textColor = [UIColor colorWithHex:0xbbbbbb];
+        cell.textLabel.textColor = [UIColor colorWithHex:0xdddddd];
+        
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+        cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+        cell.detailTextLabel.textColor = [UIColor colorWithHex:0x999999];
         
         UIImageView *accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell-arrow-button"]];
         cell.accessoryView = accessoryView;
     }
     Relevant *relevant = _relevants[indexPath.row];
     cell.textLabel.text = relevant.title;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"来自%@", relevant.sourceTypeName];
     return cell;
 }
 
 #pragma mark - UITableViewDataDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
+    Relevant *relevent = _relevants[indexPath.row];
+    return [self cellHeightForRelevant:relevent];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

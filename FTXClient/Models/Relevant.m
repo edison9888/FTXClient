@@ -18,6 +18,7 @@
         _title = attributes[@"title"];
         _sourceUrl = attributes[@"sourceUrl"];
         _sourceType = [attributes[@"sourceType"] integerValue];
+        _sourceTypeName = attributes[@"sourceTypeName"];
     }
     return self;
 }
