@@ -23,5 +23,10 @@ typedef enum {
 typedef enum {
     AboutActionNone        = 0,
     AboutActionComment     = 1,
-    AbountActionLove        = 2
+    AbountActionLove       = 2
 } AboutAction;
+
+typedef enum {
+    WebContentTypeAbout         = 0,
+    WebContentTypeRelevant      = 1
+} WebContentType;

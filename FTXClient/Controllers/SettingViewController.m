@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+FTX.h"
 #import "UIImage+FTX.h"
+#import "WebViewController.h"
 
 @interface SettingViewController ()
 {
@@ -102,7 +103,12 @@
 }
 
 - (void)action2 {
-    DLog(@"action2");
+    
+}
+
+- (void)action3 {
+    WebViewController *vc = [[WebViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableViewDataSource

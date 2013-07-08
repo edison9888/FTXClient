@@ -13,6 +13,7 @@
 {
     UIWebView *webView;
     NSString *_url;
+    WebContentType contentType;
 }
 @end
 
@@ -21,6 +22,7 @@
 - (id)initWithUrl:(NSString *)url {
     if (self = [super init]) {
         _url = url;
+        contentType = WebContentTypeRelevant;
     }
     return self;
 }
@@ -33,7 +35,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
+
+    if (contentType == WebContentTypeRelevant)
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
+    else {
+        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
+        NSString *htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+        [webView loadHTMLString:htmlString baseURL:nil];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,29 +65,8 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftView];
     
     
-    // right bar button
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightButton setFrame:CGRectMake(0, 0, 44, 44)];
-    [rightButton addTarget:self action:@selector(tapRightBarButton) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *rightView = [[UIView alloc] initWithFrame:buttonRect];
-    rightView.backgroundColor = [UIColor colorWithWhite:1 alpha:.12];
-    rightView.layer.cornerRadius = 5;
-    [rightView addSubview:rightButton];
-    rightButton.center = CGPointMake(CGRectGetWidth(buttonRect)/2, CGRectGetHeight(buttonRect)/2);
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
-    
     // title
-    self.title = @"相关新闻";
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:DataMgr];
-    [self updateProfileStatus];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:DataMgr];
+    self.title = contentType==WebContentTypeAbout ? @"关于我们" : @"相关新闻";
 }
 
 - (void)tapLeftBarButton {
@@ -88,15 +76,6 @@
 - (void)tapRightBarButton {
     AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)updateProfileStatus {
-    UIView *view = self.navigationItem.rightBarButtonItem.customView;
-    UIButton *button = (UIButton *)view.subviews[0];
-    if ([DataMgr.currentAccount success])
-        [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
-    else
-        [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
 }
 
 @end

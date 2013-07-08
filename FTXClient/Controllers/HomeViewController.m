@@ -53,22 +53,6 @@
     _articlesCollection = [[ArticlesViewController alloc] init];
     _articlesCollection.view.frame = CGRectMake(0, 0, CGRectGetWidth(rect), CGRectGetHeight(rect));
     [_scrollView addSubview:_articlesCollection.view];
-    
-//    UIView *v1 = [[UIView alloc] initWithFrame:CGRectMake(320, 0, 320, CGRectGetHeight(rect))];
-//    v1.backgroundColor = [UIColor yellowColor];
-//    [_scrollView addSubview:v1];
-//    
-//    UIView *v2 = [[UIView alloc] initWithFrame:CGRectMake(320*2, 0, 320, CGRectGetHeight(rect))];
-//    v2.backgroundColor = [UIColor redColor];
-//    [_scrollView addSubview:v2];
-//
-//    UIView *v3 = [[UIView alloc] initWithFrame:CGRectMake(320*3, 0, 320, CGRectGetHeight(rect))];
-//    v3.backgroundColor = [UIColor purpleColor];
-//    [_scrollView addSubview:v3];
-//
-//    UIView *v4 = [[UIView alloc] initWithFrame:CGRectMake(320*4, 0, 320, CGRectGetHeight(rect))];
-//    v4.backgroundColor = [UIColor blueColor];
-//    [_scrollView addSubview:v4];
 }
 
 - (void)viewDidLoad {
@@ -113,6 +97,14 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:DataMgr];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCategoryIndex) name:kCategoryIndexChangeNotification object:DataMgr];
+    
+    // update profile icon status
+    UIView *view = self.navigationItem.rightBarButtonItem.customView;
+    UIButton *button = (UIButton *)view.subviews[0];
+    if ([DataMgr.currentAccount success])
+        [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
+    else
+        [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
