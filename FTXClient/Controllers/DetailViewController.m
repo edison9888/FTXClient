@@ -203,7 +203,24 @@ static NSDateFormatter* formatter = nil;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
     // title
-    self.title = @"饭特稀体育";
+    NSString *title = _article.title ? _article.title : _article.summary;
+    if (isEmpty(title))
+        title = _article.content;
+    
+    CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:20]];
+    if (size.width > 222 && size.width < 330) {
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 222, 44)];
+        titleLabel.adjustsFontSizeToFitWidth = YES;
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.font = [UIFont boldSystemFontOfSize:20];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.text = title;
+        self.navigationItem.titleView = titleLabel;
+    }
+    else {
+        self.title = title;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:DataMgr];
     [self updateProfileStatus];

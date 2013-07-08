@@ -71,7 +71,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Relevant *relevant = _relevants[indexPath.row];
-    WebViewController *vc = [[WebViewController alloc] initWithUrl:relevant.sourceUrl];
+    WebViewController *vc = [[WebViewController alloc] initWithRelevant:relevant];
     [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
 }
 
