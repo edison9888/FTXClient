@@ -32,7 +32,7 @@
     UIView *_tabContentContainer;
     CommentsTableViewController *_commentsTable;
     RelevantsTableViewController *_relevantsTable;
-    UIButton *_playVideoButton;
+    UIButton *_playVideoButton, *_saveToAlbum;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -135,7 +135,16 @@ static NSDateFormatter* formatter = nil;
     if (!isEmpty(_article.imageUrl)) {
         _imageView = [[UIImageView alloc] init];
         _imageView.contentMode = UIViewContentModeCenter;
+        _imageView.userInteractionEnabled = YES;
         [scrollView addSubview:_imageView];
+        
+        _saveToAlbum = [UIButton buttonWithType:UIButtonTypeCustom];
+        _saveToAlbum.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        _saveToAlbum.frame = CGRectMake(CGRectGetWidth(_imageView.frame)-44, CGRectGetHeight(_imageView.frame)-44, 44, 44);
+        _saveToAlbum.hidden = YES;
+        [_saveToAlbum addTarget:self action:@selector(saveToAlbum) forControlEvents:UIControlEventTouchUpInside];
+        [_saveToAlbum setImage:[UIImage imageNamed:@"icon-save"] forState:UIControlStateNormal];
+        [_imageView addSubview:_saveToAlbum];
         
         _playVideoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _playVideoButton.hidden = YES;
@@ -316,6 +325,8 @@ static NSDateFormatter* formatter = nil;
         _imageView.frame = CGRectMake(0, topOffset, 300, scaledHeight);
         topOffset += scaledHeight + 10;
         
+        _saveToAlbum.hidden = NO;
+        
         if (!isEmpty(_article.videoUrl)) {
             _playVideoButton.hidden = NO;
             _playVideoButton.center = _imageView.center;
@@ -466,6 +477,27 @@ static NSDateFormatter* formatter = nil;
 - (void)playVideo {
 //    WebViewController *vc = [[WebViewController alloc] initWithUrl:_article.videoUrl];
 //    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)saveToAlbum {
+    UIImageWriteToSavedPhotosAlbum(_imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (error) {
+        DLog(@"%@", error.description);
+    }
+    else {
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:hud];
+        hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark"]];
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.delegate = self;
+        hud.labelText = @"保存至相册";
+        
+        [hud show:YES];
+        [hud hide:YES afterDelay:.7];
+    }
 }
 
 @end
