@@ -13,11 +13,20 @@
 {
     UIWebView *webView;
     Relevant *_relevant;
+    NSString *_url;
     WebContentType contentType;
 }
 @end
 
 @implementation WebViewController
+
+- (id)initWithUrl:(NSString *)url {
+    if (self = [super init]) {
+        _url = url;
+        contentType = WebContentTypeUrl;
+    }
+    return self;
+}
 
 - (id)initWithRelevant:(Relevant *)relevant {
     if (self = [super init]) {
@@ -36,12 +45,19 @@
 {
     [super viewDidLoad];
 
-    if (contentType == WebContentTypeRelevant)
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_relevant.sourceUrl]]];
-    else {
-        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
-        NSString *htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-        [webView loadHTMLString:htmlString baseURL:nil];
+    switch (contentType) {
+        case WebContentTypeUrl:
+            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
+            break;
+        case WebContentTypeRelevant:
+            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_relevant.sourceUrl]]];
+            break;
+        case WebContentTypeAbout: {
+            NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
+            NSString *htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+            [webView loadHTMLString:htmlString baseURL:nil];
+        }
+            break;
     }
 }
 
@@ -68,7 +84,18 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    NSString *title = contentType==WebContentTypeAbout ? @"关于我们" : _relevant.title;
+    NSString *title;
+    switch (contentType) {
+        case WebContentTypeRelevant:
+            title = _relevant.title;
+            break;
+        case WebContentTypeAbout:
+            title = @"关于我们";
+            break;
+        default:
+            title = @"";
+            break;
+    }
     CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:20]];
     if (size.width > 266) {
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 266, 44)];

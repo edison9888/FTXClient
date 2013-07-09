@@ -28,5 +28,6 @@ typedef enum {
 
 typedef enum {
     WebContentTypeAbout         = 0,
-    WebContentTypeRelevant      = 1
+    WebContentTypeRelevant      = 1,
+    WebContentTypeUrl           = 2
 } WebContentType;

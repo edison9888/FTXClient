@@ -16,6 +16,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UMSocial.h"
 #import "CommentViewController.h"
+#import "WebViewController.h"
 
 #define LIKE_ALERT_TAG 1
 #define DISLIKE_ALERT_TAG 2
@@ -31,6 +32,7 @@
     UIView *_tabContentContainer;
     CommentsTableViewController *_commentsTable;
     RelevantsTableViewController *_relevantsTable;
+    UIButton *_playVideoButton;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -134,6 +136,13 @@ static NSDateFormatter* formatter = nil;
         _imageView = [[UIImageView alloc] init];
         _imageView.contentMode = UIViewContentModeCenter;
         [scrollView addSubview:_imageView];
+        
+        _playVideoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _playVideoButton.hidden = YES;
+        _playVideoButton.frame = CGRectMake(0, 0, 31, 31);
+        [_playVideoButton setImage:[UIImage imageNamed:@"video-play-button"] forState:UIControlStateNormal];
+        [_playVideoButton addTarget:self action:@selector(playVideo) forControlEvents:UIControlEventTouchUpInside];
+        [scrollView addSubview:_playVideoButton];
     }
     
     // tabs content - comment
@@ -306,6 +315,11 @@ static NSDateFormatter* formatter = nil;
         CGFloat scaledHeight = floorf(objectHeight / (objectWidth / 300.f));
         _imageView.frame = CGRectMake(0, topOffset, 300, scaledHeight);
         topOffset += scaledHeight + 10;
+        
+        if (!isEmpty(_article.videoUrl)) {
+            _playVideoButton.hidden = NO;
+            _playVideoButton.center = _imageView.center;
+        }
     }
     
     if (!isEmpty(_titleLabel.text)) {
@@ -447,6 +461,11 @@ static NSDateFormatter* formatter = nil;
                                            DLog(@"error: %@", error.description);
                                        }];
     }
+}
+
+- (void)playVideo {
+//    WebViewController *vc = [[WebViewController alloc] initWithUrl:_article.videoUrl];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

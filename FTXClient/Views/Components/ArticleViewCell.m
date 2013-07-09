@@ -24,6 +24,7 @@
 {
     UILabel *_titleLabel;
     CustomIconButton *_likeButton, *_commentButton, *_relevantButton;
+    UIButton *_playVideoButton;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -42,6 +43,13 @@
         _imageView.clipsToBounds = YES;
         _imageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_imageView];
+        
+        _playVideoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _playVideoButton.userInteractionEnabled = NO;
+        _playVideoButton.hidden = YES;
+        _playVideoButton.frame = CGRectMake(0, 0, 31, 31);
+        [_playVideoButton setImage:[UIImage imageNamed:@"video-play-button"] forState:UIControlStateNormal];
+        [self addSubview:_playVideoButton];
         
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.backgroundColor = [UIColor clearColor];
@@ -111,6 +119,10 @@
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     scaledHeight = fminf(MAX_IMAGE_HEIGHT, scaledHeight);
     _imageView.frame = CGRectMake(0, 0, width, scaledHeight);
+    if (!isEmpty(_article.videoUrl)) {
+        _playVideoButton.hidden = NO;
+        _playVideoButton.center = _imageView.center;
+    }
     
     CGFloat topOffset = scaledHeight + 5;
     

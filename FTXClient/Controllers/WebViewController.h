@@ -10,5 +10,6 @@
 @interface WebViewController : UIViewController<UIWebViewDelegate>
 
 - (id)initWithRelevant:(Relevant *)relevant;
+- (id)initWithUrl:(NSString *)url;
 
 @end
