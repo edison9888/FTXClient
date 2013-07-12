@@ -23,7 +23,7 @@
 @property (readonly) NSUInteger numOfRelevants;
 @property (readwrite) NSUInteger numOfLikes;
 @property (readwrite) NSUInteger numOfComments;
-@property (readonly) NSString *videoUrl;
+@property (readonly) NSString *sourceVideoUrl;
 @property (readwrite) BOOL isLike;
 
 @property (nonatomic, strong) UIImage *image;

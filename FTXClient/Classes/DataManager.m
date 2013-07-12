@@ -91,7 +91,7 @@ static NSArray *tags;
     NSUInteger count = [_db intForQuery:@"SELECT COUNT(*) FROM Article WHERE id = ?", @(article.id)];
     if (count == 0) {
         NSString *q = @"INSERT INTO Article (id, type, title, summary, content, imageId, imageHeight, relevantIds, publishTime, numOfRelevants, numOfLikes, numOfComments, authorId, authorName, authorImageId, videoUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        [_db executeUpdate:q, @(article.id), @(article.type), article.title, article.summary, article.content, article.imageId, @(article.imageHeight), article.relevantIds, @([article.publishTime timeIntervalSince1970]), @(article.numOfRelevants), @(article.numOfLikes), @(article.numOfComments), @(article.author.id), article.author.name, article.author.imageId, article.videoUrl];
+        [_db executeUpdate:q, @(article.id), @(article.type), article.title, article.summary, article.content, article.imageId, @(article.imageHeight), article.relevantIds, @([article.publishTime timeIntervalSince1970]), @(article.numOfRelevants), @(article.numOfLikes), @(article.numOfComments), @(article.author.id), article.author.name, article.author.imageId, article.sourceVideoUrl];
     }
     else {
         NSString *q = @"UPDATE Article SET numOfLikes = ?, numOfComments = ? WHERE ID = ?";

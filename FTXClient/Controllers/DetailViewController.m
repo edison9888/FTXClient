@@ -327,7 +327,7 @@ static NSDateFormatter* formatter = nil;
         
         _saveToAlbum.hidden = NO;
         
-        if (!isEmpty(_article.videoUrl)) {
+        if (!isEmpty(_article.sourceVideoUrl)) {
             _playVideoButton.hidden = NO;
             _playVideoButton.center = _imageView.center;
         }
@@ -475,8 +475,9 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)playVideo {
-//    WebViewController *vc = [[WebViewController alloc] initWithUrl:_article.videoUrl];
-//    [self.navigationController pushViewController:vc animated:YES];
+    WebViewController *vc = [[WebViewController alloc] initWithUrl:_article.sourceVideoUrl];
+    DLog(@"play video: %@", _article.sourceVideoUrl);
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)saveToAlbum {

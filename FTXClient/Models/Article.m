@@ -32,7 +32,7 @@ static NSDateFormatter* refFormatter = nil;
         _numOfLikes = [attributes[@"likeCount"] integerValue];
         _numOfComments = [attributes[@"reviewCount"] integerValue];
         _numOfRelevants = [attributes[@"newsCnt"] integerValue];
-        _videoUrl = attributes[@"videoUrl"];
+        _sourceVideoUrl = attributes[@"sourceVideoUrl"];
         _isLike = [attributes[@"isLike"] boolValue];
         
         _author = [[Author alloc] initWithId:[attributes[@"authorId"] integerValue]
@@ -67,7 +67,7 @@ static NSDateFormatter* refFormatter = nil;
         _numOfComments = [rs intForColumn:@"numOfComments"];
         _numOfRelevants = [rs intForColumn:@"numOfRelevants"];
         _publishTime = [[NSDate alloc] initWithTimeIntervalSince1970:[rs intForColumn:@"publishTime"]];
-        _videoUrl = [rs stringForColumn:@"videoUrl"];
+        _sourceVideoUrl = [rs stringForColumn:@"videoUrl"];
         
         _author = [[Author alloc] initWithId:[rs intForColumn:@"authorId"]
                                      andName:[rs stringForColumn:@"authorName"]

@@ -119,7 +119,7 @@
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     scaledHeight = fminf(MAX_IMAGE_HEIGHT, scaledHeight);
     _imageView.frame = CGRectMake(0, 0, width, scaledHeight);
-    if (!isEmpty(_article.videoUrl)) {
+    if (!isEmpty(_article.sourceVideoUrl)) {
         _playVideoButton.hidden = NO;
         _playVideoButton.center = _imageView.center;
     }
