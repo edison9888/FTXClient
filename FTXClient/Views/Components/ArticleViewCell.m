@@ -24,6 +24,7 @@
 {
     UILabel *_titleLabel;
     CustomIconButton *_likeButton, *_commentButton, *_relevantButton;
+    UIScrollView *_scrollView;
     UIButton *_playVideoButton;
 }
 
@@ -39,10 +40,14 @@
     if (self) {
         self.backgroundColor = [UIColor colorWithHex:0x333333];
         
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _scrollView.userInteractionEnabled = NO;
+        [self addSubview:_scrollView];
+        
         _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _imageView.clipsToBounds = YES;
         _imageView.contentMode = UIViewContentModeCenter;
-        [self addSubview:_imageView];
+        [_scrollView addSubview:_imageView];
         
         _playVideoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _playVideoButton.userInteractionEnabled = NO;
@@ -117,8 +122,9 @@
     CGFloat objectWidth = 250;
     CGFloat objectHeight = _article.imageHeight;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
-    scaledHeight = fminf(MAX_IMAGE_HEIGHT, scaledHeight);
     _imageView.frame = CGRectMake(0, 0, width, scaledHeight);
+    scaledHeight = fminf(MAX_IMAGE_HEIGHT, scaledHeight);
+    _scrollView.frame = CGRectMake(0, 0, width, scaledHeight);
     if (!isEmpty(_article.sourceVideoUrl)) {
         _playVideoButton.hidden = NO;
         _playVideoButton.center = _imageView.center;
@@ -152,11 +158,11 @@
         [_likeButton setImage:[[UIImage imageNamed:@"cell-bar-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
     else
         [_likeButton setImage:[UIImage imageNamed:@"cell-bar-heart"] forState:UIControlStateNormal];
-
+    
     [_likeButton setTitle:[NSString stringWithFormat:@"%d", article.numOfLikes] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"%d", article.numOfComments] forState:UIControlStateNormal];
     [_relevantButton setTitle:[NSString stringWithFormat:@"%d", article.numOfRelevants] forState:UIControlStateNormal];
-
+    
     if (article.image) {
         _imageView.image = article.image;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -210,7 +216,7 @@
     UIFont *labelFont = [UIFont boldSystemFontOfSize:14.0];
     labelSize = [caption sizeWithFont:labelFont constrainedToSize:CGSizeMake(width-12, INT_MAX) lineBreakMode:UILineBreakModeWordWrap];
     height += labelSize.height + 33;
-        
+    
     return height;
 }
 
