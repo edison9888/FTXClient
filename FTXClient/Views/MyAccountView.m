@@ -13,6 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "Article.h"
 #import "DetailViewController.h"
+#import "HomeViewController.h"
 
 @interface MyAccountView ()
 {
@@ -105,7 +106,9 @@
     [UserDefaults synchronize];
     
     DataMgr.currentAccount = nil;
-    [_controller switchToView:AccountViewTypeLogin];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"已退出" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [self.controller.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableViewDataSource
