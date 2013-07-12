@@ -8,7 +8,7 @@
 
 @class AccessAccountViewController;
 
-@interface LoginView : UIView
+@interface LoginView : UIScrollView
 
 @property (nonatomic, assign) AccessAccountViewController *controller;
 

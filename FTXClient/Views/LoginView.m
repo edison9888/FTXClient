@@ -29,6 +29,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor blackColor];
+        self.contentSize = frame.size;
         
         mailField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
         mailField.keyboardType = UIKeyboardTypeEmailAddress;
