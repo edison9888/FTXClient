@@ -12,4 +12,6 @@
 - (id)initWithRelevant:(Relevant *)relevant;
 - (id)initWithUrl:(NSString *)url;
 
+@property (nonatomic) BOOL contentFits;
+
 @end

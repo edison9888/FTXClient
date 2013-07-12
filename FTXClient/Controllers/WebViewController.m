@@ -38,6 +38,7 @@
 
 - (void)loadView {
     webView = [[UIWebView alloc] init];
+    webView.delegate = self;
     self.view = webView;
 }
 
@@ -93,7 +94,7 @@
             title = @"关于我们";
             break;
         default:
-            title = @"";
+            title = self.title;
             break;
     }
     CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:20]];
@@ -119,6 +120,20 @@
 - (void)tapRightBarButton {
     AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - UIWebViewDelegate
+- (void)webViewDidFinishLoad:(UIWebView *)theWebView {
+    if (self.contentFits && [theWebView respondsToSelector:@selector(scrollView)]) {
+        CGSize contentSize = theWebView.scrollView.contentSize;
+        CGSize viewSize = self.view.bounds.size;
+        
+        float rw = viewSize.width / contentSize.width;
+        
+        theWebView.scrollView.minimumZoomScale = rw;
+        theWebView.scrollView.maximumZoomScale = rw;
+        theWebView.scrollView.zoomScale = rw;
+    }
 }
 
 @end

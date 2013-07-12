@@ -14,6 +14,7 @@
 #import "NetWorkReachability.h"
 #import "Account.h"
 #import "HomeViewController.h"
+#import "WebViewController.h"
 
 #define kAgreeButtonTag 1
 
@@ -65,7 +66,7 @@
         agreeButton = [CustomIconButton buttonWithType:UIButtonTypeCustom];
         agreeButton.imageOriginX = 0;
         agreeButton.titleOriginX = 20;
-        agreeButton.frame = CGRectMake(30, 182, 200, 44);
+        agreeButton.frame = CGRectMake(30, 182, 120, 44);
         agreeButton.tag = kAgreeButtonTag;
         agreeButton.titleLabel.font = [UIFont systemFontOfSize:13];
         [agreeButton addTarget:self action:@selector(toggleAgreeButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -74,6 +75,17 @@
         [agreeButton setTitle:@"同意饭特稀协议" forState:UIControlStateNormal];
         [agreeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:agreeButton];
+        
+        
+        UIButton *readPolicyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        readPolicyButton.frame = CGRectMake(150, 182, 70, 44);
+        readPolicyButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        readPolicyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [readPolicyButton setTitle:@"阅读协议" forState:UIControlStateNormal];
+        [readPolicyButton setTitleColor:[UIColor colorWithHex:0x0099cc] forState:UIControlStateNormal];
+        [readPolicyButton setTitleColor:[UIColor colorWithHex:0x04546e] forState:UIControlStateHighlighted];
+        [readPolicyButton addTarget:self action:@selector(readPolicy) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:readPolicyButton];
         
         UIButton *regButton = [UIButton buttonWithType:UIButtonTypeCustom];
         regButton.frame = CGRectMake(30, 226, 125, 44);
@@ -113,6 +125,13 @@
 
 - (void)toggleAgreeButton:(UIButton *)button {
     button.selected = !button.selected;
+}
+
+- (void)readPolicy {
+    WebViewController *vc = [[WebViewController alloc] initWithUrl:@"http://www.ftx.cn/privacy"];
+    vc.contentFits = YES;
+    vc.title = @"隐私政策";
+    [self.controller.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)gotoLogin {
