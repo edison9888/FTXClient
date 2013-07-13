@@ -52,6 +52,7 @@
                                            [_reviews removeObject:review];
                                            [self.tableView deleteRowsAtIndexPaths:@[_deletingIndexPath] withRowAnimation:UITableViewRowAnimationFade];
                                            [self.tableView endUpdates];
+                                           [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteReviewNotification object:self];
                                        }
                                    }
                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {

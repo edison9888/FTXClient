@@ -243,6 +243,7 @@ static NSDateFormatter* formatter = nil;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileStatus) name:kAccountChangeNotification object:DataMgr];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleReviewDeleted) name:kDeleteReviewNotification object:_commentsTable];
     [self updateProfileStatus];
 }
 
@@ -279,7 +280,7 @@ static NSDateFormatter* formatter = nil;
     
     [self layoutViews];
     
-    if (_animateToComments) {
+    if (_animateToComments || _addingReview) {
         [scrollView scrollRectToVisible:_tabContentContainer.frame animated:YES];
     }
     else {
@@ -301,6 +302,7 @@ static NSDateFormatter* formatter = nil;
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kAccountChangeNotification object:DataMgr];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDeleteReviewNotification object:_commentsTable];
 }
 
 - (void)layoutViews {
@@ -454,6 +456,11 @@ static NSDateFormatter* formatter = nil;
     else {
         [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
     }
+}
+
+- (void)handleReviewDeleted {
+    _article.numOfComments--;
+    [self layoutViews];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
