@@ -23,8 +23,6 @@
     
     // wechat
     [WXApi registerApp:@"wx62c0b969df327319"];
-    [UMSocialControllerService defaultControllerService].socialData.extConfig.wxMessageType = UMSocialWXMessageTypeApp;
-    [UMSocialData defaultData].extConfig.appUrl = @"http://www.umeng.com";
     
     [self setupUserDefaults];
     [DataMgr checkDatabase];

@@ -402,11 +402,16 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)shareAction {
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeOther;
+    WXWebpageObject *webObject = [WXWebpageObject object];
+    webObject.webpageUrl = [NSString stringWithFormat:@"%@/discover/%d/%d", StagingBoxInterfaceBase, _article.author.id, _article.id];
+    [UMSocialData defaultData].extConfig.wxMediaObject = webObject;
+    
     [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
                                          appKey:kUMengAppKey
                                       shareText:_article.title
                                      shareImage:_article.image
-                                shareToSnsNames:@[UMShareToSina, UMShareToQzone, UMShareToWechat]
+                                shareToSnsNames:@[UMShareToSina, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline]
                                        delegate:nil];
 
 }
