@@ -131,7 +131,7 @@
         cell.accessoryView = accessoryView;
     }
     Article *article = _articles[indexPath.row];
-    cell.textLabel.text = article.title;
+    cell.textLabel.text = !isEmpty(article.title) ? article.title : article.summary;
     return cell;
 }
 

@@ -236,14 +236,7 @@
         [alertView show];
     }
     else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:@"你喜欢这篇文章吗？"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"否"
-                                                  otherButtonTitles:@"是",
-                                  nil];
-        alertView.tag = LIKE_ALERT_TAG;
-        [alertView show];
+        [self alertView:nil didDismissWithButtonIndex:1];
     }
 }
 
@@ -266,10 +259,17 @@
                                        success:^(AFHTTPRequestOperation *operation, id JSON) {
                                            DLog(@"like: %@", JSON);
                                            if ([JSON[@"success"] boolValue]) {
-                                               if ([JSON[@"likeCount"] boolValue])
+                                               if ([JSON[@"likeCount"] boolValue]) {
                                                    [_likeButton setImage:[[UIImage imageNamed:@"cell-bar-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
-                                               else
+                                                   _article.isLike = YES;
+                                                   _article.numOfLikes++;
+                                               }
+                                               else {
                                                    [_likeButton setImage:[UIImage imageNamed:@"cell-bar-heart"] forState:UIControlStateNormal];
+                                                   _article.isLike = NO;
+                                                   _article.numOfLikes--;
+                                               }
+                                               self.article = _article;
                                            }
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
