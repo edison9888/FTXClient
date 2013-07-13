@@ -84,7 +84,9 @@
     
     // right bar button
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightButton setFrame:CGRectMake(0, 0, 44, 44)];
+    rightButton.clipsToBounds = YES;
+    rightButton.layer.cornerRadius = 4;
+    [rightButton setFrame:CGRectMake(0, 0, 36, 36)];
     [rightButton addTarget:self action:@selector(tapRightBarButton) forControlEvents:UIControlEventTouchUpInside];
     
     UIView *rightView = [[UIView alloc] initWithFrame:buttonRect];
@@ -138,10 +140,18 @@
 - (void)updateProfileStatus {
     UIView *view = self.navigationItem.rightBarButtonItem.customView;
     UIButton *button = (UIButton *)view.subviews[0];
-    if ([DataMgr.currentAccount success])
-        [button setImage:[UIImage imageNamed:@"icon-profile-online"] forState:UIControlStateNormal];
-    else
+    if ([DataMgr.currentAccount success]) {
+        NSURL *imageURL = [NSURL URLWithString:DataMgr.currentAccount.avatarUrl];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [button setImage:[UIImage imageWithData:imageData] forState:UIControlStateNormal];
+            });
+        });
+    }
+    else {
         [button setImage:[UIImage imageNamed:@"icon-profile"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)postReview {
