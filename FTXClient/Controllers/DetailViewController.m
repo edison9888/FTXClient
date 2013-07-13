@@ -465,16 +465,15 @@ static NSDateFormatter* formatter = nil;
                                        success:^(AFHTTPRequestOperation *operation, id JSON) {
                                            DLog(@"like: %@", JSON);
                                            if ([JSON[@"success"] boolValue]) {
-                                               if ([JSON[@"likeCount"] boolValue]) {
+                                               if (!_article.isLike) {
                                                    [_likeButton setImage:[[UIImage imageNamed:@"cell-icon-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
                                                    _article.isLike = YES;
-                                                   _article.numOfLikes++;
                                                }
                                                else {
                                                    [_likeButton setImage:[UIImage imageNamed:@"cell-icon-heart"] forState:UIControlStateNormal];
                                                    _article.isLike = NO;
-                                                   _article.numOfLikes--;
                                                }
+                                               _article.numOfLikes = [JSON[@"likeCount"] integerValue];
                                                [self layoutViews];
                                            }
                                        }

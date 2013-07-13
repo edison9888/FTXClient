@@ -259,16 +259,15 @@
                                        success:^(AFHTTPRequestOperation *operation, id JSON) {
                                            DLog(@"like: %@", JSON);
                                            if ([JSON[@"success"] boolValue]) {
-                                               if ([JSON[@"likeCount"] boolValue]) {
+                                               if (!_article.isLike) {
                                                    [_likeButton setImage:[[UIImage imageNamed:@"cell-bar-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
                                                    _article.isLike = YES;
-                                                   _article.numOfLikes++;
                                                }
                                                else {
                                                    [_likeButton setImage:[UIImage imageNamed:@"cell-bar-heart"] forState:UIControlStateNormal];
                                                    _article.isLike = NO;
-                                                   _article.numOfLikes--;
                                                }
+                                               _article.numOfLikes = [JSON[@"likeCount"] integerValue];
                                                self.article = _article;
                                            }
                                        }

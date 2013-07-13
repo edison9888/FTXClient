@@ -29,7 +29,6 @@
     _myAccountView = [[MyAccountView alloc] initWithFrame:self.view.bounds];
     _myAccountView.controller = self;
     _myAccountView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_myAccountView populateInterface];
     
     if ([DataMgr.currentAccount success]) {
         [self.view addSubview:_loginView];
@@ -75,6 +74,7 @@
     // title
     self.title = [DataMgr.currentAccount success] ? @"我的账号" : @"登录";
     
+    [_myAccountView populateInterface];
     [[NSNotificationCenter defaultCenter] addObserver:_myAccountView selector:@selector(populateInterface) name:kAccountChangeNotification object:DataMgr];
 }
 

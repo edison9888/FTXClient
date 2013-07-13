@@ -59,7 +59,7 @@
     CGSize size = [_nameLabel.text sizeWithFont:_nameLabel.font];
     _nameLabel.frame = CGRectMake(44, 7, size.width, size.height);
     
-    size = [self.detailTextLabel.text sizeWithFont:self.detailTextLabel.font constrainedToSize:CGSizeMake(240, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    size = [self.detailTextLabel.text sizeWithFont:self.detailTextLabel.font constrainedToSize:CGSizeMake(249, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     self.detailTextLabel.frame = CGRectMake(44, 7, 249, size.height);
 }
 
