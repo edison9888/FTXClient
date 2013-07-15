@@ -43,6 +43,7 @@
     rect.size.height -= CGRectGetHeight(_categoryPicker.frame) + 44;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:rect];
+    _scrollView.bounces = NO;
     _scrollView.contentSize = CGSizeMake(CGRectGetWidth(rect) * 5, CGRectGetHeight(rect));
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;

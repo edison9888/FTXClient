@@ -32,7 +32,8 @@
     UIView *_tabContentContainer;
     CommentsTableViewController *_commentsTable;
     RelevantsTableViewController *_relevantsTable;
-    UIButton *_playVideoButton, *_saveToAlbum;
+    UIButton *_playVideoButton;
+    CustomIconButton *_saveToAlbum;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -138,12 +139,18 @@ static NSDateFormatter* formatter = nil;
         _imageView.userInteractionEnabled = YES;
         [scrollView addSubview:_imageView];
         
-        _saveToAlbum = [UIButton buttonWithType:UIButtonTypeCustom];
+        _saveToAlbum = [CustomIconButton buttonWithType:UIButtonTypeCustom];
         _saveToAlbum.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-        _saveToAlbum.frame = CGRectMake(CGRectGetWidth(_imageView.frame)-44, CGRectGetHeight(_imageView.frame)-44, 44, 44);
+        _saveToAlbum.frame = CGRectMake(CGRectGetWidth(_imageView.frame)-70, CGRectGetHeight(_imageView.frame)-28, 70, 28);
         _saveToAlbum.hidden = YES;
+        _saveToAlbum.imageOriginX = 0;
+        _saveToAlbum.titleOriginX = 20;
+        _saveToAlbum.titleLabel.font = [UIFont systemFontOfSize:12];
         [_saveToAlbum addTarget:self action:@selector(saveToAlbum) forControlEvents:UIControlEventTouchUpInside];
         [_saveToAlbum setImage:[UIImage imageNamed:@"icon-save"] forState:UIControlStateNormal];
+        [_saveToAlbum setTitle:@"保存图片" forState:UIControlStateNormal];
+        [_saveToAlbum setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_saveToAlbum setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateHighlighted];
         [_imageView addSubview:_saveToAlbum];
         
         _playVideoButton = [UIButton buttonWithType:UIButtonTypeCustom];
