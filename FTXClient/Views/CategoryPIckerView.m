@@ -20,13 +20,13 @@
 {
     if (self = [super initWithFrame:frame]) {
         _bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"category-item-bg"]];
-        _bgView.frame = CGRectMake(-60, 0, 60, 40);
+        _bgView.frame = CGRectMake(-80, 0, 80, 40);
         [self addSubview:_bgView];
         
         NSArray *images = @[@"basketball", @"football", @"fun",  @"video"];
         for (int i=0; i<[images count]; i++) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(20 + i*70, 0, 60, CGRectGetHeight(frame));
+            button.frame = CGRectMake(i*80, 0, 80, CGRectGetHeight(frame));
             button.tag = i+1;
             [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"category-%@", images[i]]] forState:UIControlStateNormal];
             [button addTarget:self action:@selector(tapCategory:) forControlEvents:UIControlEventTouchUpInside];
@@ -46,15 +46,15 @@
 
 - (void)setSelectedIndex:(NSUInteger)selectedIndex {
     if (_selectedIndex != selectedIndex) {
-        CGRect from = _bgView.frame;
-        CGRect to = CGRectMake(20 + (selectedIndex-1) * 70, 0, 60, 40);
+        CGPoint from = _bgView.center;
+        CGPoint to = CGPointMake((selectedIndex-1)*80 + 40, 20);
         if (selectedIndex == 0)
-            to.origin.x = -60;
+            to.x = -40;
         
-        _bgView.frame = from;
+        _bgView.center = from;
         [UIView animateWithDuration:.2
                          animations:^{
-                             _bgView.frame = to;
+                             _bgView.center = to;
                          }];
         
         _selectedIndex = selectedIndex;
