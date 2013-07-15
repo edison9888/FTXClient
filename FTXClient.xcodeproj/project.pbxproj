@@ -11,6 +11,8 @@
 		C21073F11781305A00EDCA46 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = C21073F01781305A00EDCA46 /* Account.m */; };
 		C21073F41781C1FD00EDCA46 /* MyAccountView.m in Sources */ = {isa = PBXBuildFile; fileRef = C21073F31781C1FD00EDCA46 /* MyAccountView.m */; };
 		C222A0CD177A6C040078EBBD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C222A0CC177A6C040078EBBD /* DetailViewController.m */; };
+		C22C121917942446006E30D4 /* refresh-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C22C121717942446006E30D4 /* refresh-logo.png */; };
+		C22C121A17942446006E30D4 /* refresh-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C22C121817942446006E30D4 /* refresh-logo@2x.png */; };
 		C22C1257177CA0990034D02E /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C22C1256177CA0990034D02E /* WebViewController.m */; };
 		C244B2051775F0C700DB34D5 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = C244B2041775F0C700DB34D5 /* Article.m */; };
 		C244E223178BC2CC005ABF15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C244E222178BC2CC005ABF15 /* MBProgressHUD.m */; };
@@ -181,6 +183,8 @@
 		C21073F31781C1FD00EDCA46 /* MyAccountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountView.m; sourceTree = "<group>"; };
 		C222A0CB177A6C040078EBBD /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		C222A0CC177A6C040078EBBD /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		C22C121717942446006E30D4 /* refresh-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-logo.png"; sourceTree = "<group>"; };
+		C22C121817942446006E30D4 /* refresh-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-logo@2x.png"; sourceTree = "<group>"; };
 		C22C1255177CA0990034D02E /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		C22C1256177CA0990034D02E /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		C244B2031775F0C700DB34D5 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
@@ -621,6 +625,8 @@
 				C26A81261790627E009DB4C9 /* login-way-weibo@2x.png */,
 				C26A81271790627E009DB4C9 /* navigation-bar-bg.png */,
 				C26A81281790627E009DB4C9 /* navigation-bar-bg@2x.png */,
+				C22C121717942446006E30D4 /* refresh-logo.png */,
+				C22C121817942446006E30D4 /* refresh-logo@2x.png */,
 				C26A81291790627E009DB4C9 /* table-cell-bg.png */,
 				C26A812A1790627E009DB4C9 /* table-cell-bg@2x.png */,
 				C26A812B1790627E009DB4C9 /* table-header-bg.png */,
@@ -1054,6 +1060,8 @@
 				C24CDFFB1791BB83007B81CE /* UMSnsAccountViewController.xib in Resources */,
 				C24CDFFC1791BB83007B81CE /* UMSShareListController.xib in Resources */,
 				C24CDFFD1791BB83007B81CE /* UMSocialSDKResourcesNew.bundle in Resources */,
+				C22C121917942446006E30D4 /* refresh-logo.png in Resources */,
+				C22C121A17942446006E30D4 /* refresh-logo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

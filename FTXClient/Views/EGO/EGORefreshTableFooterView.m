@@ -46,15 +46,19 @@
     if (self = [super initWithFrame:frame]) {
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
-        UIImageView *footer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-header-bg"]];
-        footer.frame = CGRectMake(0, 0, CGRectGetWidth(frame), REFRESH_HEADER_HEIGHT);
+        UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), REFRESH_HEADER_HEIGHT)];
+        footer.backgroundColor = [UIColor blackColor];
         [self addSubview:footer];
         
-        _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(47, 10, 100, 47)];
+        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"refresh-logo"]];
+        logo.center = CGPointMake(35, REFRESH_HEADER_HEIGHT/2.0);
+        [footer addSubview:logo];
+
+        _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(57, 10, 100, 47)];
         _statusLabel.backgroundColor = [UIColor clearColor];
         _statusLabel.font = [UIFont systemFontOfSize:13];
         _statusLabel.text = kFooterPullText;
-        _statusLabel.textColor = [UIColor colorWithHex:0x707070];
+        _statusLabel.textColor = [UIColor whiteColor];
         _statusLabel.shadowColor = [UIColor colorWithWhite:1 alpha:.5];
         _statusLabel.shadowOffset = CGSizeMake(0, .5);
         [footer addSubview:_statusLabel];

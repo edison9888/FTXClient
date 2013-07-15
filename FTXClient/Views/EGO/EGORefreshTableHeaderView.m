@@ -46,15 +46,19 @@
     if (self = [super initWithFrame:frame]) {
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
-        UIImageView *header = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-header-bg"]];
-        header.frame = CGRectMake(0, CGRectGetHeight(frame) - REFRESH_HEADER_HEIGHT, CGRectGetWidth(frame), REFRESH_HEADER_HEIGHT);
+        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(frame) - REFRESH_HEADER_HEIGHT, CGRectGetWidth(frame), REFRESH_HEADER_HEIGHT)];
+        header.backgroundColor = [UIColor blackColor];
         [self addSubview:header];
         
-        _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(47, 10, 100, 46)];
+        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"refresh-logo"]];
+        logo.center = CGPointMake(35, REFRESH_HEADER_HEIGHT/2.0);
+        [header addSubview:logo];
+        
+        _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(57, 10, 100, 46)];
         _statusLabel.backgroundColor = [UIColor clearColor];
         _statusLabel.font = [UIFont systemFontOfSize:13];
         _statusLabel.text = kHeaderPullText;
-        _statusLabel.textColor = [UIColor colorWithHex:0x707070];
+        _statusLabel.textColor = [UIColor whiteColor];
         _statusLabel.shadowColor = [UIColor colorWithWhite:1 alpha:.5];
         _statusLabel.shadowOffset = CGSizeMake(0, .5);
         [header addSubview:_statusLabel];
