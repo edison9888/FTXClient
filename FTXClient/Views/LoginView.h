@@ -11,5 +11,6 @@
 @interface LoginView : UIScrollView
 
 @property (nonatomic, assign) AccessAccountViewController *controller;
+@property (nonatomic, strong) UILabel *promptLabel;
 
 @end

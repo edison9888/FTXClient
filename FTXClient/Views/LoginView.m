@@ -94,6 +94,12 @@
         [btnQQ setImage:[UIImage imageNamed:@"login-way-qq"] forState:UIControlStateNormal];
         [btnQQ addTarget:self action:@selector(loginViaSns:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnQQ];
+        
+        _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 226, 260, 44)];
+        _promptLabel.backgroundColor = [UIColor clearColor];
+        _promptLabel.font = [UIFont systemFontOfSize:14];
+        _promptLabel.textColor = [UIColor colorWithHex:0x0099cc];
+        [self addSubview:_promptLabel];
     }
     return self;
 }

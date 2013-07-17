@@ -226,6 +226,7 @@
 - (void)likeAction {
     if (DataMgr.currentAccount == nil) {
         AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
+        vc.loginView.promptLabel.text = @"请登录然后使用喜欢/取消喜欢功能";
         [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
     }
     else if (_article.isLike) {

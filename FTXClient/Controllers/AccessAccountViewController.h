@@ -11,10 +11,11 @@
 
 @interface AccessAccountViewController : UIViewController
 {
-    LoginView *_loginView;
     RegisterView *_registerView;
     MyAccountView *_myAccountView;
 }
+
+@property (nonatomic, strong) LoginView *loginView;
 
 - (void)switchToView:(AccountViewType)viewType;
 

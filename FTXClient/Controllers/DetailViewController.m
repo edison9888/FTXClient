@@ -289,6 +289,7 @@ static NSDateFormatter* formatter = nil;
     
     if (_animateToComments || _addingReview) {
         [scrollView scrollRectToVisible:_tabContentContainer.frame animated:YES];
+        [self tapCommentsTab];
     }
     else {
         [self tapRelevantsTab];
@@ -385,6 +386,7 @@ static NSDateFormatter* formatter = nil;
 - (void)likeAction {
     if (DataMgr.currentAccount == nil) {
         AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
+        vc.loginView.promptLabel.text = @"请登录然后使用喜欢/取消喜欢功能";
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (_article.isLike) {
@@ -403,9 +405,16 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)commentAction {
-    CommentViewController *vc = [[CommentViewController alloc] initWithArticle:_article];
-    vc.detailViewController = self;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (DataMgr.currentAccount == nil) {
+        AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
+        vc.loginView.promptLabel.text = @"请登录后发表评论";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else {
+        CommentViewController *vc = [[CommentViewController alloc] initWithArticle:_article];
+        vc.detailViewController = self;
+        [self.navigationController pushViewController:vc animated:YES];        
+    }
 }
 
 - (void)shareAction {

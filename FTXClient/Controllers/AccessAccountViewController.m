@@ -18,20 +18,29 @@
 
 @implementation AccessAccountViewController
 
+- (id)init {
+    if (self = [super init]) {
+        _loginView = [[LoginView alloc] init];
+        _loginView.controller = self;
+        _loginView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        _registerView = [[RegisterView alloc] init];
+        _registerView.controller = self;
+        _registerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        _myAccountView = [[MyAccountView alloc] init];
+        _myAccountView.controller = self;
+        _myAccountView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    }
+    return self;
+}
+
 - (void)loadView {
     [super loadView];
     
-    _loginView = [[LoginView alloc] initWithFrame:self.view.bounds];
-    _loginView.controller = self;
-    _loginView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    _registerView = [[RegisterView alloc] initWithFrame:self.view.bounds];
-    _registerView.controller = self;
-    _registerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    _myAccountView = [[MyAccountView alloc] initWithFrame:self.view.bounds];
-    _myAccountView.controller = self;
-    _myAccountView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _loginView.frame = self.view.bounds;
+    _registerView.frame = self.view.bounds;
+    _myAccountView.frame = self.view.bounds;
     
     if ([DataMgr.currentAccount success]) {
         [self.view addSubview:_loginView];
