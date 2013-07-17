@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+FTX.h"
 #import "UIColor+FTX.h"
+#import "UIView+FTX.h"
 #import "CustomIconButton.h"
 #import "NetWorkReachability.h"
 #import "Account.h"
@@ -94,10 +95,10 @@
         regButton.frame = CGRectMake(30, 226, 125, 44);
         regButton.layer.cornerRadius = 4;
         regButton.clipsToBounds = YES;
-        [regButton setBackgroundImage:[[UIImage imageNamed:@"button-gray-bg"] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
+        [regButton setBackgroundImage:[[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
         [regButton setTitle:@"注册" forState:UIControlStateNormal];
-        [regButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [regButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        [regButton setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateNormal];
+        [regButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [regButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:regButton];
         
@@ -138,6 +139,7 @@
 }
 
 - (void)gotoLogin {
+    [[self findFirstResponder] resignFirstResponder];
     [_controller switchToView:AccountViewTypeLogin];
 }
 

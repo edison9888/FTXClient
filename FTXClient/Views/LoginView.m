@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+FTX.h"
 #import "UIColor+FTX.h"
+#import "UIView+FTX.h"
 #import "UMSocial.h"
 #import "HomeViewController.h"
 #import "NetWorkReachability.h"
@@ -55,16 +56,15 @@
         loginButton.frame = CGRectMake(30, 138, 125, 44);
         loginButton.clipsToBounds = YES;
         loginButton.layer.cornerRadius = 4;
-        [loginButton setBackgroundImage:[[UIImage imageNamed:@"button-gray-bg"] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
+        [loginButton setBackgroundImage:[[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
         [loginButton setTitle:@"登录" forState:UIControlStateNormal];
-        [loginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        [loginButton setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateNormal];
+        [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [loginButton addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:loginButton];
         
         UIButton *goRegisterButton = [UIButton buttonWithType:UIButtonTypeCustom];
         goRegisterButton.frame = CGRectMake(165, 138, 125, 44);
-        goRegisterButton.layer.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]]].CGColor;
         goRegisterButton.layer.cornerRadius = 4;
         goRegisterButton.clipsToBounds = YES;
         [goRegisterButton setBackgroundImage:[[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
@@ -105,6 +105,7 @@
 }
 
 - (void)gotoRegister {
+    [[self findFirstResponder] resignFirstResponder];
     [_controller switchToView:AccountViewTypeRegister];
 }
 
