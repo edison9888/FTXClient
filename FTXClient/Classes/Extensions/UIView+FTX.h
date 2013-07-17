@@ -10,5 +10,6 @@
 @interface UIView (FTX)
 
 - (UIImage *)imageFromSelf;
+- (UIView *)findFirstResponder;
 
 @end

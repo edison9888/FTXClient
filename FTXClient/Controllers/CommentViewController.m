@@ -10,6 +10,7 @@
 #import "CommentViewController.h"
 #import "UIColor+FTX.h"
 #import "UIImage+FTX.h"
+#import "UIView+FTX.h"
 #import "DetailViewController.h"
 
 @interface CommentViewController ()
@@ -17,6 +18,7 @@
     Article *_article;
     UITextView *_commentLabel;
     UIScrollView *_scrollView;
+    UIToolbar *_keyboardToolbar;
 }
 @end
 
@@ -44,6 +46,7 @@
     label.frame = CGRectMake(10, 20, 300, size.height);
 
     _commentLabel = [[UITextView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(label.frame)+20, 300, 100)];
+    _commentLabel.keyboardAppearance = UIKeyboardAppearanceAlert;
     _commentLabel.delegate = self;
     _commentLabel.font = [UIFont systemFontOfSize:14];
     _commentLabel.textColor = [UIColor darkGrayColor];
@@ -172,18 +175,64 @@
                                    }];
 }
 
+- (void)dismissKeyboard:(id)sender
+{
+	[[self.view findFirstResponder] resignFirstResponder];
+}
+
 - (void)keyboardWillShow:(NSNotification *)notification {
+    CGRect beginRect = [[[notification userInfo] valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect endRect = [[[notification userInfo] valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+	if (nil == _keyboardToolbar) {
+        _keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+        _keyboardToolbar.barStyle = UIBarStyleBlackTranslucent;
+//        _keyboardToolbar.tintColor = [UIColor colorWithWhite:.5 alpha:.4];
+        
+        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissKeyboard:)];
+        barButtonItem.tintColor = [UIColor blueColor];
+        UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        
+        NSArray *items = [[NSArray alloc] initWithObjects:flex, barButtonItem, nil];
+        [_keyboardToolbar setItems:items];
+        
+        _keyboardToolbar.frame = CGRectMake(beginRect.origin.x,
+                                           beginRect.origin.y,
+                                           _keyboardToolbar.frame.size.width,
+                                           _keyboardToolbar.frame.size.height);
+        [self.view addSubview:_keyboardToolbar];
+    }
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationCurve:[[notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
+    [UIView setAnimationDuration:[[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
+    _keyboardToolbar.frame = CGRectMake(endRect.origin.x,
+                                        endRect.origin.y-108,
+                                        _keyboardToolbar.frame.size.width,
+                                        _keyboardToolbar.frame.size.height);
+    [UIView commitAnimations];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+//    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    CGRect endRect = [[[notification userInfo] valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationCurve:[[notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
+    [UIView setAnimationDuration:[[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
+    _keyboardToolbar.frame = CGRectMake(endRect.origin.x,
+                                        endRect.origin.y,
+                                        _keyboardToolbar.frame.size.width,
+                                        _keyboardToolbar.frame.size.height);
+    [UIView commitAnimations];
 }
 
 #pragma mark - UITextViewDelegate
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    CGPoint targetPoint = CGPointMake(0, CGRectGetMinY(textView.frame) - 10);
-    targetPoint.y = fminf(targetPoint.y, 74);
-    [_scrollView setContentOffset:targetPoint animated:YES];
+//    CGPoint targetPoint = CGPointMake(0, CGRectGetMinY(textView.frame) - 10);
+//    targetPoint.y = fminf(targetPoint.y, 74);
+//    [_scrollView setContentOffset:targetPoint animated:YES];
 }
 
 
