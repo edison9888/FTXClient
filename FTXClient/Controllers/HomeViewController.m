@@ -173,8 +173,13 @@
     }
 }
 
+- (void)delayRefreshView {
+    [_articlesCollection refreshView:YES];
+}
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayRefreshView) object:nil];
     CGPoint maxPoint = CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
     if (CGPointEqualToPoint(_targetOffset, maxPoint) || CGPointEqualToPoint(_targetOffset, _scrollView.contentOffset)) {
         int pageIndex = floor((_scrollView.contentOffset.x - 160) / 320) + 1;
@@ -185,7 +190,8 @@
         CGRect rect = _articlesCollection.view.frame;
         _articlesCollection.view.frame = CGRectMake(pageIndex * 320, 0, 320, CGRectGetHeight(rect));
         DataMgr.categoryIndex = pageIndex;
-        [_articlesCollection refreshView:YES];
+//        [_articlesCollection refreshView:YES];
+        [self performSelector:@selector(delayRefreshView) withObject:nil afterDelay:.2];
         
         if (CGPointEqualToPoint(_targetOffset, _scrollView.contentOffset))
             _targetOffset = maxPoint;
