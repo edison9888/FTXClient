@@ -129,6 +129,9 @@
         _playVideoButton.hidden = NO;
         _playVideoButton.center = _imageView.center;
     }
+    else {
+        _playVideoButton.hidden = YES;
+    }
     
     CGFloat topOffset = scaledHeight + 5;
     

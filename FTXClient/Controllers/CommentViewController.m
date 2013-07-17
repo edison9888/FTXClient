@@ -111,6 +111,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    _keyboardToolbar = nil;
 
     if (DataMgr.currentAccount == nil) {
         AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
@@ -187,7 +188,6 @@
 	if (nil == _keyboardToolbar) {
         _keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
         _keyboardToolbar.barStyle = UIBarStyleBlackTranslucent;
-//        _keyboardToolbar.tintColor = [UIColor colorWithWhite:.5 alpha:.4];
         
         UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissKeyboard:)];
         barButtonItem.tintColor = [UIColor blueColor];

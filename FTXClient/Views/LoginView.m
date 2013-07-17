@@ -32,6 +32,7 @@
         self.contentSize = frame.size;
         
         mailField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
+        mailField.keyboardAppearance = UIKeyboardAppearanceAlert;
         mailField.keyboardType = UIKeyboardTypeEmailAddress;
         mailField.placeholder = @"注册邮箱@";
         mailField.textAlignment = UITextAlignmentCenter;
@@ -41,6 +42,7 @@
         [self addSubview:mailField];
         
         passField = [[UITextField alloc] initWithFrame:CGRectMake(30, 84, 260, 44)];
+        passField.keyboardAppearance = UIKeyboardAppearanceAlert;
         passField.placeholder = @"密码";
         passField.secureTextEntry = YES;
         passField.textAlignment = UITextAlignmentCenter;

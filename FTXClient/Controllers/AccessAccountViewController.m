@@ -8,9 +8,12 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "UMSocial.h"
+#import "UIView+FTX.h"
 
 @interface AccessAccountViewController ()
-
+{
+    UIToolbar *_keyboardToolbar;
+}
 @end
 
 @implementation AccessAccountViewController
@@ -81,12 +84,23 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
     [_myAccountView.tableView deselectRowAtIndexPath:[_myAccountView.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:_myAccountView name:kAccountChangeNotification object:DataMgr];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    _keyboardToolbar = nil;
 }
 
 - (void)switchToView:(AccountViewType)viewType {
@@ -114,7 +128,7 @@
         }
             break;
     }
-    
+    _keyboardToolbar = nil;
     [UIView transitionFromView:fromView
                         toView:toView
                       duration:.5
@@ -126,6 +140,57 @@
 
 - (void)tapLeftBarButton {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)dismissKeyboard:(id)sender
+{
+	[[self.view findFirstResponder] resignFirstResponder];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    CGRect beginRect = [[[notification userInfo] valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect endRect = [[[notification userInfo] valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+	if (nil == _keyboardToolbar) {
+        _keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+        _keyboardToolbar.barStyle = UIBarStyleBlackTranslucent;
+        
+        UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissKeyboard:)];
+        dismissButton.tintColor = [UIColor blueColor];
+        
+        UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        
+        NSArray *items = [[NSArray alloc] initWithObjects:flex, dismissButton, nil];
+        [_keyboardToolbar setItems:items];
+        
+        _keyboardToolbar.frame = CGRectMake(beginRect.origin.x,
+                                            beginRect.origin.y,
+                                            _keyboardToolbar.frame.size.width,
+                                            _keyboardToolbar.frame.size.height);
+        [self.view addSubview:_keyboardToolbar];
+    }
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationCurve:[[notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
+    [UIView setAnimationDuration:[[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
+    _keyboardToolbar.frame = CGRectMake(endRect.origin.x,
+                                        endRect.origin.y-108,
+                                        _keyboardToolbar.frame.size.width,
+                                        _keyboardToolbar.frame.size.height);
+    [UIView commitAnimations];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    CGRect endRect = [[[notification userInfo] valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationCurve:[[notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
+    [UIView setAnimationDuration:[[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
+    _keyboardToolbar.frame = CGRectMake(endRect.origin.x,
+                                        endRect.origin.y,
+                                        _keyboardToolbar.frame.size.width,
+                                        _keyboardToolbar.frame.size.height);
+    [UIView commitAnimations];
 }
 
 @end

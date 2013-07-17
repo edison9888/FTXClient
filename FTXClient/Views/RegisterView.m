@@ -36,6 +36,7 @@
         
         mailField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
         mailField.delegate = self;
+        mailField.keyboardAppearance = UIKeyboardAppearanceAlert;
         mailField.keyboardType = UIKeyboardTypeEmailAddress;
         mailField.placeholder = @"常用邮箱@";
         mailField.textAlignment = UITextAlignmentCenter;
@@ -46,6 +47,7 @@
 
         userField = [[UITextField alloc] initWithFrame:CGRectMake(30, 84, 260, 44)];
         userField.delegate = self;
+        userField.keyboardAppearance = UIKeyboardAppearanceAlert;
         userField.placeholder = @"昵称";
         userField.textAlignment = UITextAlignmentCenter;
         userField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -55,6 +57,7 @@
 
         passField = [[UITextField alloc] initWithFrame:CGRectMake(30, 138, 260, 44)];
         passField.delegate = self;
+        passField.keyboardAppearance = UIKeyboardAppearanceAlert;
         passField.placeholder = @"密码";
         passField.secureTextEntry = YES;
         passField.textAlignment = UITextAlignmentCenter;
