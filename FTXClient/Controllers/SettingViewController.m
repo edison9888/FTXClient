@@ -12,6 +12,7 @@
 #import "UIImage+FTX.h"
 #import "WebViewController.h"
 #import "MobClick.h"
+#import "UMFeedback.h"
 
 #define kAlertCleanCacheTag 1
 #define kAlertUpdateTag 2
@@ -112,7 +113,7 @@
 }
 
 - (void)action2 {
-    
+    [UMFeedback showFeedback:self withAppkey:kUMengAppKey];
 }
 
 - (void)action3 {

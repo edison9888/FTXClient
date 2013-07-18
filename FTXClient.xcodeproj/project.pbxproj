@@ -159,6 +159,7 @@
 		C2C776F51774221800D3ABF5 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C776F41774221800D3ABF5 /* HomeViewController.m */; };
 		C2C777041774275500D3ABF5 /* UINavigationBar+FTX.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C777031774275400D3ABF5 /* UINavigationBar+FTX.m */; };
 		C2C853061777F40700927A80 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C853051777F40700927A80 /* Author.m */; };
+		C2E4B59D179826F900388B11 /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2E4B59C179826F900388B11 /* umFeedback.bundle */; };
 		C2FB3B08177824720093C2EC /* AFFTXAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FB3B07177824720093C2EC /* AFFTXAPIClient.m */; };
 		C2FB7B381776C38E00A7A5F0 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FB7B371776C38E00A7A5F0 /* LoginView.m */; };
 		C2FB7B3B1776C39B00A7A5F0 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2FB7B3A1776C39B00A7A5F0 /* RegisterView.m */; };
@@ -388,6 +389,7 @@
 		C2C777031774275400D3ABF5 /* UINavigationBar+FTX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+FTX.m"; sourceTree = "<group>"; };
 		C2C853041777F40700927A80 /* Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Author.h; sourceTree = "<group>"; };
 		C2C853051777F40700927A80 /* Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Author.m; sourceTree = "<group>"; };
+		C2E4B59C179826F900388B11 /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
 		C2FB3B06177824720093C2EC /* AFFTXAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFFTXAPIClient.h; sourceTree = "<group>"; };
 		C2FB3B07177824720093C2EC /* AFFTXAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFFTXAPIClient.m; sourceTree = "<group>"; };
 		C2FB7B361776C38E00A7A5F0 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
@@ -824,6 +826,7 @@
 				C2AE993617703BA8007B704D /* libMobClickLibrary.a */,
 				C2AE993717703BA8007B704D /* MobClick.h */,
 				C283CB441787265D00DDDE3D /* libUMFeedback.a */,
+				C2E4B59C179826F900388B11 /* umFeedback.bundle */,
 				C283CB461787265D00DDDE3D /* UMFeedback.h */,
 			);
 			path = UMeng;
@@ -1062,6 +1065,7 @@
 				C24CDFFD1791BB83007B81CE /* UMSocialSDKResourcesNew.bundle in Resources */,
 				C22C121917942446006E30D4 /* refresh-logo.png in Resources */,
 				C22C121A17942446006E30D4 /* refresh-logo@2x.png in Resources */,
+				C2E4B59D179826F900388B11 /* umFeedback.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
