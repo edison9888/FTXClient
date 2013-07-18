@@ -17,8 +17,6 @@
 #import "AccessAccountViewController.h"
 
 #define MAX_IMAGE_HEIGHT 355
-#define LIKE_ALERT_TAG 1
-#define DISLIKE_ALERT_TAG 2
 
 @interface ArticleViewCell ()
 {
@@ -233,10 +231,9 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                             message:@"你确定取消喜欢这篇文章吗？"
                                                            delegate:self
-                                                  cancelButtonTitle:@"否"
-                                                  otherButtonTitles:@"是",
+                                                  cancelButtonTitle:@"是"
+                                                  otherButtonTitles:@"否",
                                   nil];
-        alertView.tag = DISLIKE_ALERT_TAG;
         [alertView show];
     }
     else {
@@ -255,7 +252,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 1) {
+	if (buttonIndex == 0) {
         NSString *path = [NSString stringWithFormat:@"/app/article/like?userId=%d&pwd=%@&authorId=%d&articleId=%d&flag=%d", DataMgr.currentAccount.userId, DataMgr.currentAccount.password, _article.author.id, _article.id, !_article.isLike];
         DLog(@"path=%@", path);
         [[AFFTXAPIClient sharedClient] getPath:path
