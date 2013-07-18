@@ -418,6 +418,13 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)shareAction {
+    if (DataMgr.currentAccount == nil) {
+        AccessAccountViewController *vc = [[AccessAccountViewController alloc] init];
+        vc.loginView.promptLabel.text = @"请登录后分享";
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
     [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeOther;
     WXWebpageObject *webObject = [WXWebpageObject object];
     webObject.webpageUrl = [NSString stringWithFormat:@"%@/discover/%d/%d", StagingBoxInterfaceBase, _article.author.id, _article.id];
