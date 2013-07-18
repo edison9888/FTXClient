@@ -357,8 +357,8 @@ static NSDateFormatter* formatter = nil;
         topOffset += size.height + 10;
     }
     
-    _tabComment.frame = CGRectMake(0, topOffset, 78, 28);
-    _tabRelevant.frame = CGRectMake(83, topOffset, 78, 28);
+    _tabRelevant.frame = CGRectMake(0, topOffset, 78, 28);
+    _tabComment.frame = CGRectMake(83, topOffset, 78, 28);
     topOffset += 26;
     
     // calculate container height
