@@ -11,6 +11,10 @@
 #import "UIColor+FTX.h"
 #import "UIImage+FTX.h"
 #import "WebViewController.h"
+#import "MobClick.h"
+
+#define kAlertCleanCacheTag 1
+#define kAlertUpdateTag 2
 
 @interface SettingViewController ()
 {
@@ -72,7 +76,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 1) {
+	if (alertView.tag == kAlertCleanCacheTag && buttonIndex == 1) {
         NSString *docDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         NSString *imagesFolder = [docDirectory stringByAppendingPathComponent:@"images"];
         BOOL b = [[NSFileManager defaultManager] removeItemAtPath:imagesFolder error:nil];
@@ -86,6 +90,10 @@
             DLog(@"clean cache failed");
         }
     }
+    if (alertView.tag == kAlertUpdateTag && buttonIndex == 1) {
+        NSString *url = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", kAppStoreId];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }
 }
 
 - (void)action0 {
@@ -95,11 +103,12 @@
                                               cancelButtonTitle:@"否"
                                               otherButtonTitles:@"是",
                               nil];
+    alertView.tag = kAlertCleanCacheTag;
 	[alertView show];
 }
 
 - (void)action1 {
-    DLog(@"action1");
+    [MobClick checkUpdateWithDelegate:self selector:@selector(appUpdate:)];
 }
 
 - (void)action2 {
@@ -109,6 +118,23 @@
 - (void)action3 {
     WebViewController *vc = [[WebViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)appUpdate:(NSDictionary *)appInfo {
+    if ([appInfo[@"update"] boolValue]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"发些新版本，你希望现在更新吗？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"否"
+                                                  otherButtonTitles:@"是",
+                                  nil];
+        alertView.tag = kAlertUpdateTag;
+        [alertView show];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"你正在使用的是最新版本！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 #pragma mark - UITableViewDataSource
