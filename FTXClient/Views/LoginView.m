@@ -30,7 +30,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor blackColor];
-        self.contentSize = frame.size;
         
         mailField = [[UITextField alloc] initWithFrame:CGRectMake(30, 30, 260, 44)];
         mailField.keyboardAppearance = UIKeyboardAppearanceAlert;
@@ -56,10 +55,10 @@
         loginButton.frame = CGRectMake(30, 138, 125, 44);
         loginButton.clipsToBounds = YES;
         loginButton.layer.cornerRadius = 4;
-        [loginButton setBackgroundImage:[[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
+        [loginButton setBackgroundImage:[[UIImage imageNamed:@"button-gray-bg"] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
         [loginButton setTitle:@"登录" forState:UIControlStateNormal];
-        [loginButton setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateNormal];
-        [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [loginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
         [loginButton addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:loginButton];
         
@@ -100,6 +99,9 @@
         _promptLabel.font = [UIFont systemFontOfSize:14];
         _promptLabel.textColor = [UIColor colorWithHex:0x0099cc];
         [self addSubview:_promptLabel];
+        
+        CGRect rect = [UIScreen mainScreen].applicationFrame;
+        self.contentSize = CGSizeMake(320, CGRectGetHeight(rect)-44+70);
     }
     return self;
 }

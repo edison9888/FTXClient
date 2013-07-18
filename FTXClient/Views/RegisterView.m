@@ -92,7 +92,7 @@
         [self addSubview:readPolicyButton];
         
         UIButton *regButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        regButton.frame = CGRectMake(30, 226, 125, 44);
+        regButton.frame = CGRectMake(30, 226, 260, 44);
         regButton.layer.cornerRadius = 4;
         regButton.clipsToBounds = YES;
         [regButton setBackgroundImage:[[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
@@ -102,29 +102,10 @@
         [regButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:regButton];
         
-        UIButton *goLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        goLoginButton.frame = CGRectMake(165, 226, 125, 44);
-        goLoginButton.layer.cornerRadius = 4;
-        goLoginButton.clipsToBounds = YES;
-        [goLoginButton setTitle:@"登录" forState:UIControlStateNormal];
-        [goLoginButton setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateNormal];
-        [goLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [goLoginButton setBackgroundImage:[[[UIImage imageNamed:@"button-gray-bg"] imageTintedWithColor:[UIColor colorWithHex:0xd24b00]] stretchableImageWithLeftCapWidth:2 topCapHeight:0] forState:UIControlStateNormal];
-        [goLoginButton addTarget:self action:@selector(gotoLogin) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:goLoginButton];
-        
         CGRect rect = [UIScreen mainScreen].applicationFrame;
-        self.contentSize = CGSizeMake(320, CGRectGetHeight(rect)-44+74);
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        self.contentSize = CGSizeMake(320, CGRectGetHeight(rect)-44+114);
     }
     return self;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)toggleAgreeButton:(UIButton *)button {
@@ -136,11 +117,6 @@
     vc.contentFits = YES;
     vc.title = @"隐私政策";
     [self.controller.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)gotoLogin {
-    [[self findFirstResponder] resignFirstResponder];
-    [_controller switchToView:AccountViewTypeLogin];
 }
 
 - (void)registerAction {
@@ -201,13 +177,6 @@
                                            DLog(@"error: %@", [error description]);
                                        }];
     }
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification {
-    [self setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 #pragma mark - UITextFieldDelegate

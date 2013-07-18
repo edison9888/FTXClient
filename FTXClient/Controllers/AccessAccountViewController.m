@@ -159,6 +159,7 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGRect beginRect = [[[notification userInfo] valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect endRect = [[[notification userInfo] valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    DLog(@"%@", NSStringFromCGRect(endRect));
     
 	if (nil == _keyboardToolbar) {
         _keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
