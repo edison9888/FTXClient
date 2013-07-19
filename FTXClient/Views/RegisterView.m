@@ -108,6 +108,10 @@
     return self;
 }
 
+- (void)dealloc {
+    _controller = nil;
+}
+
 - (void)toggleAgreeButton:(UIButton *)button {
     button.selected = !button.selected;
 }

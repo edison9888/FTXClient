@@ -106,6 +106,10 @@
     return self;
 }
 
+- (void)dealloc {
+    _controller = nil;
+}
+
 - (void)gotoRegister {
     [[self findFirstResponder] resignFirstResponder];
     [_controller switchToView:AccountViewTypeRegister];

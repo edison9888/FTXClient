@@ -19,7 +19,6 @@
 {
     UIImageView *_avatarView;
     UILabel *_nameLabel;
-    NSMutableArray *_articles;
 }
 
 @end
@@ -31,7 +30,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor blackColor];
-        _articles = [NSMutableArray array];
         
         _avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 70, 70)];
         [self addSubview:_avatarView];
@@ -65,37 +63,39 @@
         [self addSubview:label];
         
         CGRect rect = [UIScreen mainScreen].applicationFrame;
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 135, 300, CGRectGetHeight(rect) - 44 - 145)];
-        _tableView.backgroundColor = [UIColor colorWithHex:0x444444];
-        _tableView.separatorColor = [UIColor blackColor];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        [self addSubview:_tableView];
+        _favoritesTable = [[FavoritesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        _favoritesTable.tableView.frame = CGRectMake(0, 135, 320, CGRectGetHeight(rect) - 44 - 145);
+        _favoritesTable.tableView.hidden = YES;
+        DLog(@"aaaa: %@", NSStringFromCGRect(_favoritesTable.view.frame));
+        [self addSubview:_favoritesTable.view];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesDataLoaded) name:kTableDataLoadedNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kTableDataLoadedNotification object:nil];
+    _controller = nil;
+}
+
+- (void)favoritesDataLoaded {
+    CGSize size = self.frame.size;
+    CGRect rect = _favoritesTable.view.frame;
+    rect.size.height = _favoritesTable.tableView.contentSize.height;
+    _favoritesTable.tableView.hidden = NO;
+    _favoritesTable.view.frame = rect;
+    if (CGRectGetMinY(_favoritesTable.view.frame) + _favoritesTable.tableView.contentSize.height > size.height)
+        size.height = CGRectGetMinY(_favoritesTable.view.frame) + _favoritesTable.tableView.contentSize.height;
+    self.contentSize = size;
+    DLog(@"size: %@", NSStringFromCGSize(_favoritesTable.tableView.contentSize));
 }
 
 - (void)populateInterface {
     if (DataMgr.currentAccount) {
         [_avatarView setImageWithURL:[NSURL URLWithString:DataMgr.currentAccount.avatarUrl] placeholderImage:[UIImage imageNamed:@"avatar-placeholder"]];
         _nameLabel.text = DataMgr.currentAccount.nickName;
-        
-        [_articles removeAllObjects];
-        NSString *path = [NSString stringWithFormat:@"/app/article/like_list?userId=%d&pageNo=1", DataMgr.currentAccount.userId];
-        [[AFFTXAPIClient sharedClient] getPath:path
-                                    parameters:nil
-                                       success:^(AFHTTPRequestOperation *operation, id JSON) {
-                                           NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
-                                           for (NSDictionary *attributes in postsFromResponse) {
-                                               @autoreleasepool {
-                                                   Article *article = [[Article alloc] initWithAttributes:attributes];
-                                                   [_articles addObject:article];
-                                               }
-                                           }
-                                           [_tableView reloadData];
-                                       }
-                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                       }];
+        [_favoritesTable updateFavorites];
     }
 }
 
@@ -109,41 +109,6 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"已退出" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     [self.controller.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_articles count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-        
-        cell.textLabel.font = [UIFont systemFontOfSize:13];
-        cell.textLabel.numberOfLines = 0;
-        cell.textLabel.textColor = [UIColor colorWithHex:0xbbbbbb];
-        
-        UIImageView *accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell-arrow-button"]];
-        cell.accessoryView = accessoryView;
-    }
-    Article *article = _articles[indexPath.row];
-    cell.textLabel.text = !isEmpty(article.title) ? article.title : article.summary;
-    return cell;
-}
-
-#pragma mark - UITableViewDataDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Article *article = _articles[indexPath.row];
-    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:article];
-    [self.controller.navigationController pushViewController:vc animated:YES];
 }
 
 @end

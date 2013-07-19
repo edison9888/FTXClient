@@ -31,6 +31,10 @@
     return self;
 }
 
+- (void)dealloc {
+    _detailViewController = nil;
+}
+
 - (void)loadView {
     self.view = _scrollView = [[UIScrollView alloc] init];
     

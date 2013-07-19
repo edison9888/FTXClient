@@ -237,7 +237,7 @@
         [alertView show];
     }
     else {
-        [self alertView:nil didDismissWithButtonIndex:1];
+        [self alertView:nil didDismissWithButtonIndex:0];
     }
 }
 

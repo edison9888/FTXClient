@@ -36,7 +36,8 @@
     [Relevant retrieveRelevantsWithBlock:^(NSArray *relevants, NSError *error){
         _relevants = relevants;
         [self.tableView reloadData];
-        [self.controller layoutViews];
+        if ([self.controller respondsToSelector:@selector(layoutViews)])
+            [self.controller layoutViews];
     } forIds:_relevantIds];
 }
 

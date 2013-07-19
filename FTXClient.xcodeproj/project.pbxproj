@@ -16,6 +16,10 @@
 		C22C1257177CA0990034D02E /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C22C1256177CA0990034D02E /* WebViewController.m */; };
 		C244B2051775F0C700DB34D5 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = C244B2041775F0C700DB34D5 /* Article.m */; };
 		C244E223178BC2CC005ABF15 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C244E222178BC2CC005ABF15 /* MBProgressHUD.m */; };
+		C246E63C1798ED8300F15A00 /* FavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C246E63B1798ED8300F15A00 /* FavoritesTableViewController.m */; };
+		C246E640179933CE00F15A00 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C246E63D179933CE00F15A00 /* Default-568h@2x.png */; };
+		C246E641179933CE00F15A00 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C246E63E179933CE00F15A00 /* Default.png */; };
+		C246E642179933CE00F15A00 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C246E63F179933CE00F15A00 /* Default@2x.png */; };
 		C24CDFF11791BB83007B81CE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C24CDFD21791BB83007B81CE /* Localizable.strings */; };
 		C24CDFF21791BB83007B81CE /* libWeChatSDK_armv7_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C24CDFD61791BB83007B81CE /* libWeChatSDK_armv7_armv7s.a */; };
 		C24CDFF31791BB83007B81CE /* libUMSocial_Sdk_2.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C24CDFE41791BB83007B81CE /* libUMSocial_Sdk_2.2.0.a */; };
@@ -192,6 +196,11 @@
 		C244B2041775F0C700DB34D5 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		C244E221178BC2CC005ABF15 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		C244E222178BC2CC005ABF15 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		C246E63A1798ED8300F15A00 /* FavoritesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesTableViewController.h; sourceTree = "<group>"; };
+		C246E63B1798ED8300F15A00 /* FavoritesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesTableViewController.m; sourceTree = "<group>"; };
+		C246E63D179933CE00F15A00 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C246E63E179933CE00F15A00 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C246E63F179933CE00F15A00 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C24CDFD31791BB83007B81CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C24CDFD61791BB83007B81CE /* libWeChatSDK_armv7_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK_armv7_armv7s.a; sourceTree = "<group>"; };
 		C24CDFD71791BB83007B81CE /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
@@ -537,6 +546,9 @@
 		C25CC6DD178AA7D10055E82A /* App Icons */ = {
 			isa = PBXGroup;
 			children = (
+				C246E63D179933CE00F15A00 /* Default-568h@2x.png */,
+				C246E63E179933CE00F15A00 /* Default.png */,
+				C246E63F179933CE00F15A00 /* Default@2x.png */,
 				C25CC6DE178AA7D10055E82A /* Icon-72.png */,
 				C25CC6DF178AA7D10055E82A /* Icon-Small-50.png */,
 				C25CC6E0178AA7D10055E82A /* Icon-Small.png */,
@@ -768,6 +780,8 @@
 				C2B94A2F177BD77700563377 /* CommentsTableViewController.m */,
 				C222A0CB177A6C040078EBBD /* DetailViewController.h */,
 				C222A0CC177A6C040078EBBD /* DetailViewController.m */,
+				C246E63A1798ED8300F15A00 /* FavoritesTableViewController.h */,
+				C246E63B1798ED8300F15A00 /* FavoritesTableViewController.m */,
 				C2C776F31774221800D3ABF5 /* HomeViewController.h */,
 				C2C776F41774221800D3ABF5 /* HomeViewController.m */,
 				C2B94A31177BD78900563377 /* RelevantsTableViewController.h */,
@@ -1066,6 +1080,9 @@
 				C22C121917942446006E30D4 /* refresh-logo.png in Resources */,
 				C22C121A17942446006E30D4 /* refresh-logo@2x.png in Resources */,
 				C2E4B59D179826F900388B11 /* umFeedback.bundle in Resources */,
+				C246E640179933CE00F15A00 /* Default-568h@2x.png in Resources */,
+				C246E641179933CE00F15A00 /* Default.png in Resources */,
+				C246E642179933CE00F15A00 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1143,6 +1160,7 @@
 				E57FE3E817865E5F00C85FDC /* SettingViewController.m in Sources */,
 				C2B0392E1787B7AF008CF2C5 /* GTMNSString+HTML.m in Sources */,
 				C244E223178BC2CC005ABF15 /* MBProgressHUD.m in Sources */,
+				C246E63C1798ED8300F15A00 /* FavoritesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

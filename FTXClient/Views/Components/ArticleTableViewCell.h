@@ -7,9 +7,12 @@
 //
 #import "Article.h"
 
+@class FavoritesTableViewController;
+
 @interface ArticleTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) Article *article;
+@property (nonatomic, assign) FavoritesTableViewController *favoritesController;
 
 + (CGFloat)heightForCellWithArticle:(Article *)article;
 

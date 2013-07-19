@@ -56,6 +56,14 @@ static NSDateFormatter* formatter = nil;
 - (void)loadView {
     [super loadView];
     
+    UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
+    gesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:gesture];
+    
+    gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
+    gesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:gesture];
+    
     self.view.backgroundColor = [UIColor blackColor];
     UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-bg"]];
     [self.view addSubview:bgImageView];
@@ -228,8 +236,6 @@ static NSDateFormatter* formatter = nil;
     
     // title
     NSString *title = _article.title ? _article.title : _article.summary;
-    if (isEmpty(title))
-        title = _article.content;
     
     CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:20]];
     if (size.width > 222 && size.width < 330) {
@@ -379,6 +385,10 @@ static NSDateFormatter* formatter = nil;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)swipeAction:(UISwipeGestureRecognizer *)gesture {
+    DLog(@"swipe: %d", gesture.direction);
+}
+
 #pragma mark - actions
 - (void)likeAction {
     if (DataMgr.currentAccount == nil) {
@@ -396,7 +406,7 @@ static NSDateFormatter* formatter = nil;
         [alertView show];
     }
     else {
-        [self alertView:nil didDismissWithButtonIndex:1];
+        [self alertView:nil didDismissWithButtonIndex:0];
     }
 }
 

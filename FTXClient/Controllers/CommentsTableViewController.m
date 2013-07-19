@@ -29,6 +29,10 @@
     return self;
 }
 
+- (void)dealloc {
+    _controller = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -36,7 +40,8 @@
     [Review retrieveReviewsWithBlock:^(NSArray *reviews, NSError *error){
         _reviews = [reviews mutableCopy];
         [self.tableView reloadData];
-        [self.controller layoutViews];
+        if ([self.controller respondsToSelector:@selector(layoutViews)])
+            [self.controller layoutViews];
     } withAuthodId:_authorId andArticleId:_articleId];
 }
 

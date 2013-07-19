@@ -4,3 +4,4 @@
 #define kAccountChangeNotification @"kAccountChangeNotification"
 #define kCategoryIndexChangeNotification @"kCategoryIndexChangeNotification"
 #define kDeleteReviewNotification @"kDeleteReviewNotification"
+#define kTableDataLoadedNotification @"kTableDataLoadedNotification"

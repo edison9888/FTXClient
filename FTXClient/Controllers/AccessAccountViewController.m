@@ -30,6 +30,7 @@
         
         _myAccountView = [[MyAccountView alloc] init];
         _myAccountView.controller = self;
+        _myAccountView.favoritesTable.controller = self;
         _myAccountView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return self;
@@ -95,8 +96,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
-    [_myAccountView.tableView deselectRowAtIndexPath:[_myAccountView.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
