@@ -161,6 +161,8 @@
     _imageView.frame = CGRectMake(0, 0, width, scaledHeight);
     _imageView.image = _article.image;
 
+    _relevantButton.frame = CGRectMake(255, 30, 60, 23);
+
     CGFloat topOffset = FIX_IMAGE_HEIGHT + 25;
     CGRect rect;
     
@@ -180,8 +182,6 @@
         topOffset += CGRectGetHeight(rect) + 10;
     }
     
-    _relevantButton.frame = CGRectMake(255, topOffset+5, 60, 23);
-
     _likeButton.frame = CGRectMake(10, topOffset, 66, 28);
     _commentButton.frame = CGRectMake(76, topOffset, 66, 28);
     _shareButton.frame = CGRectMake(253, topOffset, 57, 28);

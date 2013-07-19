@@ -121,9 +121,6 @@
 		C2AE98F317702E38007B704D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F217702E38007B704D /* UIKit.framework */; };
 		C2AE98F517702E38007B704D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F417702E38007B704D /* Foundation.framework */; };
 		C2AE98F717702E38007B704D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE98F617702E38007B704D /* CoreGraphics.framework */; };
-		C2AE991817702F03007B704D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE991017702F03007B704D /* Default-568h@2x.png */; };
-		C2AE991917702F03007B704D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE991117702F03007B704D /* Default.png */; };
-		C2AE991A17702F03007B704D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE991217702F03007B704D /* Default@2x.png */; };
 		C2AE991B17702F03007B704D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2AE991317702F03007B704D /* InfoPlist.strings */; };
 		C2AE991D17702F03007B704D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE991717702F03007B704D /* main.m */; };
 		C2AE992C17703412007B704D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AE992917703412007B704D /* AppDelegate.m */; };
@@ -319,9 +316,6 @@
 		C2AE98F217702E38007B704D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C2AE98F417702E38007B704D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C2AE98F617702E38007B704D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C2AE991017702F03007B704D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		C2AE991117702F03007B704D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		C2AE991217702F03007B704D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C2AE991417702F03007B704D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C2AE991517702F03007B704D /* FTXClient-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FTXClient-Info.plist"; sourceTree = "<group>"; };
 		C2AE991617702F03007B704D /* FTXClient-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FTXClient-Prefix.pch"; sourceTree = "<group>"; };
@@ -689,9 +683,6 @@
 		C2AE990F17702F03007B704D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C2AE991017702F03007B704D /* Default-568h@2x.png */,
-				C2AE991117702F03007B704D /* Default.png */,
-				C2AE991217702F03007B704D /* Default@2x.png */,
 				C2AE991317702F03007B704D /* InfoPlist.strings */,
 				C2AE991517702F03007B704D /* FTXClient-Info.plist */,
 				C2AE991617702F03007B704D /* FTXClient-Prefix.pch */,
@@ -980,9 +971,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2AE991817702F03007B704D /* Default-568h@2x.png in Resources */,
-				C2AE991917702F03007B704D /* Default.png in Resources */,
-				C2AE991A17702F03007B704D /* Default@2x.png in Resources */,
 				C2AE991B17702F03007B704D /* InfoPlist.strings in Resources */,
 				C2FC749A177DF4ED00E70207 /* cache.db in Resources */,
 				C25CC6E5178AA7D10055E82A /* Icon-72.png in Resources */,

@@ -9,7 +9,7 @@
 #import "Review.h"
 #import "MBProgressHUD.h"
 
-@interface DetailViewController : UIViewController <MBProgressHUDDelegate>
+@interface DetailViewController : UIViewController <MBProgressHUDDelegate, UIWebViewDelegate>
 
 @property (readonly) Article *article;
 @property (nonatomic, strong) Review *addingReview;

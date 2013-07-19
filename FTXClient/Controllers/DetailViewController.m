@@ -23,7 +23,8 @@
     UIScrollView *scrollView;
     UIImageView *_avatarView;
     UILabel *_authorNameLabel, *_publishLabel;
-    UILabel *_titleLabel, *_contentLabel;
+    UILabel *_titleLabel;
+    UIWebView *_contentView;
     CustomIconButton *_likeButton, *_commentButton, *_shareButton;
     UIButton *_tabComment, *_tabRelevant;
     UIView *_tabContentContainer;
@@ -130,13 +131,13 @@ static NSDateFormatter* formatter = nil;
     [scrollView addSubview:_titleLabel];
     _titleLabel.text = _article.title;
     
-    _contentLabel = [[UILabel alloc] init];
-    _contentLabel.backgroundColor = [UIColor clearColor];
-    _contentLabel.font = [UIFont systemFontOfSize:14];
-    _contentLabel.numberOfLines = 0;
-    _contentLabel.textColor = [UIColor colorWithHex:0xbbbbbb];
-    [scrollView addSubview:_contentLabel];
-    _contentLabel.text = _article.content;
+    _contentView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    _contentView.backgroundColor = [UIColor clearColor];
+    _contentView.delegate = self;
+    _contentView.opaque = NO;
+    [scrollView addSubview:_contentView];
+    [_contentView loadHTMLString:_article.content baseURL:nil];
+    DLog(@"%@", _article.content);
     
     if (!isEmpty(_article.imageUrl)) {
         _imageView = [[UIImageView alloc] init];
@@ -354,10 +355,12 @@ static NSDateFormatter* formatter = nil;
         topOffset += size.height + 10;
     }
     
-    if (!isEmpty(_contentLabel.text)) {
-        size = [_contentLabel.text sizeWithFont:_contentLabel.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-        _contentLabel.frame = CGRectMake(0, topOffset, 300, size.height);
-        topOffset += size.height + 10;
+    if (!isEmpty(_article.content)) {
+//        size = [_contentLabel.text sizeWithFont:_contentLabel.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+//        _contentLabel.frame = CGRectMake(0, topOffset, 300, size.height);
+//        topOffset += size.height + 10;
+        _contentView.frame = CGRectMake(0, topOffset, 300, _contentView.frame.size.height);
+        topOffset += _contentView.frame.size.height + 10;
     }
     
     _tabRelevant.frame = CGRectMake(0, topOffset, 78, 28);
@@ -549,6 +552,26 @@ static NSDateFormatter* formatter = nil;
         [hud show:YES];
         [hud hide:YES afterDelay:.7];
     }
+}
+
+#pragma mark - UIWebViewDelegate
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    CGRect frame = webView.frame;
+    frame.size.height = 1;
+    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+    if (fittingSize.width > 300) {
+        CGFloat scaleFactor = 300.0 / fittingSize.width;
+        frame.size.height = fittingSize.height * scaleFactor;
+        webView.frame = frame;
+        webView.contentScaleFactor = scaleFactor;
+//        [webView scalesPageToFit];
+        DLog(@"fitting size:%@, final frame: %@", NSStringFromCGSize(fittingSize), NSStringFromCGRect(frame));
+    }
+    else {
+        frame.size.height = fittingSize.height;
+        webView.frame = frame;
+    }
+    [self layoutViews];
 }
 
 @end
