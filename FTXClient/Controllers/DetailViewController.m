@@ -18,9 +18,12 @@
 #import "CommentViewController.h"
 #import "WebViewController.h"
 #import "GTMNSString+HTML.h"
+#import "HomeViewController.h"
 
 @interface DetailViewController ()
 {
+    BOOL _navigatable;
+    
     UIScrollView *scrollView;
     UIImageView *_avatarView;
     UILabel *_authorNameLabel, *_publishLabel;
@@ -42,9 +45,11 @@
 
 static NSDateFormatter* formatter = nil;
 
-- (id)initWithArticle:(Article *)article {
+- (id)initWithArticle:(Article *)article navigatable:(BOOL)navigatable {
     if (self = [super init]) {
         _article = article;
+        _navigatable = navigatable;
+        
         if (nil == formatter) {
             formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyy-MM-dd hh:mm";
@@ -80,13 +85,15 @@ static NSDateFormatter* formatter = nil;
 - (void)loadView {
     [super loadView];
     
-    UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
-    gesture.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:gesture];
-    
-    gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
-    gesture.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:gesture];
+    if (_navigatable) {
+        UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
+        gesture.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self.view addGestureRecognizer:gesture];
+        
+        gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
+        gesture.direction = UISwipeGestureRecognizerDirectionRight;
+        [self.view addGestureRecognizer:gesture];
+    }
     
     self.view.backgroundColor = [UIColor blackColor];
     UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-bg"]];
@@ -412,7 +419,19 @@ static NSDateFormatter* formatter = nil;
 }
 
 - (void)swipeAction:(UISwipeGestureRecognizer *)gesture {
-    DLog(@"swipe: %d", gesture.direction);
+    HomeViewController *homeVC = [HomeViewController sharedHome];
+    if (gesture.direction == UISwipeGestureRecognizerDirectionLeft) {
+        if (homeVC.selectedDetailArticleIndex >= [homeVC.articles count]-1)
+            return;
+        homeVC.selectedDetailArticleIndex++;
+    }
+    else {
+        if (homeVC.selectedDetailArticleIndex <= 0)
+            return;
+        homeVC.selectedDetailArticleIndex--;
+    }
+//    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:homeVC.articles[homeVC.selectedDetailArticleIndex] navigatable:YES];
+//    [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - actions

@@ -16,6 +16,7 @@
     BOOL _reloading;
 }
 
+@property (nonatomic, readonly) NSMutableArray *articles;
 @property (nonatomic) NSUInteger currentPageNo;
 
 -(void)refreshView:(BOOL)clean;

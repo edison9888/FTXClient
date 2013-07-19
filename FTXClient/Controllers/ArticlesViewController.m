@@ -23,7 +23,6 @@
 
 @interface ArticlesViewController ()
 {
-    NSMutableArray *_articles;
     NSMutableArray *_articleIds;
     
     PSCollectionView *_collectionView;
@@ -59,7 +58,8 @@
 
 #pragma mark - PSCollectionViewDelegate
 - (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
-    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_articles[index]];
+    [HomeViewController sharedHome].selectedDetailArticleIndex = index;
+    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_articles[index] navigatable:YES];
     [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
 }
 
@@ -261,7 +261,7 @@
                                        if (success) {
                                            int tag = [JSON[@"tag"] integerValue];
                                            int maxId = [JSON[@"maxId"] integerValue];
-                                           if ([_articleIds count] > 0 && maxId <= [_articleIds[0] integerValue]) {
+                                           if (!clean && [_articleIds count] > 0 && maxId <= [_articleIds[0] integerValue]) {
                                                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                                                // Configure for text only and offset down
                                                hud.mode = MBProgressHUDModeText;

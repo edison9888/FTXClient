@@ -177,6 +177,10 @@
     [_articlesCollection refreshView:YES];
 }
 
+- (NSArray *)articles {
+    return _articlesCollection.articles;
+}
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayRefreshView) object:nil];

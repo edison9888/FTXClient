@@ -242,7 +242,9 @@
 }
 
 - (void)commentAction {
-    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_article];
+    NSUInteger idx = [[HomeViewController sharedHome].articles indexOfObject:_article];
+    [HomeViewController sharedHome].selectedDetailArticleIndex = idx;
+    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_article navigatable:YES];
     vc.animateToComments = YES;
     [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
 }

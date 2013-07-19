@@ -216,7 +216,7 @@
 }
 
 - (void)commentAction {
-    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_article];
+    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_article navigatable:NO];
     vc.animateToComments = YES;
     [[HomeViewController sharedHome].navigationController pushViewController:vc animated:YES];
 }

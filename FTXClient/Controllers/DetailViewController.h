@@ -15,7 +15,7 @@
 @property (nonatomic, strong) Review *addingReview;
 @property BOOL animateToComments;
 
-- (id)initWithArticle:(Article *)article;
+- (id)initWithArticle:(Article *)article navigatable:(BOOL)navigatable;
 - (void)layoutViews;
 
 @end

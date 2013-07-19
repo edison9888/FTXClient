@@ -93,7 +93,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_articles[indexPath.row]];
+    DetailViewController *vc = [[DetailViewController alloc] initWithArticle:_articles[indexPath.row] navigatable:NO];
     [self.controller.navigationController pushViewController:vc animated:YES];
 }
 

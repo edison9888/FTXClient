@@ -10,6 +10,8 @@
 @interface HomeViewController : UIViewController <UIScrollViewDelegate>
 
 @property (readonly) ArticlesViewController *articlesCollection;
+@property (readonly) NSArray *articles;
+@property (readwrite) NSUInteger selectedDetailArticleIndex;
 
 + (HomeViewController *)sharedHome;
 
