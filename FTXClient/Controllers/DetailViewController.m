@@ -229,7 +229,7 @@ static NSDateFormatter* formatter = nil;
     _commentsTable.controller = self;
     _commentsTable.view.backgroundColor = [UIColor colorWithHex:0x444444];
     _commentsTable.view.frame = _tabContentContainer.bounds;
-    _commentsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    _commentsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_tabContentContainer addSubview:_commentsTable.view];
 }
 
@@ -406,6 +406,9 @@ static NSDateFormatter* formatter = nil;
     _tabContentContainer.frame = CGRectMake(0, topOffset, 300, h);
     topOffset += CGRectGetHeight(_tabContentContainer.frame) + 10;
     
+    _commentsTable.tableView.frame = CGRectMake(0, 0, 300, _commentsTable.tableView.contentSize.height);
+    _relevantsTable.tableView.frame = CGRectMake(0, 0, 300, _relevantsTable.tableView.contentSize.height);
+    
     scrollView.contentSize = CGSizeMake(300, topOffset);
 }
 
@@ -514,7 +517,7 @@ static NSDateFormatter* formatter = nil;
         _relevantsTable.controller = self;
         _relevantsTable.view.backgroundColor = [UIColor colorWithHex:0x444444];
         _relevantsTable.view.frame = _tabContentContainer.bounds;
-        _relevantsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        _relevantsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_tabContentContainer addSubview:_relevantsTable.view];
         [_relevantsTable.tableView reloadData];
     }
