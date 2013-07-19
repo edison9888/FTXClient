@@ -17,14 +17,14 @@
 #import "UMSocial.h"
 #import "CommentViewController.h"
 #import "WebViewController.h"
+#import "GTMNSString+HTML.h"
 
 @interface DetailViewController ()
 {
     UIScrollView *scrollView;
     UIImageView *_avatarView;
     UILabel *_authorNameLabel, *_publishLabel;
-    UILabel *_titleLabel;
-    UIWebView *_contentView;
+    UILabel *_titleLabel, *_contentLabel;
     CustomIconButton *_likeButton, *_commentButton, *_shareButton;
     UIButton *_tabComment, *_tabRelevant;
     UIView *_tabContentContainer;
@@ -52,6 +52,29 @@ static NSDateFormatter* formatter = nil;
         }
     }
     return self;
+}
+
+- (NSString *)parseText:(NSString *)s {
+    // replace <p></p>
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<p>(.*?)<\\/p>"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:nil];
+    s = [regex stringByReplacingMatchesInString:s
+                                        options:0
+                                          range:NSMakeRange(0, [s length])
+                                   withTemplate:@"$1\n"];
+    
+    // replace <br>, <br/>
+    regex = [NSRegularExpression regularExpressionWithPattern:@"<br\\s*\\/?>"
+                                                      options:NSRegularExpressionCaseInsensitive
+                                                        error:nil];
+    s = [regex stringByReplacingMatchesInString:s
+                                        options:0
+                                          range:NSMakeRange(0, [s length])
+                                   withTemplate:@"\n"];
+    
+    s = [s stringByStrippingHTML];
+    return s;
 }
 
 - (void)loadView {
@@ -114,7 +137,7 @@ static NSDateFormatter* formatter = nil;
     _authorNameLabel.textColor = [UIColor colorWithHex:0xbbbbbb];
     [scrollView addSubview:_authorNameLabel];
     _authorNameLabel.text = _article.author.name;
-
+    
     _publishLabel = [[UILabel alloc] init];
     _publishLabel.backgroundColor = [UIColor clearColor];
     _publishLabel.font = [UIFont systemFontOfSize:13];
@@ -122,7 +145,7 @@ static NSDateFormatter* formatter = nil;
     [scrollView addSubview:_publishLabel];
     NSString *date = [NSString stringWithFormat:@"发布于%@", [formatter stringFromDate:_article.publishTime]];
     _publishLabel.text = date;
-
+    
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = [UIFont systemFontOfSize:18];
@@ -131,12 +154,14 @@ static NSDateFormatter* formatter = nil;
     [scrollView addSubview:_titleLabel];
     _titleLabel.text = _article.title;
     
-    _contentView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
-    _contentView.backgroundColor = [UIColor clearColor];
-    _contentView.delegate = self;
-    _contentView.opaque = NO;
-    [scrollView addSubview:_contentView];
-    [_contentView loadHTMLString:_article.content baseURL:nil];
+    _contentLabel = [[UILabel alloc] init];
+    _contentLabel.backgroundColor = [UIColor clearColor];
+    _contentLabel.font = [UIFont systemFontOfSize:14];
+    _contentLabel.numberOfLines = 0;
+    _contentLabel.textColor = [UIColor colorWithHex:0xbbbbbb];
+    [scrollView addSubview:_contentLabel];
+    
+    _contentLabel.text = [self parseText:_article.content];
     DLog(@"%@", _article.content);
     
     if (!isEmpty(_article.imageUrl)) {
@@ -283,7 +308,7 @@ static NSDateFormatter* formatter = nil;
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){}];
     }
-
+    
     if (!_tabComment.userInteractionEnabled)
         [_commentsTable.tableView reloadData];
     if (!_tabRelevant.userInteractionEnabled)
@@ -322,10 +347,10 @@ static NSDateFormatter* formatter = nil;
         [_likeButton setImage:[[UIImage imageNamed:@"cell-icon-heart"] imageTintedWithColor:[UIColor redColor]] forState:UIControlStateNormal];
     else
         [_likeButton setImage:[UIImage imageNamed:@"cell-icon-heart"] forState:UIControlStateNormal];
-
+    
     [_likeButton setTitle:[NSString stringWithFormat:@"%d", _article.numOfLikes] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"%d", _article.numOfComments] forState:UIControlStateNormal];
-
+    
     CGSize size = [_authorNameLabel.text sizeWithFont:_authorNameLabel.font];
     _authorNameLabel.frame = CGRectMake(40, 50-size.height, size.width, size.height);
     
@@ -333,7 +358,7 @@ static NSDateFormatter* formatter = nil;
     _publishLabel.frame = CGRectMake(CGRectGetMaxX(_authorNameLabel.frame)+10, 50-size.height, size.width, size.height);
     
     int topOffset = 70;
-
+    
     if (_imageView.image) {
         CGFloat objectWidth = 250;
         CGFloat objectHeight = _article.imageHeight;
@@ -355,12 +380,10 @@ static NSDateFormatter* formatter = nil;
         topOffset += size.height + 10;
     }
     
-    if (!isEmpty(_article.content)) {
-//        size = [_contentLabel.text sizeWithFont:_contentLabel.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-//        _contentLabel.frame = CGRectMake(0, topOffset, 300, size.height);
-//        topOffset += size.height + 10;
-        _contentView.frame = CGRectMake(0, topOffset, 300, _contentView.frame.size.height);
-        topOffset += _contentView.frame.size.height + 10;
+    if (!isEmpty(_contentLabel.text)) {
+        size = [_contentLabel.text sizeWithFont:_contentLabel.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+        _contentLabel.frame = CGRectMake(0, topOffset, 300, size.height);
+        topOffset += size.height + 10;
     }
     
     _tabRelevant.frame = CGRectMake(0, topOffset, 78, 28);
@@ -422,7 +445,7 @@ static NSDateFormatter* formatter = nil;
     else {
         CommentViewController *vc = [[CommentViewController alloc] initWithArticle:_article];
         vc.detailViewController = self;
-        [self.navigationController pushViewController:vc animated:YES];        
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -445,7 +468,7 @@ static NSDateFormatter* formatter = nil;
                                      shareImage:_article.image
                                 shareToSnsNames:@[UMShareToSina, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline]
                                        delegate:nil];
-
+    
 }
 
 - (void)tapCommentsTab {
@@ -462,7 +485,7 @@ static NSDateFormatter* formatter = nil;
     _tabComment.userInteractionEnabled = YES;
     _tabComment.backgroundColor = [UIColor colorWithHex:0x333333];
     _commentsTable.view.hidden = YES;
-
+    
     _tabRelevant.userInteractionEnabled = NO;
     _tabRelevant.backgroundColor = [UIColor colorWithHex:0x444444];
     _relevantsTable.view.hidden = NO;
@@ -552,26 +575,6 @@ static NSDateFormatter* formatter = nil;
         [hud show:YES];
         [hud hide:YES afterDelay:.7];
     }
-}
-
-#pragma mark - UIWebViewDelegate
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    CGRect frame = webView.frame;
-    frame.size.height = 1;
-    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
-    if (fittingSize.width > 300) {
-        CGFloat scaleFactor = 300.0 / fittingSize.width;
-        frame.size.height = fittingSize.height * scaleFactor;
-        webView.frame = frame;
-        webView.contentScaleFactor = scaleFactor;
-//        [webView scalesPageToFit];
-        DLog(@"fitting size:%@, final frame: %@", NSStringFromCGSize(fittingSize), NSStringFromCGRect(frame));
-    }
-    else {
-        frame.size.height = fittingSize.height;
-        webView.frame = frame;
-    }
-    [self layoutViews];
 }
 
 @end

@@ -66,7 +66,6 @@
         _favoritesTable = [[FavoritesTableViewController alloc] initWithStyle:UITableViewStylePlain];
         _favoritesTable.tableView.frame = CGRectMake(0, 135, 320, CGRectGetHeight(rect) - 44 - 145);
         _favoritesTable.tableView.hidden = YES;
-        DLog(@"aaaa: %@", NSStringFromCGRect(_favoritesTable.view.frame));
         [self addSubview:_favoritesTable.view];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoritesDataLoaded) name:kTableDataLoadedNotification object:nil];
@@ -88,7 +87,6 @@
     if (CGRectGetMinY(_favoritesTable.view.frame) + _favoritesTable.tableView.contentSize.height > size.height)
         size.height = CGRectGetMinY(_favoritesTable.view.frame) + _favoritesTable.tableView.contentSize.height;
     self.contentSize = size;
-    DLog(@"size: %@", NSStringFromCGSize(_favoritesTable.tableView.contentSize));
 }
 
 - (void)populateInterface {
