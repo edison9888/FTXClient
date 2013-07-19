@@ -11,6 +11,7 @@
 #import "DetailViewController.h"
 #import "HomeViewController.h"
 #import "ArticleViewCell.h"
+#import "MBProgressHUD.h"
 
 #define kHeaderTag 9
 #define kFooterTag 10
@@ -259,7 +260,19 @@
                                        BOOL success = [JSON[@"success"] boolValue];
                                        if (success) {
                                            int tag = [JSON[@"tag"] integerValue];
-                                           //int maxId = [JSON[@"maxId"] integerValue];
+                                           int maxId = [JSON[@"maxId"] integerValue];
+                                           if ([_articleIds count] > 0 && maxId <= [_articleIds[0] integerValue]) {
+                                               MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                                               // Configure for text only and offset down
+                                               hud.mode = MBProgressHUDModeText;
+                                               hud.labelText = @"暂无更新";
+                                               hud.margin = 10.f;
+                                               hud.yOffset = -CGRectGetHeight(self.view.frame)/2+20;
+                                               hud.removeFromSuperViewOnHide = YES;
+                                               
+                                               [hud hide:YES afterDelay:1];
+                                           }
+                                           
                                            //int minId = [JSON[@"minId"] integerValue];
                                            if (YES) {   //[_articleIds count] == 0 || maxId > [_articleIds[0] integerValue]) {
                                                NSArray *articles = JSON[@"articles"];
@@ -305,6 +318,7 @@
                                 parameters:nil
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
                                        _currentPageNo++;
+                                       int originalCount = [_articles count];
                                        int tag = [[JSON valueForKeyPath:@"tag"] integerValue];
                                        NSArray *postsFromResponse = [JSON valueForKeyPath:@"articles"];
                                        for (NSDictionary *attributes in postsFromResponse) {
@@ -325,6 +339,18 @@
                                        
                                        [_collectionView reloadData];
                                        [self setFooterView];
+                                       
+                                       if ([_articles count] == originalCount) {
+                                           MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                                           // Configure for text only and offset down
+                                           hud.mode = MBProgressHUDModeText;
+                                           hud.labelText = @"暂无更新";
+                                           hud.margin = 10.f;
+                                           hud.yOffset = CGRectGetHeight(self.view.frame)/2-28;
+                                           hud.removeFromSuperViewOnHide = YES;
+                                           
+                                           [hud hide:YES afterDelay:1];
+                                       }
                                    }
                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                        DLog(@"error: %@", error.description);
