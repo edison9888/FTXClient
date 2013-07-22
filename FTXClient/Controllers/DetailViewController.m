@@ -79,6 +79,7 @@ static NSDateFormatter* formatter = nil;
                                    withTemplate:@"\n"];
     
     s = [s stringByStrippingHTML];
+    s = [s stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return s;
 }
 

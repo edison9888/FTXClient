@@ -921,9 +921,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C2AE98EE17702E38007B704D /* 饭特稀体育 */ = {
+		C2AE98EE17702E38007B704D /* 饭特稀 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "饭特稀体育" */;
+			buildConfigurationList = C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "饭特稀" */;
 			buildPhases = (
 				C2AE98EB17702E38007B704D /* Sources */,
 				C2AE98EC17702E38007B704D /* Frameworks */,
@@ -934,7 +934,7 @@
 			);
 			dependencies = (
 			);
-			name = "饭特稀体育";
+			name = "饭特稀";
 			productName = FTXClient;
 			productReference = C2AE98EF17702E38007B704D /* 饭特稀体育.app */;
 			productType = "com.apple.product-type.application";
@@ -961,7 +961,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C2AE98EE17702E38007B704D /* 饭特稀体育 */,
+				C2AE98EE17702E38007B704D /* 饭特稀 */,
 			);
 		};
 /* End PBXProject section */
@@ -1289,7 +1289,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "饭特稀体育" */ = {
+		C2AE990C17702E38007B704D /* Build configuration list for PBXNativeTarget "饭特稀" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2AE990D17702E38007B704D /* Debug */,

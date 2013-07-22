@@ -99,7 +99,7 @@
     // title
     UIButton *titleButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
     titleButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
-    [titleButton setTitle:@"饭特稀体育" forState:UIControlStateNormal];
+    [titleButton setTitle:@"饭特稀娱乐体育" forState:UIControlStateNormal];
     [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [titleButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
     [titleButton addTarget:self action:@selector(tapTitle) forControlEvents:UIControlEventTouchUpInside];
